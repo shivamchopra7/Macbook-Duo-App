@@ -16,7 +16,7 @@ struct SettingsFooter: View {
 
     private var enableTitle: String {
         if model.checkingPermission { return L10n.text("Checking…") }
-        return model.enabled ? L10n.text("Pause Macbook Duo") : L10n.text("Enable Macbook Duo")
+        return model.enabled ? AppBrand.text("Pause %@") : AppBrand.text("Enable %@")
     }
 
     private var actions: some View {
@@ -45,8 +45,8 @@ struct SettingsFooter: View {
                 GlassIconButton(symbol:"gearshape",label:L10n.text("Open Screen Recording settings")) { model.openPrivacy() }
             }
             Button(L10n.text("Quit")) { NSApp.terminate(nil) }
-                .buttonStyle(.glassQuiet).help(L10n.text("Quit Macbook Duo"))
-                .accessibilityLabel(L10n.text("Quit Macbook Duo"))
+                .buttonStyle(.glassQuiet).help(AppBrand.text("Quit %@"))
+                .accessibilityLabel(AppBrand.text("Quit %@"))
         }
     }
 
@@ -66,15 +66,15 @@ struct SettingsFooter: View {
             Toggle(L10n.text("Menu bar icon"),isOn:$model.showInMenuBar)
                 .toggleStyle(.checkbox).controlSize(.mini).tint(GlassPalette.accent)
                 .accessibilityLabel(L10n.text("Menu bar icon"))
-                .help(L10n.text("Show the Macbook Duo icon in the menu bar. With it hidden, open Macbook Duo from Applications or Spotlight to bring this window back."))
+                .help(L10n.text("Show the app icon in the menu bar. With it hidden, open the app from Applications or Spotlight to bring this window back."))
             dot
             Toggle(L10n.text("Open at login"),isOn:Binding(get:{ model.launchAtLogin },set:{ model.setLaunchAtLogin($0) }))
                 .toggleStyle(.checkbox).controlSize(.mini).tint(GlassPalette.accent)
                 .accessibilityLabel(L10n.text("Open at login"))
-                .help(L10n.text("Start Macbook Duo when you log in. It opens paused; following begins when you enable it."))
+                .help(L10n.text("Start the app when you log in. It opens paused; following begins when you enable it."))
             dot
             if model.reducedMotion { Text(L10n.text("Reduce Motion on"));dot }
-            Text(L10n.text("On your Macbook only")).foregroundStyle(GlassPalette.accentText(scheme))
+            Text(L10n.text("On your Mac only")).foregroundStyle(GlassPalette.accentText(scheme))
         }
         .font(.system(size:10)).foregroundStyle(GlassPalette.secondaryText(scheme))
     }

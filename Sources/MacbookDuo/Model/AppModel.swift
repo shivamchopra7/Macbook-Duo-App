@@ -12,7 +12,7 @@ import ServiceManagement
     @Published var lidAngle: Double?
     @Published var enabled = false
     @Published var checkingPermission = false
-    @Published var status = L10n.text("Preview is ready. Enable Macbook Duo to use your desktop.")
+    @Published var status = AppBrand.text("Preview is ready. Enable %@ to use your desktop.")
     @Published var hasPermission = CGPreflightScreenCaptureAccess()
     @Published var followLid = UserDefaults.standard.object(forKey:"followLid") as? Bool ?? true {
         didSet { UserDefaults.standard.set(followLid,forKey:"followLid") }
@@ -322,7 +322,7 @@ import ServiceManagement
                 let failure = error as NSError
                 if failure.domain == SCStreamErrorDomain && failure.code == SCStreamError.Code.userDeclined.rawValue {
                     self.hasPermission = false
-                    self.status = L10n.text("Screen access was not accepted. Allow the Macbook Duo copy in Applications, then quit and reopen it. If its permission was already on for an older build, remove that old entry and add the current app.")
+                    self.status = L10n.text("Screen access was not accepted. Allow the copy of the app in Applications, then quit and reopen it. If its permission was already on for an older build, remove that old entry and add the current app.")
                 } else {
                     self.status = L10n.format("Could not enable screen capture: %@",error.localizedDescription)
                 }

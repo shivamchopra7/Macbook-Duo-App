@@ -52,7 +52,7 @@ cat > "$APP/Contents/Info.plist" <<'PLIST'
 <key>LSMinimumSystemVersion</key><string>13.0</string>
 <key>LSUIElement</key><true/>
 <key>NSHighResolutionCapable</key><true/>
-<key>NSScreenCaptureUsageDescription</key><string>Macbook Duo displays a temporary, animated copy of your desktop as you move the lid. Frames stay in memory on this Mac.</string>
+<key>NSScreenCaptureUsageDescription</key><string>Displays a temporary, animated copy of your desktop as you move the lid. Frames stay in memory on this Mac.</string>
 </dict></plist>
 PLIST
 codesign --force --sign "$SIGNING_IDENTITY" --identifier com.shivamchopra.macbookduo "$APP"

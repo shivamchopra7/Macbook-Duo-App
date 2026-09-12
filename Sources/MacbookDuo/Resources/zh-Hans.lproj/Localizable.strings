@@ -1,4 +1,4 @@
-// User-facing Macbook Duo text. Keep format placeholders unchanged.
+// User-facing app text. Keep format placeholders unchanged.
 "Let your desktop follow the fold." = "让桌面随屏幕开合而动。";
 "Lid %.0f°" = "开合角度 %.0f°";
 "Looking for sensor" = "正在查找传感器";
@@ -17,8 +17,8 @@
 "Softness" = "柔和度";
 "Shadow" = "阴影";
 "Checking…" = "正在检查…";
-"Pause Macbook Duo" = "暂停 Macbook Duo";
-"Enable Macbook Duo" = "启用 Macbook Duo";
+"Pause %@" = "暂停 %@";
+"Enable %@" = "启用 %@";
 "Testing…" = "正在测试…";
 "Test desktop · 8 sec" = "测试桌面 · 8 秒";
 "Replay" = "重播";
@@ -29,19 +29,19 @@
 "to pause" = "暂停";
 "⌃⌥⌘F anywhere" = "全局快捷键 ⌃⌥⌘F";
 "Reduce Motion on" = "已开启减弱动态效果";
-"On your Macbook only" = "仅在本机处理";
+"On your Mac only" = "仅在本机处理";
 "Quit" = "退出";
 "Menu bar icon" = "菜单栏图标";
-"Show the Macbook Duo icon in the menu bar. With it hidden, open Macbook Duo from Applications or Spotlight to bring this window back." = "在菜单栏中显示 Macbook Duo 图标。隐藏后，可从“应用程序”或 Spotlight 打开 Macbook Duo 以重新显示此窗口。";
+"Show the app icon in the menu bar. With it hidden, open the app from Applications or Spotlight to bring this window back." = "在菜单栏中显示应用图标。隐藏后，可从“应用程序”或 Spotlight 打开本应用以重新显示此窗口。";
 "Open at login" = "登录时打开";
-"Start Macbook Duo when you log in. It opens paused; following begins when you enable it." = "登录时启动 Macbook Duo。启动后处于暂停状态；启用后才会开始跟随。";
+"Start the app when you log in. It opens paused; following begins when you enable it." = "登录时启动本应用。启动后处于暂停状态；启用后才会开始跟随。";
 "Show menu bar icon" = "显示菜单栏图标";
 "Could not change Open at login: %@" = "无法更改“登录时打开”：%@";
-"Macbook Duo — your desktop follows your lid" = "Macbook Duo — 桌面随屏幕开合而动";
-"Quit Macbook Duo" = "退出 Macbook Duo";
+"%@ — your desktop follows your lid" = "%@ — 桌面随屏幕开合而动";
+"Quit %@" = "退出 %@";
 "Lid angle: %.0f°" = "开合角度：%.0f°";
 "Sensor unavailable" = "传感器不可用";
-"Open Macbook Duo…" = "打开 Macbook Duo…";
+"Open %@…" = "打开 %@…";
 "Test desktop for 8 seconds" = "测试桌面 8 秒";
 "System" = "跟随系统";
 "Light" = "浅色";
@@ -55,7 +55,7 @@
 "The desktop curls into a roll that travels down to the hinge." = "桌面卷起并向下移至转轴。";
 "One bowing flexible display collapses toward the hinge." = "柔性桌面弯曲并收向转轴。";
 "Eight overlapping blades close an aperture above the hinge." = "八片重叠叶片在转轴上方闭合光圈。";
-"Preview is ready. Enable Macbook Duo to use your desktop." = "预览已就绪。启用 Macbook Duo 即可使用真实桌面。";
+"Preview is ready. Enable %@ to use your desktop." = "预览已就绪。启用 %@ 即可使用真实桌面。";
 "Lid sensor unavailable. Use the preview or reconnect the sensor." = "屏幕开合传感器不可用。请使用预览或重新连接传感器。";
 "Capture stopped: %@" = "屏幕捕获已停止：%@";
 "Lid is still. Move it to animate again." = "屏幕已静止。移动屏幕即可恢复动画。";
@@ -63,7 +63,7 @@
 "This Mac does not have a supported Metal GPU." = "此 Mac 没有受支持的 Metal GPU。";
 "No working lid angle sensor was found. The preview still works." = "未找到可用的屏幕开合角度传感器。仍可使用预览。";
 "Checking screen access…" = "正在检查屏幕访问权限…";
-"Screen access was not accepted. Allow the Macbook Duo copy in Applications, then quit and reopen it. If its permission was already on for an older build, remove that old entry and add the current app." = "屏幕访问未获授权。请允许“应用程序”中的 Macbook Duo 访问屏幕，然后退出并重新打开。如果旧版本已有权限，请移除旧条目并添加当前应用。";
+"Screen access was not accepted. Allow the copy of the app in Applications, then quit and reopen it. If its permission was already on for an older build, remove that old entry and add the current app." = "屏幕访问未获授权。请允许“应用程序”中的本应用访问屏幕，然后退出并重新打开。如果旧版本已有权限，请移除旧条目并添加当前应用。";
 "Could not enable screen capture: %@" = "无法启用屏幕捕获：%@";
 "Paused. Your desktop is clear." = "已暂停。桌面效果已清除。";
 "Eight-second desktop test. Press Esc to stop." = "正在进行 8 秒桌面测试。按 Esc 停止。";
@@ -73,7 +73,7 @@
 "Synthetic overlay test completed." = "合成叠加层测试已完成。";
 "Desktop test finished. Following your lid." = "桌面测试已完成。正在跟随屏幕开合。";
 "Waiting for the lid sensor. Your desktop is clear." = "正在等待屏幕开合传感器。桌面效果已清除。";
-"Macbook Duo needs an active, unmirrored built-in display." = "Macbook Duo 需要已启用且未处于镜像模式的内置显示屏。";
+"%@ needs an active, unmirrored built-in display." = "%@ 需要已启用且未处于镜像模式的内置显示屏。";
 "Cannot capture the desktop: %@" = "无法捕获桌面：%@";
 "Could not register Esc. Close other keyboard utilities and try again." = "无法注册 Esc 键。请关闭其他键盘工具后重试。";
 "Stopped with the keyboard shortcut. Your desktop is clear." = "已通过快捷键停止。桌面效果已清除。";
@@ -94,7 +94,7 @@
 "A little motion. A different feeling." = "轻轻一动，焕然不同。";
 "Preview image is unavailable." = "预览图像不可用。";
 "No capturable display is available." = "没有可捕获的显示屏。";
-"Cannot safely exclude Macbook Duo from capture. Please reopen the app." = "无法安全地将 Macbook Duo 排除在捕获范围外。请重新打开应用。";
+"Cannot safely exclude %@ from capture. Please reopen the app." = "无法安全地将 %@ 排除在捕获范围外。请重新打开应用。";
 "The built-in display is not available." = "内置显示屏不可用。";
 "Ghost" = "幻影";
 "The desktop holds its resting plane as the lid tilts and gently falls out of focus." = "屏幕倾斜时，桌面保持原有平面并逐渐虚化。";

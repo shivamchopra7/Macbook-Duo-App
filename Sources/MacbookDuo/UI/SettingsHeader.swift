@@ -16,7 +16,7 @@ struct SettingsHeader: View {
                 .shadow(color:GlassPalette.electricBlue.opacity(0.35),radius:6,y:2)
                 .accessibilityHidden(true)
             VStack(alignment:.leading,spacing:1) {
-                Text("Macbook Duo").font(.system(size:16,weight:.semibold,design:.rounded))
+                Text(AppBrand.name).font(.system(size:16,weight:.semibold,design:.rounded))
                 Text(L10n.text("Let your desktop follow the fold."))
                     .font(.system(size:10.5)).foregroundStyle(GlassPalette.secondaryText(scheme))
             }

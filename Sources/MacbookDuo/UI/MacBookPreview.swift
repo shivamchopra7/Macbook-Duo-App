@@ -39,6 +39,6 @@ struct MacBookPreview: View {
                 .shadow(color:GlassPalette.electricBlue.opacity(scheme == .dark ? 0.35 : 0.22),radius:28,x:0,y:14)
                 .shadow(color:Color.black.opacity(scheme == .dark ? 0.5 : 0.18),radius:10,x:0,y:6)
         }
-        .accessibilityLabel("Macbook Duo")
+        .accessibilityLabel(AppBrand.name)
     }
 }

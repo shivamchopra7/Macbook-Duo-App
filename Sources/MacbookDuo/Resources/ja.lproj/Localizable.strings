@@ -1,4 +1,4 @@
-// User-facing Macbook Duo text. Keep format placeholders unchanged.
+// User-facing app text. Keep format placeholders unchanged.
 "Let your desktop follow the fold." = "画面の開閉に合わせてデスクトップが動きます。";
 "Lid %.0f°" = "開閉角度 %.0f°";
 "Looking for sensor" = "センサーを検索中";
@@ -17,8 +17,8 @@
 "Softness" = "ぼかし";
 "Shadow" = "影";
 "Checking…" = "確認中…";
-"Pause Macbook Duo" = "Macbook Duo を一時停止";
-"Enable Macbook Duo" = "Macbook Duo を有効化";
+"Pause %@" = "%@ を一時停止";
+"Enable %@" = "%@ を有効化";
 "Testing…" = "テスト中…";
 "Test desktop · 8 sec" = "デスクトップをテスト · 8秒";
 "Replay" = "再生";
@@ -29,19 +29,19 @@
 "to pause" = "で一時停止";
 "⌃⌥⌘F anywhere" = "どこでも ⌃⌥⌘F";
 "Reduce Motion on" = "視差効果を減らす：オン";
-"On your Macbook only" = "この Mac 内でのみ処理";
+"On your Mac only" = "この Mac 内でのみ処理";
 "Quit" = "終了";
 "Menu bar icon" = "メニューバーアイコン";
-"Show the Macbook Duo icon in the menu bar. With it hidden, open Macbook Duo from Applications or Spotlight to bring this window back." = "メニューバーに Macbook Duo アイコンを表示します。非表示にした場合は、アプリケーションまたは Spotlight から Macbook Duo を開くと、このウインドウを再表示できます。";
+"Show the app icon in the menu bar. With it hidden, open the app from Applications or Spotlight to bring this window back." = "メニューバーにアプリのアイコンを表示します。非表示にした場合は、アプリケーションまたは Spotlight からアプリを開くと、このウインドウを再表示できます。";
 "Open at login" = "ログイン時に開く";
-"Start Macbook Duo when you log in. It opens paused; following begins when you enable it." = "ログイン時に Macbook Duo を起動します。起動時は一時停止状態で、Macbook Duo を有効にすると追従を開始します。";
+"Start the app when you log in. It opens paused; following begins when you enable it." = "ログイン時にアプリを起動します。起動時は一時停止状態で、有効にすると追従を開始します。";
 "Show menu bar icon" = "メニューバーアイコンを表示";
 "Could not change Open at login: %@" = "「ログイン時に開く」を変更できませんでした：%@";
-"Macbook Duo — your desktop follows your lid" = "Macbook Duo — 画面の開閉に追従するデスクトップ";
-"Quit Macbook Duo" = "Macbook Duo を終了";
+"%@ — your desktop follows your lid" = "%@ — 画面の開閉に追従するデスクトップ";
+"Quit %@" = "%@ を終了";
 "Lid angle: %.0f°" = "開閉角度：%.0f°";
 "Sensor unavailable" = "センサーを利用できません";
-"Open Macbook Duo…" = "Macbook Duo を開く…";
+"Open %@…" = "%@ を開く…";
 "Test desktop for 8 seconds" = "デスクトップを8秒間テスト";
 "System" = "システム";
 "Light" = "ライト";
@@ -55,7 +55,7 @@
 "The desktop curls into a roll that travels down to the hinge." = "デスクトップが巻き上がり、ヒンジへと移動します。";
 "One bowing flexible display collapses toward the hinge." = "柔らかな画面がたわみながらヒンジへ折りたたまれます。";
 "Eight overlapping blades close an aperture above the hinge." = "8枚の羽根が重なり、ヒンジの上で絞りを閉じます。";
-"Preview is ready. Enable Macbook Duo to use your desktop." = "プレビューの準備ができました。Macbook Duo を有効にすると実際のデスクトップを使用します。";
+"Preview is ready. Enable %@ to use your desktop." = "プレビューの準備ができました。%@ を有効にすると実際のデスクトップを使用します。";
 "Lid sensor unavailable. Use the preview or reconnect the sensor." = "開閉センサーを利用できません。プレビューを使うか、センサーを再接続してください。";
 "Capture stopped: %@" = "画面キャプチャが停止しました：%@";
 "Lid is still. Move it to animate again." = "画面が静止しています。動かすとアニメーションが再開します。";
@@ -63,7 +63,7 @@
 "This Mac does not have a supported Metal GPU." = "この Mac には対応する Metal GPU がありません。";
 "No working lid angle sensor was found. The preview still works." = "動作する開閉角度センサーが見つかりません。プレビューは利用できます。";
 "Checking screen access…" = "画面へのアクセスを確認中…";
-"Screen access was not accepted. Allow the Macbook Duo copy in Applications, then quit and reopen it. If its permission was already on for an older build, remove that old entry and add the current app." = "画面へのアクセスが許可されませんでした。「アプリケーション」内の Macbook Duo を許可し、終了して開き直してください。旧バージョンが許可済みの場合は、古い項目を削除して現在のアプリを追加してください。";
+"Screen access was not accepted. Allow the copy of the app in Applications, then quit and reopen it. If its permission was already on for an older build, remove that old entry and add the current app." = "画面へのアクセスが許可されませんでした。「アプリケーション」内のアプリを許可し、終了して開き直してください。旧バージョンが許可済みの場合は、古い項目を削除して現在のアプリを追加してください。";
 "Could not enable screen capture: %@" = "画面キャプチャを有効にできません：%@";
 "Paused. Your desktop is clear." = "一時停止しました。デスクトップの効果は解除されています。";
 "Eight-second desktop test. Press Esc to stop." = "8秒間のデスクトップテスト中です。Esc で停止します。";
@@ -73,7 +73,7 @@
 "Synthetic overlay test completed." = "生成画像のオーバーレイテストが完了しました。";
 "Desktop test finished. Following your lid." = "デスクトップテストが終了しました。画面の開閉に追従中です。";
 "Waiting for the lid sensor. Your desktop is clear." = "開閉センサーを待機中です。デスクトップの効果は解除されています。";
-"Macbook Duo needs an active, unmirrored built-in display." = "Macbook Duo にはミラーリングしていない有効な内蔵ディスプレイが必要です。";
+"%@ needs an active, unmirrored built-in display." = "%@ にはミラーリングしていない有効な内蔵ディスプレイが必要です。";
 "Cannot capture the desktop: %@" = "デスクトップをキャプチャできません：%@";
 "Could not register Esc. Close other keyboard utilities and try again." = "Esc を登録できません。他のキーボードユーティリティを終了して再試行してください。";
 "Stopped with the keyboard shortcut. Your desktop is clear." = "ショートカットで停止しました。デスクトップの効果は解除されています。";
@@ -94,7 +94,7 @@
 "A little motion. A different feeling." = "少しの動きで、新しい感覚。";
 "Preview image is unavailable." = "プレビュー画像を利用できません。";
 "No capturable display is available." = "キャプチャ可能なディスプレイがありません。";
-"Cannot safely exclude Macbook Duo from capture. Please reopen the app." = "Macbook Duo をキャプチャから安全に除外できません。アプリを開き直してください。";
+"Cannot safely exclude %@ from capture. Please reopen the app." = "%@ をキャプチャから安全に除外できません。アプリを開き直してください。";
 "The built-in display is not available." = "内蔵ディスプレイを利用できません。";
 "Ghost" = "ゴースト";
 "The desktop holds its resting plane as the lid tilts and gently falls out of focus." = "画面が傾いてもデスクトップは元の平面を保ち、徐々にぼけていきます。";

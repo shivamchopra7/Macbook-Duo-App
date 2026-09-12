@@ -20,7 +20,7 @@ import OSLog
         window.delegate = self
         // The title stays for accessibility and window listings; the glass header
         // draws under the transparent title bar and around the traffic lights.
-        window.title = "Macbook Duo"
+        window.title = AppBrand.name
         window.styleMask.insert(.fullSizeContentView)
         window.titlebarAppearsTransparent = true
         window.titleVisibility = .hidden
@@ -49,7 +49,7 @@ import OSLog
         }
         statusItem = NSStatusBar.system.statusItem(withLength:NSStatusItem.variableLength)
         statusItem.button?.image = AppBrand.menuBarMark
-        statusItem.button?.toolTip = L10n.text("Macbook Duo — your desktop follows your lid")
+        statusItem.button?.toolTip = AppBrand.text("%@ — your desktop follows your lid")
         let menu = NSMenu();menu.delegate = self;statusItem.menu = menu
         statusItem.isVisible = model.showInMenuBar
         model.menuBarVisibilityChanged = { [weak self] visible in self?.statusItem.isVisible = visible }
@@ -60,7 +60,7 @@ import OSLog
         submenu.addItem(updateItem())
         #endif
         submenu.addItem(.separator())
-        submenu.addItem(withTitle:L10n.text("Quit Macbook Duo"),action:#selector(NSApplication.terminate(_:)),keyEquivalent:"q")
+        submenu.addItem(withTitle:AppBrand.text("Quit %@"),action:#selector(NSApplication.terminate(_:)),keyEquivalent:"q")
         appItem.submenu = submenu;NSApp.mainMenu = appMenu
         showSettings()
         #if !APPSTORE
@@ -199,8 +199,8 @@ import OSLog
         let state = NSMenuItem(title:model.lidAngle.map{L10n.format("Lid angle: %.0f°",$0)} ?? L10n.text("Sensor unavailable"),action:nil,keyEquivalent:"")
         state.isEnabled = false;menu.addItem(state)
         menu.addItem(.separator())
-        let toggle = menu.addItem(withTitle:model.enabled ? L10n.text("Pause Macbook Duo") : L10n.text("Enable Macbook Duo"),action:#selector(toggleEffect),keyEquivalent:"");toggle.target = self
-        let settings = menu.addItem(withTitle:L10n.text("Open Macbook Duo…"),action:#selector(showSettings),keyEquivalent:",");settings.target = self
+        let toggle = menu.addItem(withTitle:model.enabled ? AppBrand.text("Pause %@") : AppBrand.text("Enable %@"),action:#selector(toggleEffect),keyEquivalent:"");toggle.target = self
+        let settings = menu.addItem(withTitle:AppBrand.text("Open %@…"),action:#selector(showSettings),keyEquivalent:",");settings.target = self
         let test = menu.addItem(withTitle:L10n.text("Test desktop for 8 seconds"),action:#selector(testEffect),keyEquivalent:"");test.target = self
         menu.addItem(effectItem())
         menu.addItem(appearanceItem())
@@ -214,7 +214,7 @@ import OSLog
         login.target = self
         login.state = model.launchAtLogin ? .on : .off
         menu.addItem(.separator())
-        menu.addItem(withTitle:L10n.text("Quit Macbook Duo"),action:#selector(NSApplication.terminate(_:)),keyEquivalent:"q")
+        menu.addItem(withTitle:AppBrand.text("Quit %@"),action:#selector(NSApplication.terminate(_:)),keyEquivalent:"q")
     }
     func applicationShouldTerminateAfterLastWindowClosed(_ sender:NSApplication) -> Bool { false }
     func applicationShouldHandleReopen(_ sender:NSApplication,hasVisibleWindows flag:Bool) -> Bool { showSettings();return true }

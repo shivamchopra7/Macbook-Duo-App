@@ -3,6 +3,11 @@
 # The direct-download build still uses SwiftPM (./build.sh); this project
 # exists for App Store archives, so it defines the APPSTORE compilation
 # condition that strips the self-updater out of the app.
+#
+# On the store the app is called "Lid Fold": App Review Guideline 5.2.5 keeps
+# Apple's product names out of App Store app names, so PRODUCT_NAME below sets
+# the bundle name, display name and package name to Lid Fold while the source,
+# module, bundle identifier and this project keep the Macbook Duo name.
 name: Macbook Duo
 
 options:
@@ -60,7 +65,8 @@ targets:
       base:
         GENERATE_INFOPLIST_FILE: NO
         INFOPLIST_FILE: App/Info.plist
-        PRODUCT_NAME: Macbook Duo
+        PRODUCT_NAME: Lid Fold
+        PRODUCT_MODULE_NAME: MacbookDuo
         EXECUTABLE_NAME: MacbookDuo
         PRODUCT_BUNDLE_IDENTIFIER: com.shivamchopra.macbookduo
         MARKETING_VERSION: 1.0.0

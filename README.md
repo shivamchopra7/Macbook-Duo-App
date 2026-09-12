@@ -16,7 +16,7 @@
 | Intel preview | [**Macbook-Duo-Intel.dmg**](https://github.com/shivamchopra7/Macbook-Duo-App/releases/latest/download/Macbook-Duo-Intel.dmg) |
 | Everything else (ZIPs, checksums, older versions) | [All releases](https://github.com/shivamchopra7/Macbook-Duo-App/releases) |
 
-**Mac App Store:** Macbook Duo is coming to the Mac App Store as a sandboxed build with no in-app updater; until then, use the direct download above.
+**Mac App Store:** the same app is coming to the Mac App Store as **Lid Fold**, a sandboxed build with no in-app updater (App Store naming rules keep "MacBook" out of the store name); until it is live, use the direct download above.
 
 Version 1.0.0 · [Website](https://macbookduo.illusionart.ai/) · [Changelog](CHANGELOG.md) · [Build from source](#build-from-source) · [Report an issue](https://github.com/shivamchopra7/Macbook-Duo-App/issues)
 
@@ -155,7 +155,7 @@ swift build
 .build/debug/MacbookDuo --render-check validation
 ```
 
-Two flavours are built from this source. `./build.sh` produces the direct download, with the in-app updater. The Mac App Store build comes from `Macbook Duo.xcodeproj` (scheme **Macbook Duo**), which compiles the updater out, turns on App Sandbox and Hardened Runtime, and is packaged by `scripts/appstore.sh`.
+Two flavours are built from this source. `./build.sh` produces the direct download, with the in-app updater. The Mac App Store build comes from `Macbook Duo.xcodeproj` (scheme **Macbook Duo**), which compiles the updater out, turns on App Sandbox and Hardened Runtime, names the product **Lid Fold** for the store, and is packaged by `scripts/appstore.sh`.
 
 `scripts/verify.sh` runs all of that plus the live overlay sandbox, release packaging and the updater's self-checks in one go. Add `--effects duo,fold` to check a subset, `--animation` to export closing and reopening frames for each effect, `--no-timing` to record GPU times without gating, or `--strict-timing` to enforce the absolute 6 ms budget on median and p95 (run it on a quiet machine; by default each effect is gated at 2.5× the Duo median measured in the same run, which stays meaningful on a busy desktop). See [docs/DEVELOPMENT.md](docs/DEVELOPMENT.md) for signing, the Intel build, packaging, releases and adding a new effect.
 

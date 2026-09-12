@@ -87,7 +87,7 @@ extension AppModel {
         guard shouldCapture || capture.isRunning || overlayVisible else { return }
         guard let screen = builtInScreen(), let display = screen.deviceDescription[NSDeviceDescriptionKey("NSScreenNumber")] as? NSNumber,
               CGDisplayIsInMirrorSet(display.uint32Value) == 0 else {
-            pause(L10n.text("Macbook Duo needs an active, unmirrored built-in display."));return
+            pause(AppBrand.text("%@ needs an active, unmirrored built-in display."));return
         }
         if shouldCapture {
             idleSince = nil

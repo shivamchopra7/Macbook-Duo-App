@@ -1,4 +1,4 @@
-// User-facing Macbook Duo text. Keep format placeholders unchanged.
+// User-facing app text. Keep format placeholders unchanged.
 "Let your desktop follow the fold." = "Let your desktop follow the fold.";
 "Lid %.0f°" = "Lid %.0f°";
 "Looking for sensor" = "Looking for sensor";
@@ -17,8 +17,8 @@
 "Softness" = "Softness";
 "Shadow" = "Shadow";
 "Checking…" = "Checking…";
-"Pause Macbook Duo" = "Pause Macbook Duo";
-"Enable Macbook Duo" = "Enable Macbook Duo";
+"Pause %@" = "Pause %@";
+"Enable %@" = "Enable %@";
 "Testing…" = "Testing…";
 "Test desktop · 8 sec" = "Test desktop · 8 sec";
 "Replay" = "Replay";
@@ -29,19 +29,19 @@
 "to pause" = "to pause";
 "⌃⌥⌘F anywhere" = "⌃⌥⌘F anywhere";
 "Reduce Motion on" = "Reduce Motion on";
-"On your Macbook only" = "On your Macbook only";
+"On your Mac only" = "On your Mac only";
 "Quit" = "Quit";
 "Menu bar icon" = "Menu bar icon";
-"Show the Macbook Duo icon in the menu bar. With it hidden, open Macbook Duo from Applications or Spotlight to bring this window back." = "Show the Macbook Duo icon in the menu bar. With it hidden, open Macbook Duo from Applications or Spotlight to bring this window back.";
+"Show the app icon in the menu bar. With it hidden, open the app from Applications or Spotlight to bring this window back." = "Show the app icon in the menu bar. With it hidden, open the app from Applications or Spotlight to bring this window back.";
 "Open at login" = "Open at login";
-"Start Macbook Duo when you log in. It opens paused; following begins when you enable it." = "Start Macbook Duo when you log in. It opens paused; following begins when you enable it.";
+"Start the app when you log in. It opens paused; following begins when you enable it." = "Start the app when you log in. It opens paused; following begins when you enable it.";
 "Show menu bar icon" = "Show menu bar icon";
 "Could not change Open at login: %@" = "Could not change Open at login: %@";
-"Macbook Duo — your desktop follows your lid" = "Macbook Duo — your desktop follows your lid";
-"Quit Macbook Duo" = "Quit Macbook Duo";
+"%@ — your desktop follows your lid" = "%@ — your desktop follows your lid";
+"Quit %@" = "Quit %@";
 "Lid angle: %.0f°" = "Lid angle: %.0f°";
 "Sensor unavailable" = "Sensor unavailable";
-"Open Macbook Duo…" = "Open Macbook Duo…";
+"Open %@…" = "Open %@…";
 "Test desktop for 8 seconds" = "Test desktop for 8 seconds";
 "System" = "System";
 "Light" = "Light";
@@ -55,7 +55,7 @@
 "The desktop curls into a roll that travels down to the hinge." = "The desktop curls into a roll that travels down to the hinge.";
 "One bowing flexible display collapses toward the hinge." = "One bowing flexible display collapses toward the hinge.";
 "Eight overlapping blades close an aperture above the hinge." = "Eight overlapping blades close an aperture above the hinge.";
-"Preview is ready. Enable Macbook Duo to use your desktop." = "Preview is ready. Enable Macbook Duo to use your desktop.";
+"Preview is ready. Enable %@ to use your desktop." = "Preview is ready. Enable %@ to use your desktop.";
 "Lid sensor unavailable. Use the preview or reconnect the sensor." = "Lid sensor unavailable. Use the preview or reconnect the sensor.";
 "Capture stopped: %@" = "Capture stopped: %@";
 "Lid is still. Move it to animate again." = "Lid is still. Move it to animate again.";
@@ -63,7 +63,7 @@
 "This Mac does not have a supported Metal GPU." = "This Mac does not have a supported Metal GPU.";
 "No working lid angle sensor was found. The preview still works." = "No working lid angle sensor was found. The preview still works.";
 "Checking screen access…" = "Checking screen access…";
-"Screen access was not accepted. Allow the Macbook Duo copy in Applications, then quit and reopen it. If its permission was already on for an older build, remove that old entry and add the current app." = "Screen access was not accepted. Allow the Macbook Duo copy in Applications, then quit and reopen it. If its permission was already on for an older build, remove that old entry and add the current app.";
+"Screen access was not accepted. Allow the copy of the app in Applications, then quit and reopen it. If its permission was already on for an older build, remove that old entry and add the current app." = "Screen access was not accepted. Allow the copy of the app in Applications, then quit and reopen it. If its permission was already on for an older build, remove that old entry and add the current app.";
 "Could not enable screen capture: %@" = "Could not enable screen capture: %@";
 "Paused. Your desktop is clear." = "Paused. Your desktop is clear.";
 "Eight-second desktop test. Press Esc to stop." = "Eight-second desktop test. Press Esc to stop.";
@@ -73,7 +73,7 @@
 "Synthetic overlay test completed." = "Synthetic overlay test completed.";
 "Desktop test finished. Following your lid." = "Desktop test finished. Following your lid.";
 "Waiting for the lid sensor. Your desktop is clear." = "Waiting for the lid sensor. Your desktop is clear.";
-"Macbook Duo needs an active, unmirrored built-in display." = "Macbook Duo needs an active, unmirrored built-in display.";
+"%@ needs an active, unmirrored built-in display." = "%@ needs an active, unmirrored built-in display.";
 "Cannot capture the desktop: %@" = "Cannot capture the desktop: %@";
 "Could not register Esc. Close other keyboard utilities and try again." = "Could not register Esc. Close other keyboard utilities and try again.";
 "Stopped with the keyboard shortcut. Your desktop is clear." = "Stopped with the keyboard shortcut. Your desktop is clear.";
@@ -94,7 +94,7 @@
 "A little motion. A different feeling." = "A little motion. A different feeling.";
 "Preview image is unavailable." = "Preview image is unavailable.";
 "No capturable display is available." = "No capturable display is available.";
-"Cannot safely exclude Macbook Duo from capture. Please reopen the app." = "Cannot safely exclude Macbook Duo from capture. Please reopen the app.";
+"Cannot safely exclude %@ from capture. Please reopen the app." = "Cannot safely exclude %@ from capture. Please reopen the app.";
 "The built-in display is not available." = "The built-in display is not available.";
 "Ghost" = "Ghost";
 "The desktop holds its resting plane as the lid tilts and gently falls out of focus." = "The desktop holds its resting plane as the lid tilts and gently falls out of focus.";

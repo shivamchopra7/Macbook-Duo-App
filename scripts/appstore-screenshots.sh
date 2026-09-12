@@ -10,8 +10,10 @@
 # Every shot launches the app on one settings page, captures its window with
 # screencapture, quits the app, then composites the capture onto a 2880×1800
 # brand-blue gradient with a one-line caption at the top. The app comes from
-# build/Macbook Duo.app, or from any "Macbook Duo.app" under build-appstore/,
-# or from MACBOOKDUO_APP when that variable is set.
+# MACBOOKDUO_APP when that variable is set, otherwise from any "Lid Fold.app"
+# (the store build's name) under build-appstore/, and as a last resort from
+# build/Macbook Duo.app. The window is found by the name in the app's
+# Info.plist, so either build works.
 #
 # Requires ffmpeg (brew install ffmpeg) and Screen Recording access for the
 # terminal that runs the script; without it the captures come out blank. The
@@ -32,7 +34,8 @@ GRADIENT_START=0x2F6BFF    # Brand blue, top left.
 GRADIENT_END=0x0B1020      # Brand navy, bottom right.
 LAUNCH_WAIT="${MACBOOKDUO_SCREENSHOT_WAIT:-5}"
 PROCESS_NAME="MacbookDuo"
-WINDOW_OWNER_PREFIX="Macbook"
+STORE_APP_NAME="Lid Fold"
+WINDOW_OWNER_PREFIX=""     # Set from the app's CFBundleDisplayName in main.
 # Per-launch defaults overrides (NSArgumentDomain), so the shots show the default
 # effect and tuning whatever this Mac's saved preferences are. Nothing is written back.
 LAUNCH_DEFAULTS=(-effect duo -effectIntensity 0.5)
@@ -54,15 +57,12 @@ find_app() {
     printf '%s\n' "$MACBOOKDUO_APP"
     return 0
   fi
-  if [[ -d "build/Macbook Duo.app" ]]; then
-    printf 'build/Macbook Duo.app\n'
-    return 0
-  fi
   local candidate=""
   if [[ -d build-appstore ]]; then
-    candidate="$(find build-appstore -type d -name 'Macbook Duo.app' -print -quit)"
+    candidate="$(find build-appstore -type d -name "$STORE_APP_NAME.app" -print -quit)"
   fi
-  [[ -n "$candidate" ]] || fail "no packaged app found; run ./build.sh or scripts/appstore.sh export first"
+  if [[ -z "$candidate" && -d "build/Macbook Duo.app" ]]; then candidate="build/Macbook Duo.app"; fi
+  [[ -n "$candidate" ]] || fail "no packaged app found; run scripts/appstore.sh export or ./build.sh first"
   printf '%s\n' "$candidate"
 }
 
@@ -174,7 +174,7 @@ capture_window() {
   # overrides for this launch only, so the user's saved preferences are left untouched.
   open -n "$app" --args --tab "$tab" -appearance "$appearance" "${LAUNCH_DEFAULTS[@]}"
   sleep "$LAUNCH_WAIT"
-  id="$(window_id)" || fail "could not find the Macbook Duo window for the $tab page"
+  id="$(window_id)" || fail "could not find the $WINDOW_OWNER_PREFIX window for the $tab page"
   screencapture -l "$id" -o -x -t png "$output"
   stop_app
   [[ -s "$output" ]] || fail "screencapture produced no image for the $tab page"
@@ -212,6 +212,8 @@ main() {
   command -v ffmpeg >/dev/null || fail "ffmpeg is required (brew install ffmpeg)"
   local app="" relaunch="" filters="" shot="" stem="" tab="" appearance="" caption=""
   app="$(find_app)"
+  WINDOW_OWNER_PREFIX="$(/usr/libexec/PlistBuddy -c 'Print CFBundleDisplayName' "$app/Contents/Info.plist" 2>/dev/null || true)"
+  [[ -n "$WINDOW_OWNER_PREFIX" ]] || fail "$app has no CFBundleDisplayName"
   FONT="$(find_font)"
   HAS_DRAWTEXT=no
   filters="$(ffmpeg -hide_banner -filters 2>/dev/null || true)"
@@ -224,7 +226,7 @@ main() {
   if [[ -n "$relaunch" ]]; then
     printf 'Quitting the running Macbook Duo (%s); it is reopened when the shots are done.\n' "$relaunch"
   fi
-  printf 'App: %s\n' "$app"
+  printf 'App: %s (window owner "%s")\n' "$app" "$WINDOW_OWNER_PREFIX"
   if [[ "$HAS_DRAWTEXT" == yes && -n "$FONT" ]]; then
     printf 'Caption: ffmpeg drawtext with %s\n' "$FONT"
   else

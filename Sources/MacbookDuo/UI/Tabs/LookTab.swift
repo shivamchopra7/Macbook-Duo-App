@@ -19,12 +19,12 @@ struct LookTab: View {
             }
             divider
             GlassToggleRow(label:L10n.text("Menu bar icon"),isOn:$model.showInMenuBar,
-                           help:L10n.text("Show the Macbook Duo icon in the menu bar. With it hidden, open Macbook Duo from Applications or Spotlight to bring this window back."))
-            GlassCaption(text:L10n.text("Show the Macbook Duo icon in the menu bar. With it hidden, open Macbook Duo from Applications or Spotlight to bring this window back."),size:10.5)
+                           help:L10n.text("Show the app icon in the menu bar. With it hidden, open the app from Applications or Spotlight to bring this window back."))
+            GlassCaption(text:L10n.text("Show the app icon in the menu bar. With it hidden, open the app from Applications or Spotlight to bring this window back."),size:10.5)
             GlassToggleRow(label:L10n.text("Open at login"),
                            isOn:Binding(get:{ model.launchAtLogin },set:{ model.setLaunchAtLogin($0) }),
-                           help:L10n.text("Start Macbook Duo when you log in. It opens paused; following begins when you enable it."))
-            GlassCaption(text:L10n.text("Start Macbook Duo when you log in. It opens paused; following begins when you enable it."),size:10.5)
+                           help:L10n.text("Start the app when you log in. It opens paused; following begins when you enable it."))
+            GlassCaption(text:L10n.text("Start the app when you log in. It opens paused; following begins when you enable it."),size:10.5)
         }
     }
 

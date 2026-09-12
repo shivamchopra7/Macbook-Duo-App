@@ -1,10 +1,13 @@
 #!/bin/bash
-# Builds the Mac App Store package for Macbook Duo.
+# Builds the Mac App Store package for Macbook Duo, which the store sells as
+# "Lid Fold" (App Review Guideline 5.2.5 keeps Apple's product names out of
+# App Store app names). The Xcode project and scheme keep the Macbook Duo name;
+# only the product, its bundle and the package are called Lid Fold.
 #
 #   scripts/appstore.sh [validate|export|upload]
 #
 #   export    (default) archive the "Macbook Duo" scheme and export a signed
-#             "Macbook Duo.pkg" into build-appstore/export
+#             "Lid Fold.pkg" into build-appstore/export
 #   validate  export, then run App Store validation on the package
 #   upload    export, then upload the package to App Store Connect
 #
@@ -25,9 +28,10 @@ ACTION="${1:-export}"
 PROJECT="Macbook Duo.xcodeproj"
 SCHEME="Macbook Duo"
 BUILD_DIR="build-appstore"
-ARCHIVE="$BUILD_DIR/MacbookDuo.xcarchive"
+ARCHIVE="$BUILD_DIR/LidFold.xcarchive"
 EXPORT_DIR="$BUILD_DIR/export"
-PACKAGE="$EXPORT_DIR/Macbook Duo.pkg"
+STORE_NAME="Lid Fold"
+PACKAGE="$EXPORT_DIR/$STORE_NAME.pkg"
 EXPORT_OPTIONS="App/ExportOptions.plist"
 ENTITLEMENTS_FILE="App/MacbookDuo.entitlements"
 REQUIRED_ENTITLEMENTS=(com.apple.security.app-sandbox com.apple.security.device.usb)
@@ -71,13 +75,33 @@ check_entitlements() {
   echo "==> $label carries: ${REQUIRED_ENTITLEMENTS[*]}"
 }
 
+# The store build must present itself as Lid Fold: bundle name, display name
+# and the bundle folder itself, while keeping the registered bundle identifier.
+check_store_name() {
+  local app="$1" label="$2" plist="$1/Contents/Info.plist" key value
+  for key in CFBundleName CFBundleDisplayName; do
+    value="$(/usr/libexec/PlistBuddy -c "Print $key" "$plist" 2>/dev/null || true)"
+    if [[ "$value" != "$STORE_NAME" ]]; then
+      echo "ERROR: $label has $key '$value', expected '$STORE_NAME'. Not continuing." >&2
+      exit 1
+    fi
+  done
+  value="$(/usr/libexec/PlistBuddy -c "Print CFBundleIdentifier" "$plist" 2>/dev/null || true)"
+  if [[ "$value" != "com.shivamchopra.macbookduo" ]]; then
+    echo "ERROR: $label has bundle identifier '$value', expected com.shivamchopra.macbookduo. Not continuing." >&2
+    exit 1
+  fi
+  echo "==> $label is named $STORE_NAME ($value)"
+}
+
 archive_app() {
   echo "==> Archiving $SCHEME (Release) to $ARCHIVE"
   rm -rf "$ARCHIVE"
   xcodebuild -project "$PROJECT" -scheme "$SCHEME" -configuration Release \
     -destination "generic/platform=macOS" -archivePath "$ARCHIVE" \
     archive ${PROVISIONING_FLAG[@]+"${PROVISIONING_FLAG[@]}"}
-  check_entitlements "$ARCHIVE/Products/Applications/Macbook Duo.app" "Archived app"
+  check_entitlements "$ARCHIVE/Products/Applications/$STORE_NAME.app" "Archived app"
+  check_store_name "$ARCHIVE/Products/Applications/$STORE_NAME.app" "Archived app"
 }
 
 export_package() {
@@ -93,7 +117,13 @@ export_package() {
   fi
   local scratch; scratch="$(mktemp -d)"
   pkgutil --expand-full "$PACKAGE" "$scratch/pkg" >/dev/null
-  check_entitlements "$(find "$scratch/pkg" -name 'Macbook Duo.app' | head -1)" "Exported package app"
+  local packaged_app; packaged_app="$(find "$scratch/pkg" -name "$STORE_NAME.app" | head -1)"
+  if [[ -z "$packaged_app" ]]; then
+    echo "ERROR: $PACKAGE does not contain $STORE_NAME.app. Not continuing." >&2
+    exit 1
+  fi
+  check_entitlements "$packaged_app" "Exported package app"
+  check_store_name "$packaged_app" "Exported package app"
   rm -rf "$scratch"
   echo "==> Package ready: $PACKAGE"
 }
@@ -141,7 +171,7 @@ print_next_steps() {
 
 Next steps:
   1. Create the app record in App Store Connect (https://appstoreconnect.apple.com)
-     with bundle ID com.shivamchopra.macbookduo, name "Macbook Duo",
+     with bundle ID com.shivamchopra.macbookduo, name "$STORE_NAME",
      category Utilities, version 1.0.0 (build 100).
   2. If you have not uploaded yet: scripts/appstore.sh upload, or use
      Transporter.app with "$PACKAGE".

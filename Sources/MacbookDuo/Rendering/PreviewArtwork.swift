@@ -52,7 +52,7 @@ extension FoldRenderer {
         NSGraphicsContext.current = NSGraphicsContext(cgContext: context, flipped: false)
         let title: [NSAttributedString.Key:Any] = [.font:NSFont.systemFont(ofSize:116,weight:.light), .foregroundColor:NSColor.white.withAlphaComponent(0.9)]
         let caption: [NSAttributedString.Key:Any] = [.font:NSFont.systemFont(ofSize:23,weight:.medium), .foregroundColor:NSColor.white.withAlphaComponent(0.8)]
-        let previewTitle = "Macbook Duo" as NSString
+        let previewTitle = AppBrand.name as NSString
         let titleWidth = previewTitle.size(withAttributes:title).width
         previewTitle.draw(at:CGPoint(x:(1440-titleWidth)/2,y:530),withAttributes:title)
         let previewCaption = L10n.text("A little motion. A different feeling.") as NSString

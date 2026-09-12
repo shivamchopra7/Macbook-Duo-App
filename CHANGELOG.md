@@ -17,6 +17,8 @@
 
 The Mac App Store submission of 1.0.0 is built from the same sources by the Xcode project `Macbook Duo.xcodeproj` (scheme `Macbook Duo`) with the `APPSTORE` compilation condition. It behaves like the direct download except where noted here.
 
+- **Sold as Lid Fold.** App Review Guideline 5.2.5 keeps Apple's product names out of App Store app names, so the store build is named Lid Fold: the listing, `Lid Fold.app`, the window title, the menu bar and every string in the app use that name (`AppBrand.name`, chosen at compile time). The bundle identifier `com.shivamchopra.macbookduo`, the source and the direct download keep the Macbook Duo name.
+
 - **Sandboxed build.** App Sandbox and Hardened Runtime, signed with an Apple Distribution certificate. Besides `com.apple.security.app-sandbox`, the only entitlement is `com.apple.security.device.usb`, which the built-in lid-angle sensor needs to stay readable inside the sandbox.
 - **No self-updater.** The in-app updater, its menu items, buttons and `--update-*` diagnostic flags are compiled out; updates arrive through the App Store, as App Review Guideline 2.4.5 requires. The pure release-parsing code in FoldCore is unchanged.
 - **Privacy manifest.** `App/PrivacyInfo.xcprivacy` declares the two required-reason APIs the app uses (system boot time for the animation clock, user defaults for preferences), no tracking and no collected data.

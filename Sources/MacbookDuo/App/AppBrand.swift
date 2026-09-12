@@ -1,10 +1,28 @@
 import AppKit
 
 @MainActor enum AppBrand {
+    /// The name the Mac App Store build shows. Apple's own product names may
+    /// not appear in an App Store app name (App Review Guideline 5.2.5), so
+    /// the store listing, bundle and interface all say "Lid Fold".
+    nonisolated static let storeName = "Lid Fold"
+    /// The name the direct download from GitHub shows.
+    nonisolated static let directDownloadName = "Macbook Duo"
+    /// The name of this build, chosen at compile time by the APPSTORE condition.
+    nonisolated static let name: String = {
+        #if APPSTORE
+        storeName
+        #else
+        directDownloadName
+        #endif
+    }()
+
+    /// A localized string whose single `%@` is the app name of this build.
+    nonisolated static func text(_ key: String) -> String { L10n.format(key, name) }
+
     static let mark: NSImage = {
         if let url = Bundle.main.url(forResource:"MacbookDuoMark",withExtension:"png"),
            let image = NSImage(contentsOf:url) { return image }
-        return NSImage(systemSymbolName:"macbook",accessibilityDescription:"Macbook Duo") ?? NSImage()
+        return NSImage(systemSymbolName:"macbook",accessibilityDescription:name) ?? NSImage()
     }()
 
     /// The full-color app icon, packaged as MacbookDuo.icns; the mark stands in during development.
@@ -20,7 +38,7 @@ import AppKit
         let image = mark.copy() as! NSImage
         image.size = NSSize(width:22,height:22)
         image.isTemplate = true
-        image.accessibilityDescription = "Macbook Duo"
+        image.accessibilityDescription = name
         return image
     }
 }

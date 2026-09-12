@@ -25,7 +25,7 @@ struct AboutTab: View {
                 .shadow(color:GlassPalette.electricBlue.opacity(0.45),radius:16,y:6)
                 .accessibilityHidden(true)
             VStack(spacing:4) {
-                Text("Macbook Duo").font(.system(size:20,weight:.semibold,design:.rounded))
+                Text(AppBrand.name).font(.system(size:20,weight:.semibold,design:.rounded))
                 Text(L10n.format("Version %@",version))
                     .font(.system(size:11,weight:.medium,design:.monospaced))
                     .foregroundStyle(GlassPalette.secondaryText(scheme))

@@ -74,6 +74,7 @@
 		A9C40C109F1EF6DECEE1D8E3 /* UpdateInstallation+Launch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6877822C6D9B6949E8BD1653 /* UpdateInstallation+Launch.swift */; };
 		AB1B12247101C040022F308F /* FoldVisualAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 379D538FCADEA80AB1C3DD4B /* FoldVisualAnimation.swift */; };
 		AD21847E966464FB4313F265 /* ShaderFlex.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7B3C5F06F06CC94D12AC2E4 /* ShaderFlex.swift */; };
+		AE2D53D6C45CF2967C2DA2FF /* SensorDiscovery.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3EA8E993577750BDE69EEB2 /* SensorDiscovery.swift */; };
 		B3221550C79E0EED3378909F /* RenderCheck+Resources.swift in Sources */ = {isa = PBXBuildFile; fileRef = 703AEEB894A9166F8CE7FE91 /* RenderCheck+Resources.swift */; };
 		B579699D2C7346C7C62B05CE /* AppModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB575A9D839A411069F4AA5C /* AppModel.swift */; };
 		B8E964CAB83639AC35B6718C /* LidMotionReference.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E8EE0A16977CA6B2653920C /* LidMotionReference.swift */; };
@@ -191,6 +192,7 @@
 		CA441BFA565779FAE2516EAC /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Localizable.strings; sourceTree = "<group>"; };
 		CAD12B43FE9114FCC7E36BBD /* AppError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppError.swift; sourceTree = "<group>"; };
 		CAE36949C2978DF0F351D9CF /* LidSensor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LidSensor.swift; sourceTree = "<group>"; };
+		D3EA8E993577750BDE69EEB2 /* SensorDiscovery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SensorDiscovery.swift; sourceTree = "<group>"; };
 		D7630D806E7A8489EFE88939 /* ShaderFold.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShaderFold.swift; sourceTree = "<group>"; };
 		D7A00702D3424D8BF87E55CB /* FoldEffect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoldEffect.swift; sourceTree = "<group>"; };
 		D7B3C5F06F06CC94D12AC2E4 /* ShaderFlex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShaderFlex.swift; sourceTree = "<group>"; };
@@ -244,6 +246,7 @@
 				379D538FCADEA80AB1C3DD4B /* FoldVisualAnimation.swift */,
 				8E8EE0A16977CA6B2653920C /* LidMotionReference.swift */,
 				73E0D14AF83A6F9CFA9BB043 /* LidStillness.swift */,
+				D3EA8E993577750BDE69EEB2 /* SensorDiscovery.swift */,
 			);
 			path = Motion;
 			sourceTree = "<group>";
@@ -719,6 +722,7 @@
 				F52043FE9F38CBEE74CA2B93 /* LidStillness.swift in Sources */,
 				F26014B0732685549A0A41E9 /* ReleaseUpdate.swift in Sources */,
 				6AB0EB9EB0448C5691FF30D9 /* ReleaseVersion.swift in Sources */,
+				AE2D53D6C45CF2967C2DA2FF /* SensorDiscovery.swift in Sources */,
 				98793BB636DE33B9AC10E72F /* UpdateArchive.swift in Sources */,
 				76B85BD4E41CC15180B0A500 /* UpdateError.swift in Sources */,
 				6822EF9A14A099CFFCC6509C /* UpdateHandoff.swift in Sources */,
@@ -788,7 +792,8 @@
 					"-ObjC",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.shivamchopra.macbookduo;
-				PRODUCT_NAME = "Macbook Duo";
+				PRODUCT_MODULE_NAME = MacbookDuo;
+				PRODUCT_NAME = "Lid Fold";
 				SDKROOT = macosx;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = APPSTORE;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
@@ -975,7 +980,8 @@
 					"-ObjC",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.shivamchopra.macbookduo;
-				PRODUCT_NAME = "Macbook Duo";
+				PRODUCT_MODULE_NAME = MacbookDuo;
+				PRODUCT_NAME = "Lid Fold";
 				SDKROOT = macosx;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = APPSTORE;
 				SWIFT_VERSION = 5.0;
