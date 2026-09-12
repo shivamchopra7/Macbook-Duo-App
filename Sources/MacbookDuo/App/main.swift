@@ -47,6 +47,22 @@ if CommandLine.arguments.contains("--update-check") {
     }
     dispatchMain()
 }
+if CommandLine.arguments.contains("--sensor-check") {
+    // Reads the lid sensor for up to three seconds and reports whether the
+    // HID device is reachable from this build (sandbox and entitlement checks).
+    let sensor = LidSensor()
+    let deadline = Date().addingTimeInterval(3)
+    var outcome: Int32?
+    sensor.onReading = { angle in
+        if let angle { print("Lid angle: \(Int(angle))°"); outcome = 0 }
+        else { fputs("Sensor unavailable: IOHIDManagerOpen/IOHIDDeviceOpen failed or no device matched.\n",stderr); outcome = 1 }
+    }
+    sensor.start()
+    while outcome == nil, Date() < deadline { RunLoop.main.run(until:Date().addingTimeInterval(0.05)) }
+    sensor.stop()
+    if outcome == nil { fputs("Sensor unavailable: no report within 3 s.\n",stderr) }
+    exit(outcome ?? 1)
+}
 if CommandLine.arguments.contains("--render-check") {
     do { try RenderCheck.run();exit(0) } catch { fputs("Render check failed: \(error)\n",stderr);exit(1) }
 }

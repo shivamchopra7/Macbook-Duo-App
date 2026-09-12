@@ -11,6 +11,8 @@ import AppKit
     static let icon: NSImage = {
         if let url = Bundle.main.url(forResource:"MacbookDuo",withExtension:"icns"),
            let image = NSImage(contentsOf:url) { return image }
+        // Asset-catalog builds (App Store) carry the icon in Assets.car instead.
+        if Bundle.main.url(forResource:"Assets",withExtension:"car") != nil { return NSApplication.shared.applicationIconImage }
         return mark
     }()
 
