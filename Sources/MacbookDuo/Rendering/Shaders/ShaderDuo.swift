@@ -10,7 +10,10 @@ enum ShaderDuo {
         // image around its bottom-centre hinge so icons swell and upper content
         // leaves through the top. A bounded map avoids singularities at closure.
         float height = 1.0f-screenUV.y;
-        float expansion = 1.0f+p*(0.12f+mix(0.30f,0.66f,clamp(u.perspective,0.0f,1.0f))*height);
+        // Intensity scales the expansion alone. 0.5 multiplies by an exact 1.0,
+        // so the default output stays bit-identical to the original tuning.
+        float k = (u.intensity == 0.5f) ? 1.0f : exp2((clamp(u.intensity,0.0f,1.0f)-0.5f)*2.0f*log2(1.6f));
+        float expansion = 1.0f+k*p*(0.12f+mix(0.30f,0.66f,clamp(u.perspective,0.0f,1.0f))*height);
         float2 uv = float2(0.5f+(screenUV.x-0.5f)/expansion,1.0f-height/expansion);
 
         // Sigma is measured as a fraction of image height, matching the preview

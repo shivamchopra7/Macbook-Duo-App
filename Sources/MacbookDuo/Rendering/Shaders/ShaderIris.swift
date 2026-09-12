@@ -15,9 +15,13 @@ enum ShaderIris {
         float shad = clamp(u.shadow,0.0f,1.0f);
         float aspect = max(u.size.x,1.0f)/max(u.size.y,1.0f);
         float2 q = float2((uv.x-0.5f)*aspect,(1.0f-uv.y)-0.14f);
-        float aperture = 1.32f*pow(1.0f-p,1.3f);
+        // Intensity steepens the closing exponent and the twist, so the aperture
+        // still opens fully at p=0 and shuts at p=1 at every setting. 0.5
+        // multiplies by an exact 1.0, keeping the default bit-identical.
+        float k = (u.intensity == 0.5f) ? 1.0f : exp2((clamp(u.intensity,0.0f,1.0f)-0.5f)*2.0f*log2(1.6f));
+        float aperture = 1.32f*pow(1.0f-p,1.3f*k);
         float curve = 0.30f*persp;
-        float twist = p*(0.16f+0.22f*persp);
+        float twist = k*p*(0.16f+0.22f*persp);
         const uint blades = 8u;
         float pitch = 2.0f*M_PI_F/float(blades);
         float overhang = aperture*tan(M_PI_F/float(blades))+0.10f;
