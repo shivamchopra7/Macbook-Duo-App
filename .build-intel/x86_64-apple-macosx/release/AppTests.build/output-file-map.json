@@ -1,0 +1,13 @@
+{
+  "": {
+    "dependencies": "/Users/macintosh/Github-Shivam/Github - illusionart/Macbook-Duo-App/.build-intel/x86_64-apple-macosx/release/AppTests.build/AppTests.d",
+    "object": "/Users/macintosh/Github-Shivam/Github - illusionart/Macbook-Duo-App/.build-intel/x86_64-apple-macosx/release/AppTests.build/AppTests.o",
+    "swift-dependencies": "/Users/macintosh/Github-Shivam/Github - illusionart/Macbook-Duo-App/.build-intel/x86_64-apple-macosx/release/AppTests.build/primary.swiftdeps"
+  },
+  "/Users/macintosh/Github-Shivam/Github - illusionart/Macbook-Duo-App/Tests/AppTests/DiagnosticPathsTests.swift": {
+    "object": "/Users/macintosh/Github-Shivam/Github - illusionart/Macbook-Duo-App/.build-intel/x86_64-apple-macosx/release/AppTests.build/DiagnosticPathsTests.swift.o",
+    "swiftmodule": "/Users/macintosh/Github-Shivam/Github - illusionart/Macbook-Duo-App/.build-intel/x86_64-apple-macosx/release/AppTests.build/DiagnosticPathsTests~partial.swiftmodule",
+    "swift-dependencies": "/Users/macintosh/Github-Shivam/Github - illusionart/Macbook-Duo-App/.build-intel/x86_64-apple-macosx/release/AppTests.build/DiagnosticPathsTests.swiftdeps",
+    "diagnostics": "/Users/macintosh/Github-Shivam/Github - illusionart/Macbook-Duo-App/.build-intel/x86_64-apple-macosx/release/AppTests.build/DiagnosticPathsTests.dia"
+  }
+}

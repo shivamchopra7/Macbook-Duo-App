@@ -1,0 +1,13 @@
+{
+  "": {
+    "dependencies": "/Users/macintosh/Github-Shivam/Github - illusionart/Macbook-Duo-App/.build-intel/x86_64-apple-macosx/release/LocalizationTests.build/LocalizationTests.d",
+    "object": "/Users/macintosh/Github-Shivam/Github - illusionart/Macbook-Duo-App/.build-intel/x86_64-apple-macosx/release/LocalizationTests.build/LocalizationTests.o",
+    "swift-dependencies": "/Users/macintosh/Github-Shivam/Github - illusionart/Macbook-Duo-App/.build-intel/x86_64-apple-macosx/release/LocalizationTests.build/primary.swiftdeps"
+  },
+  "/Users/macintosh/Github-Shivam/Github - illusionart/Macbook-Duo-App/Tests/LocalizationTests/LocalizationTests.swift": {
+    "object": "/Users/macintosh/Github-Shivam/Github - illusionart/Macbook-Duo-App/.build-intel/x86_64-apple-macosx/release/LocalizationTests.build/LocalizationTests.swift.o",
+    "swiftmodule": "/Users/macintosh/Github-Shivam/Github - illusionart/Macbook-Duo-App/.build-intel/x86_64-apple-macosx/release/LocalizationTests.build/LocalizationTests~partial.swiftmodule",
+    "swift-dependencies": "/Users/macintosh/Github-Shivam/Github - illusionart/Macbook-Duo-App/.build-intel/x86_64-apple-macosx/release/LocalizationTests.build/LocalizationTests.swiftdeps",
+    "diagnostics": "/Users/macintosh/Github-Shivam/Github - illusionart/Macbook-Duo-App/.build-intel/x86_64-apple-macosx/release/LocalizationTests.build/LocalizationTests.dia"
+  }
+}

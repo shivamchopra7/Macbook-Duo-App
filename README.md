@@ -10,9 +10,6 @@
 
 ## Download
 
-> [!NOTE]
-> Macbook Duo 1.0.0 has not been published yet. The download links below start working with the first release, and the Mac App Store version is in review. Until then, [build it from source](#build-from-source) — it takes one command.
-
 | Build | Link |
 |---|---|
 | Apple silicon (recommended) | [**Macbook-Duo.dmg**](https://github.com/shivamchopra7/Macbook-Duo-App/releases/latest/download/Macbook-Duo.dmg) |

@@ -1,0 +1,79 @@
+{
+  "": {
+    "dependencies": "/Users/macintosh/Github-Shivam/Github - illusionart/Macbook-Duo-App/.build-intel/x86_64-apple-macosx/release/FoldCore.build/FoldCore.d",
+    "object": "/Users/macintosh/Github-Shivam/Github - illusionart/Macbook-Duo-App/.build-intel/x86_64-apple-macosx/release/FoldCore.build/FoldCore.o",
+    "swift-dependencies": "/Users/macintosh/Github-Shivam/Github - illusionart/Macbook-Duo-App/.build-intel/x86_64-apple-macosx/release/FoldCore.build/primary.swiftdeps"
+  },
+  "/Users/macintosh/Github-Shivam/Github - illusionart/Macbook-Duo-App/Sources/FoldCore/Effects/EffectOptions.swift": {
+    "object": "/Users/macintosh/Github-Shivam/Github - illusionart/Macbook-Duo-App/.build-intel/x86_64-apple-macosx/release/FoldCore.build/EffectOptions.swift.o",
+    "swiftmodule": "/Users/macintosh/Github-Shivam/Github - illusionart/Macbook-Duo-App/.build-intel/x86_64-apple-macosx/release/FoldCore.build/EffectOptions~partial.swiftmodule",
+    "swift-dependencies": "/Users/macintosh/Github-Shivam/Github - illusionart/Macbook-Duo-App/.build-intel/x86_64-apple-macosx/release/FoldCore.build/EffectOptions.swiftdeps",
+    "diagnostics": "/Users/macintosh/Github-Shivam/Github - illusionart/Macbook-Duo-App/.build-intel/x86_64-apple-macosx/release/FoldCore.build/EffectOptions.dia"
+  },
+  "/Users/macintosh/Github-Shivam/Github - illusionart/Macbook-Duo-App/Sources/FoldCore/Effects/FoldEffect.swift": {
+    "object": "/Users/macintosh/Github-Shivam/Github - illusionart/Macbook-Duo-App/.build-intel/x86_64-apple-macosx/release/FoldCore.build/FoldEffect.swift.o",
+    "swiftmodule": "/Users/macintosh/Github-Shivam/Github - illusionart/Macbook-Duo-App/.build-intel/x86_64-apple-macosx/release/FoldCore.build/FoldEffect~partial.swiftmodule",
+    "swift-dependencies": "/Users/macintosh/Github-Shivam/Github - illusionart/Macbook-Duo-App/.build-intel/x86_64-apple-macosx/release/FoldCore.build/FoldEffect.swiftdeps",
+    "diagnostics": "/Users/macintosh/Github-Shivam/Github - illusionart/Macbook-Duo-App/.build-intel/x86_64-apple-macosx/release/FoldCore.build/FoldEffect.dia"
+  },
+  "/Users/macintosh/Github-Shivam/Github - illusionart/Macbook-Duo-App/Sources/FoldCore/Motion/FoldMath.swift": {
+    "object": "/Users/macintosh/Github-Shivam/Github - illusionart/Macbook-Duo-App/.build-intel/x86_64-apple-macosx/release/FoldCore.build/FoldMath.swift.o",
+    "swiftmodule": "/Users/macintosh/Github-Shivam/Github - illusionart/Macbook-Duo-App/.build-intel/x86_64-apple-macosx/release/FoldCore.build/FoldMath~partial.swiftmodule",
+    "swift-dependencies": "/Users/macintosh/Github-Shivam/Github - illusionart/Macbook-Duo-App/.build-intel/x86_64-apple-macosx/release/FoldCore.build/FoldMath.swiftdeps",
+    "diagnostics": "/Users/macintosh/Github-Shivam/Github - illusionart/Macbook-Duo-App/.build-intel/x86_64-apple-macosx/release/FoldCore.build/FoldMath.dia"
+  },
+  "/Users/macintosh/Github-Shivam/Github - illusionart/Macbook-Duo-App/Sources/FoldCore/Motion/FoldVisualAnimation.swift": {
+    "object": "/Users/macintosh/Github-Shivam/Github - illusionart/Macbook-Duo-App/.build-intel/x86_64-apple-macosx/release/FoldCore.build/FoldVisualAnimation.swift.o",
+    "swiftmodule": "/Users/macintosh/Github-Shivam/Github - illusionart/Macbook-Duo-App/.build-intel/x86_64-apple-macosx/release/FoldCore.build/FoldVisualAnimation~partial.swiftmodule",
+    "swift-dependencies": "/Users/macintosh/Github-Shivam/Github - illusionart/Macbook-Duo-App/.build-intel/x86_64-apple-macosx/release/FoldCore.build/FoldVisualAnimation.swiftdeps",
+    "diagnostics": "/Users/macintosh/Github-Shivam/Github - illusionart/Macbook-Duo-App/.build-intel/x86_64-apple-macosx/release/FoldCore.build/FoldVisualAnimation.dia"
+  },
+  "/Users/macintosh/Github-Shivam/Github - illusionart/Macbook-Duo-App/Sources/FoldCore/Motion/LidMotionReference.swift": {
+    "object": "/Users/macintosh/Github-Shivam/Github - illusionart/Macbook-Duo-App/.build-intel/x86_64-apple-macosx/release/FoldCore.build/LidMotionReference.swift.o",
+    "swiftmodule": "/Users/macintosh/Github-Shivam/Github - illusionart/Macbook-Duo-App/.build-intel/x86_64-apple-macosx/release/FoldCore.build/LidMotionReference~partial.swiftmodule",
+    "swift-dependencies": "/Users/macintosh/Github-Shivam/Github - illusionart/Macbook-Duo-App/.build-intel/x86_64-apple-macosx/release/FoldCore.build/LidMotionReference.swiftdeps",
+    "diagnostics": "/Users/macintosh/Github-Shivam/Github - illusionart/Macbook-Duo-App/.build-intel/x86_64-apple-macosx/release/FoldCore.build/LidMotionReference.dia"
+  },
+  "/Users/macintosh/Github-Shivam/Github - illusionart/Macbook-Duo-App/Sources/FoldCore/Motion/LidStillness.swift": {
+    "object": "/Users/macintosh/Github-Shivam/Github - illusionart/Macbook-Duo-App/.build-intel/x86_64-apple-macosx/release/FoldCore.build/LidStillness.swift.o",
+    "swiftmodule": "/Users/macintosh/Github-Shivam/Github - illusionart/Macbook-Duo-App/.build-intel/x86_64-apple-macosx/release/FoldCore.build/LidStillness~partial.swiftmodule",
+    "swift-dependencies": "/Users/macintosh/Github-Shivam/Github - illusionart/Macbook-Duo-App/.build-intel/x86_64-apple-macosx/release/FoldCore.build/LidStillness.swiftdeps",
+    "diagnostics": "/Users/macintosh/Github-Shivam/Github - illusionart/Macbook-Duo-App/.build-intel/x86_64-apple-macosx/release/FoldCore.build/LidStillness.dia"
+  },
+  "/Users/macintosh/Github-Shivam/Github - illusionart/Macbook-Duo-App/Sources/FoldCore/Updates/ReleaseUpdate.swift": {
+    "object": "/Users/macintosh/Github-Shivam/Github - illusionart/Macbook-Duo-App/.build-intel/x86_64-apple-macosx/release/FoldCore.build/ReleaseUpdate.swift.o",
+    "swiftmodule": "/Users/macintosh/Github-Shivam/Github - illusionart/Macbook-Duo-App/.build-intel/x86_64-apple-macosx/release/FoldCore.build/ReleaseUpdate~partial.swiftmodule",
+    "swift-dependencies": "/Users/macintosh/Github-Shivam/Github - illusionart/Macbook-Duo-App/.build-intel/x86_64-apple-macosx/release/FoldCore.build/ReleaseUpdate.swiftdeps",
+    "diagnostics": "/Users/macintosh/Github-Shivam/Github - illusionart/Macbook-Duo-App/.build-intel/x86_64-apple-macosx/release/FoldCore.build/ReleaseUpdate.dia"
+  },
+  "/Users/macintosh/Github-Shivam/Github - illusionart/Macbook-Duo-App/Sources/FoldCore/Updates/ReleaseVersion.swift": {
+    "object": "/Users/macintosh/Github-Shivam/Github - illusionart/Macbook-Duo-App/.build-intel/x86_64-apple-macosx/release/FoldCore.build/ReleaseVersion.swift.o",
+    "swiftmodule": "/Users/macintosh/Github-Shivam/Github - illusionart/Macbook-Duo-App/.build-intel/x86_64-apple-macosx/release/FoldCore.build/ReleaseVersion~partial.swiftmodule",
+    "swift-dependencies": "/Users/macintosh/Github-Shivam/Github - illusionart/Macbook-Duo-App/.build-intel/x86_64-apple-macosx/release/FoldCore.build/ReleaseVersion.swiftdeps",
+    "diagnostics": "/Users/macintosh/Github-Shivam/Github - illusionart/Macbook-Duo-App/.build-intel/x86_64-apple-macosx/release/FoldCore.build/ReleaseVersion.dia"
+  },
+  "/Users/macintosh/Github-Shivam/Github - illusionart/Macbook-Duo-App/Sources/FoldCore/Updates/UpdateArchive.swift": {
+    "object": "/Users/macintosh/Github-Shivam/Github - illusionart/Macbook-Duo-App/.build-intel/x86_64-apple-macosx/release/FoldCore.build/UpdateArchive.swift.o",
+    "swiftmodule": "/Users/macintosh/Github-Shivam/Github - illusionart/Macbook-Duo-App/.build-intel/x86_64-apple-macosx/release/FoldCore.build/UpdateArchive~partial.swiftmodule",
+    "swift-dependencies": "/Users/macintosh/Github-Shivam/Github - illusionart/Macbook-Duo-App/.build-intel/x86_64-apple-macosx/release/FoldCore.build/UpdateArchive.swiftdeps",
+    "diagnostics": "/Users/macintosh/Github-Shivam/Github - illusionart/Macbook-Duo-App/.build-intel/x86_64-apple-macosx/release/FoldCore.build/UpdateArchive.dia"
+  },
+  "/Users/macintosh/Github-Shivam/Github - illusionart/Macbook-Duo-App/Sources/FoldCore/Updates/UpdateError.swift": {
+    "object": "/Users/macintosh/Github-Shivam/Github - illusionart/Macbook-Duo-App/.build-intel/x86_64-apple-macosx/release/FoldCore.build/UpdateError.swift.o",
+    "swiftmodule": "/Users/macintosh/Github-Shivam/Github - illusionart/Macbook-Duo-App/.build-intel/x86_64-apple-macosx/release/FoldCore.build/UpdateError~partial.swiftmodule",
+    "swift-dependencies": "/Users/macintosh/Github-Shivam/Github - illusionart/Macbook-Duo-App/.build-intel/x86_64-apple-macosx/release/FoldCore.build/UpdateError.swiftdeps",
+    "diagnostics": "/Users/macintosh/Github-Shivam/Github - illusionart/Macbook-Duo-App/.build-intel/x86_64-apple-macosx/release/FoldCore.build/UpdateError.dia"
+  },
+  "/Users/macintosh/Github-Shivam/Github - illusionart/Macbook-Duo-App/Sources/FoldCore/Updates/UpdateHandoff.swift": {
+    "object": "/Users/macintosh/Github-Shivam/Github - illusionart/Macbook-Duo-App/.build-intel/x86_64-apple-macosx/release/FoldCore.build/UpdateHandoff.swift.o",
+    "swiftmodule": "/Users/macintosh/Github-Shivam/Github - illusionart/Macbook-Duo-App/.build-intel/x86_64-apple-macosx/release/FoldCore.build/UpdateHandoff~partial.swiftmodule",
+    "swift-dependencies": "/Users/macintosh/Github-Shivam/Github - illusionart/Macbook-Duo-App/.build-intel/x86_64-apple-macosx/release/FoldCore.build/UpdateHandoff.swiftdeps",
+    "diagnostics": "/Users/macintosh/Github-Shivam/Github - illusionart/Macbook-Duo-App/.build-intel/x86_64-apple-macosx/release/FoldCore.build/UpdateHandoff.dia"
+  },
+  "/Users/macintosh/Github-Shivam/Github - illusionart/Macbook-Duo-App/Sources/FoldCore/Updates/UpdateReplacement.swift": {
+    "object": "/Users/macintosh/Github-Shivam/Github - illusionart/Macbook-Duo-App/.build-intel/x86_64-apple-macosx/release/FoldCore.build/UpdateReplacement.swift.o",
+    "swiftmodule": "/Users/macintosh/Github-Shivam/Github - illusionart/Macbook-Duo-App/.build-intel/x86_64-apple-macosx/release/FoldCore.build/UpdateReplacement~partial.swiftmodule",
+    "swift-dependencies": "/Users/macintosh/Github-Shivam/Github - illusionart/Macbook-Duo-App/.build-intel/x86_64-apple-macosx/release/FoldCore.build/UpdateReplacement.swiftdeps",
+    "diagnostics": "/Users/macintosh/Github-Shivam/Github - illusionart/Macbook-Duo-App/.build-intel/x86_64-apple-macosx/release/FoldCore.build/UpdateReplacement.dia"
+  }
+}
