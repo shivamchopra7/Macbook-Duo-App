@@ -18,13 +18,21 @@ enum ShaderGhost {
         float reference = clamp(u.referenceAngle,90.0f,140.0f)*M_PI_F/180.0f;
         float eyeY = 1.6f*sin(reference)+viewerDistance*cos(reference);
         float eyeZ = viewerDistance*sin(reference)-1.6f*cos(reference);
-        float angle = clamp(u.tilt >= 0 ? u.tilt : p*M_PI_F*0.5f,0.0f,85.0f*M_PI_F/180.0f);
+        float tilt = clamp(u.tilt >= 0 ? u.tilt : p*M_PI_F*0.5f,0.0f,85.0f*M_PI_F/180.0f);
+        // Intensity exaggerates the tilt the ray sees by scaling its slope: k
+        // times the angle while small, saturating below 90 degrees so a strong
+        // setting does not push every ray past the top of the resting plane at
+        // mid-close. The eased onset and the edge feather below keep the physical
+        // angle, so the first degrees stay exact. 0.5 selects the raw tilt, so
+        // the default output stays bit-identical.
+        float k = (u.intensity == 0.5f) ? 1.0f : exp2((clamp(u.intensity,0.0f,1.0f)-0.5f)*2.0f*log2(1.6f));
+        float angle = (k == 1.0f) ? tilt : clamp(atan(k*tan(tilt)),0.0f,85.0f*M_PI_F/180.0f);
         float depth = height*sin(angle);
         float rayScale = eyeZ/(eyeZ-depth);
         float2 sourceUV = float2(0.5f+(uv.x-0.5f)*rayScale,
                                 1.0f-(eyeY+(height*cos(angle)-eyeY)*rayScale));
         // Ease the first 1.7 degrees without a pixel jump from exact passthrough.
-        float onset = clamp(angle/0.03f,0.0f,1.0f);
+        float onset = clamp(tilt/0.03f,0.0f,1.0f);
         onset = onset*onset*onset*(onset*(onset*6.0f-15.0f)+10.0f);
         sourceUV = mix(uv,sourceUV,onset);
         float focus = u.defocus >= 0 ? pow(clamp(u.defocus,0.0f,1.0f),1.25f) : p*p;
@@ -42,7 +50,7 @@ enum ShaderGhost {
         float2 feather = max(float2(3.0f*sigmaUV/aspect,3.0f*sigmaUV),fwidth(sourceUV));
         float2 border = smoothstep(-feather,feather,sourceUV)
                        *(1.0f-smoothstep(1.0f-feather,1.0f+feather,sourceUV));
-        float edgeCoverage = mix(1.0f,border.x*border.y,smoothstep(0.0f,0.025f,angle));
+        float edgeCoverage = mix(1.0f,border.x*border.y,smoothstep(0.0f,0.025f,tilt));
         float shade = 1.0f-clamp(u.shadow,0.0f,1.0f)*0.10f*focus*height;
         float disappear = 1.0f-smoothstep(0.86f,1.0f,p);
         return float4(color*shade*edgeCoverage*disappear,1);

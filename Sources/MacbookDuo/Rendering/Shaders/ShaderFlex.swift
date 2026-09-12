@@ -17,11 +17,14 @@ enum ShaderFlex {
         float collapse = 1.0f-0.85f*smoothstep(0.72f,1.0f,p);
         float top = (1.0f-0.40f*p)*collapse*(1.0f-p*0.10f*lateral*lateral);
         float eta = h/max(top,1e-4f);
-        float bend = p*(0.45f+1.15f*persp);
+        // Intensity scales the bend and the bow together. 0.5 multiplies by an
+        // exact 1.0, so the default output stays bit-identical.
+        float k = (u.intensity == 0.5f) ? 1.0f : exp2((clamp(u.intensity,0.0f,1.0f)-0.5f)*2.0f*log2(1.6f));
+        float bend = k*p*(0.45f+1.15f*persp);
         float material = eta*(1.0f+bend*eta)/(1.0f+bend);
         float waist = 1.0f-p*(0.10f+0.15f*persp)*material*material;
         float across = lateral/max(waist,1e-3f);
-        float arc = p*(0.32f+0.42f*persp);
+        float arc = k*p*(0.32f+0.42f*persp);
         float sweep = sin(arc);
         float unwrap = arc > 1e-4f ? asin(clamp(across*sweep,-0.99999f,0.99999f))/arc : across;
         float2 src = float2(0.5f+0.5f*unwrap,1.0f-material);

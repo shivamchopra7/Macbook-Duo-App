@@ -13,7 +13,12 @@ enum ShaderRoll {
         float soft = clamp(u.blur,0.0f,1.0f);
         float shad = clamp(u.shadow,0.0f,1.0f);
         float h = 1.0f-uv.y;
-        float thickness = 0.028f+0.055f*persp;
+        // Intensity scales the material thickness, and with it how fast the
+        // roll's radius grows. 0.5 multiplies by an exact 1.0, and the bound
+        // keeps the scaled value an opaque operand of the radius expression, so
+        // the default output stays bit-identical under fast-math reassociation.
+        float k = (u.intensity == 0.5f) ? 1.0f : exp2((clamp(u.intensity,0.0f,1.0f)-0.5f)*2.0f*log2(1.6f));
+        float thickness = clamp(k*(0.028f+0.055f*persp),0.0f,0.25f);
         float tangent = 1.0f-p;
         float radius = sqrt(0.0001f+thickness*p/M_PI_F);
         float feather = 0.0022f+0.004f*soft;
@@ -27,8 +32,8 @@ enum ShaderRoll {
         plane *= 1.0f-shad*0.5f*exp(-max(0.0f,lowest-h)/(0.05f+0.05f*soft));
         float3 color = plane*smoothstep(0.0f,feather,tangent-h);
 
-        float k = clamp((h-tangent)/max(radius,1e-5f),-1.0f,1.0f);
-        float theta = M_PI_F-asin(k);
+        float wrap = clamp((h-tangent)/max(radius,1e-5f),-1.0f,1.0f);
+        float theta = M_PI_F-asin(wrap);
         float arc = tangent+radius*theta;
         float facing = max(abs(cos(theta)),0.015f);
         float sigmaUV = min(0.45f/(facing*float(desktop.get_height())),0.03f)
