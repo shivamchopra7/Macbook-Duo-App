@@ -1,5 +1,12 @@
-// Renders the Macbook Duo app icon (.icns) and menu-bar mark from code, so the
-// brand assets are reproducible: swift scripts/make-icon.swift
+// Renders the Macbook Duo app icon (.icns), the asset-catalog AppIcon set and
+// the menu-bar mark, so the brand assets are reproducible:
+//
+//   swift scripts/make-icon.swift [Resources] [--from icon.png]
+//
+// Without --from the icon artwork is drawn from code. With --from, the given
+// 1024x1024 PNG is used as the icon source instead; the menu-bar mark is
+// always drawn from code. Both modes write MacbookDuo.icns, MacbookDuoIcon.png,
+// MacbookDuoMark.png and Assets.xcassets/AppIcon.appiconset/*.png.
 import AppKit
 
 func squircle(_ rect: CGRect, radius: CGFloat) -> CGPath {
@@ -90,17 +97,98 @@ func drawMark(_ c: CGContext, _ s: CGFloat) {
     c.strokePath()
 }
 
-let root = URL(fileURLWithPath: CommandLine.arguments.count > 1 ? CommandLine.arguments[1] : "Resources", isDirectory: true)
-let iconset = root.appendingPathComponent("MacbookDuo.iconset", isDirectory: true)
-try? FileManager.default.removeItem(at: iconset)
-try FileManager.default.createDirectory(at: iconset, withIntermediateDirectories: true)
-for (name, size) in [("16",16),("16@2x",32),("32",32),("32@2x",64),("128",128),("128@2x",256),("256",256),("256@2x",512),("512",512),("512@2x",1024)] {
-    try write(render(size: size, draw: drawIcon), to: iconset.appendingPathComponent("icon_\(name).png"))
+// MARK: - Command line
+
+struct Options {
+    var root = URL(fileURLWithPath: "Resources", isDirectory: true)
+    var source: URL?
 }
-try write(render(size: 176, draw: drawMark), to: root.appendingPathComponent("MacbookDuoMark.png"))
-try write(render(size: 1024, draw: drawIcon), to: root.appendingPathComponent("MacbookDuoIcon.png"))
-let iconutil = Process(); iconutil.executableURL = URL(fileURLWithPath: "/usr/bin/iconutil")
-iconutil.arguments = ["-c", "icns", iconset.path, "-o", root.appendingPathComponent("MacbookDuo.icns").path]
-try iconutil.run(); iconutil.waitUntilExit()
-try? FileManager.default.removeItem(at: iconset)
-print("Wrote MacbookDuo.icns, MacbookDuoIcon.png and MacbookDuoMark.png in \(root.path)")
+
+func parseOptions(_ arguments: [String]) -> Options {
+    var options = Options()
+    var index = 0
+    while index < arguments.count {
+        let argument = arguments[index]
+        if argument == "--from" {
+            guard index+1 < arguments.count else { fail("--from needs a PNG path") }
+            options.source = URL(fileURLWithPath: arguments[index+1]); index += 2
+        } else if argument.hasPrefix("--") {
+            fail("Unknown option \(argument). Usage: swift scripts/make-icon.swift [Resources] [--from icon.png]")
+        } else {
+            options.root = URL(fileURLWithPath: argument, isDirectory: true); index += 1
+        }
+    }
+    return options
+}
+
+func fail(_ message: String) -> Never {
+    FileHandle.standardError.write(Data((message + "\n").utf8)); exit(1)
+}
+
+/// Loads a supplied 1024x1024 icon and returns a drawing closure that scales it.
+func loadSource(_ url: URL) -> (CGContext, CGFloat) -> Void {
+    guard let image = NSImage(contentsOf: url),
+          let cgImage = image.cgImage(forProposedRect: nil, context: nil, hints: nil) else {
+        fail("Could not read an image from \(url.path)")
+    }
+    guard cgImage.width == 1024, cgImage.height == 1024 else {
+        fail("The --from image must be 1024x1024 pixels; \(url.lastPathComponent) is \(cgImage.width)x\(cgImage.height)")
+    }
+    return { context, size in
+        context.draw(cgImage, in: CGRect(x: 0, y: 0, width: size, height: size))
+    }
+}
+
+// MARK: - Output
+
+/// macOS icon slots shared by the .iconset (for iconutil) and the asset catalog.
+let slots: [(point: Int, scale: Int)] = [(16,1),(16,2),(32,1),(32,2),(128,1),(128,2),(256,1),(256,2),(512,1),(512,2)]
+
+func slotSuffix(_ slot: (point: Int, scale: Int)) -> String {
+    slot.scale == 1 ? "\(slot.point)" : "\(slot.point)@\(slot.scale)x"
+}
+
+func writeIconset(root: URL, draw: (CGContext, CGFloat) -> Void) throws {
+    let iconset = root.appendingPathComponent("MacbookDuo.iconset", isDirectory: true)
+    try? FileManager.default.removeItem(at: iconset)
+    try FileManager.default.createDirectory(at: iconset, withIntermediateDirectories: true)
+    for slot in slots {
+        try write(render(size: slot.point*slot.scale, draw: draw), to: iconset.appendingPathComponent("icon_\(slotSuffix(slot)).png"))
+    }
+    let iconutil = Process(); iconutil.executableURL = URL(fileURLWithPath: "/usr/bin/iconutil")
+    iconutil.arguments = ["-c", "icns", iconset.path, "-o", root.appendingPathComponent("MacbookDuo.icns").path]
+    try iconutil.run(); iconutil.waitUntilExit()
+    try? FileManager.default.removeItem(at: iconset)
+    guard iconutil.terminationStatus == 0 else { fail("iconutil failed with status \(iconutil.terminationStatus)") }
+}
+
+func writeAssetCatalog(root: URL, draw: (CGContext, CGFloat) -> Void) throws {
+    let appiconset = root.appendingPathComponent("Assets.xcassets/AppIcon.appiconset", isDirectory: true)
+    try FileManager.default.createDirectory(at: appiconset, withIntermediateDirectories: true)
+    var images: [[String: Any]] = []
+    for slot in slots {
+        let filename = "icon_\(slot.point)x\(slot.point)\(slot.scale == 1 ? "" : "@\(slot.scale)x").png"
+        try write(render(size: slot.point*slot.scale, draw: draw), to: appiconset.appendingPathComponent(filename))
+        images.append(["filename": filename, "idiom": "mac", "scale": "\(slot.scale)x", "size": "\(slot.point)x\(slot.point)"])
+    }
+    let contents: [String: Any] = ["images": images, "info": ["author": "xcode", "version": 1]]
+    let data = try JSONSerialization.data(withJSONObject: contents, options: [.prettyPrinted, .sortedKeys])
+    try data.write(to: appiconset.appendingPathComponent("Contents.json"))
+    let catalogInfo: [String: Any] = ["info": ["author": "xcode", "version": 1]]
+    try JSONSerialization.data(withJSONObject: catalogInfo, options: [.prettyPrinted, .sortedKeys])
+        .write(to: root.appendingPathComponent("Assets.xcassets/Contents.json"))
+}
+
+let options = parseOptions(Array(CommandLine.arguments.dropFirst()))
+let root = options.root
+let iconDraw: (CGContext, CGFloat) -> Void = options.source.map(loadSource) ?? drawIcon
+do {
+    try writeIconset(root: root, draw: iconDraw)
+    try writeAssetCatalog(root: root, draw: iconDraw)
+    try write(render(size: 176, draw: drawMark), to: root.appendingPathComponent("MacbookDuoMark.png"))
+    try write(render(size: 1024, draw: iconDraw), to: root.appendingPathComponent("MacbookDuoIcon.png"))
+} catch {
+    fail("Writing icon assets failed: \(error.localizedDescription)")
+}
+let mode = options.source.map { "from \($0.lastPathComponent)" } ?? "from code"
+print("Wrote MacbookDuo.icns, MacbookDuoIcon.png, MacbookDuoMark.png and Assets.xcassets/AppIcon.appiconset (\(mode)) in \(root.path)")

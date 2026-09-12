@@ -1,0 +1,137 @@
+#!/bin/bash
+# Builds the Mac App Store package for Macbook Duo.
+#
+#   scripts/appstore.sh [validate|export|upload]
+#
+#   export    (default) archive the "Macbook Duo" scheme and export a signed
+#             "Macbook Duo.pkg" into build-appstore/export
+#   validate  export, then run App Store validation on the package
+#   upload    export, then upload the package to App Store Connect
+#
+# validate and upload use `xcrun altool` when ASC_KEY_ID and ASC_ISSUER_ID are
+# set (an App Store Connect API key must be installed under
+# ~/.appstoreconnect/private_keys or ~/private_keys). Without them the script
+# prints the manual Transporter.app steps instead.
+set -euo pipefail
+cd "$(dirname "$0")/.."
+
+ACTION="${1:-export}"
+PROJECT="Macbook Duo.xcodeproj"
+SCHEME="Macbook Duo"
+BUILD_DIR="build-appstore"
+ARCHIVE="$BUILD_DIR/MacbookDuo.xcarchive"
+EXPORT_DIR="$BUILD_DIR/export"
+PACKAGE="$EXPORT_DIR/Macbook Duo.pkg"
+EXPORT_OPTIONS="App/ExportOptions.plist"
+
+usage() {
+  printf 'Usage: %s [validate|export|upload]\n' "$0" >&2
+  exit 2
+}
+
+case "$ACTION" in
+  validate|export|upload) ;;
+  *) usage ;;
+esac
+
+generate_project() {
+  if [[ ! -d "$PROJECT" || "project.yml" -nt "$PROJECT/project.pbxproj" ]]; then
+    echo "==> Generating $PROJECT from project.yml"
+    xcodegen generate
+  else
+    echo "==> $PROJECT is up to date with project.yml"
+  fi
+}
+
+archive_app() {
+  echo "==> Archiving $SCHEME (Release) to $ARCHIVE"
+  rm -rf "$ARCHIVE"
+  xcodebuild -project "$PROJECT" -scheme "$SCHEME" -configuration Release \
+    -destination "generic/platform=macOS" -archivePath "$ARCHIVE" \
+    archive -allowProvisioningUpdates
+}
+
+export_package() {
+  echo "==> Exporting App Store package to $EXPORT_DIR"
+  rm -rf "$EXPORT_DIR"
+  xcodebuild -exportArchive -archivePath "$ARCHIVE" \
+    -exportOptionsPlist "$EXPORT_OPTIONS" -exportPath "$EXPORT_DIR" \
+    -allowProvisioningUpdates
+  if [[ ! -f "$PACKAGE" ]]; then
+    echo "Export finished but $PACKAGE was not produced. Contents of $EXPORT_DIR:" >&2
+    ls -la "$EXPORT_DIR" >&2
+    exit 1
+  fi
+  echo "==> Package ready: $PACKAGE"
+}
+
+have_api_key() {
+  [[ -n "${ASC_KEY_ID:-}" && -n "${ASC_ISSUER_ID:-}" ]]
+}
+
+print_transporter_steps() {
+  cat <<EOF
+ASC_KEY_ID and ASC_ISSUER_ID are not set, so altool was not run. To $1 manually:
+  1. Open Transporter.app (free on the Mac App Store) and sign in with the
+     Apple ID that belongs to team ZB6623U832.
+  2. Drag "$PACKAGE" into the window.
+  3. Click Verify to validate, then Deliver to upload.
+Alternatively export an App Store Connect API key (App Store Connect >
+Users and Access > Integrations), place the .p8 file in
+~/.appstoreconnect/private_keys, and rerun with:
+  ASC_KEY_ID=<key id> ASC_ISSUER_ID=<issuer id> scripts/appstore.sh $1
+EOF
+}
+
+validate_package() {
+  if have_api_key; then
+    echo "==> Validating $PACKAGE with altool"
+    xcrun altool --validate-app -f "$PACKAGE" -t macos \
+      --apiKey "$ASC_KEY_ID" --apiIssuer "$ASC_ISSUER_ID"
+  else
+    print_transporter_steps validate
+  fi
+}
+
+upload_package() {
+  if have_api_key; then
+    echo "==> Uploading $PACKAGE with altool"
+    xcrun altool --upload-app -f "$PACKAGE" -t macos \
+      --apiKey "$ASC_KEY_ID" --apiIssuer "$ASC_ISSUER_ID"
+  else
+    print_transporter_steps upload
+  fi
+}
+
+print_next_steps() {
+  cat <<EOF
+
+Next steps:
+  1. Create the app record in App Store Connect (https://appstoreconnect.apple.com)
+     with bundle ID com.shivamchopra.macbookduo, name "Macbook Duo",
+     category Utilities, version 1.0.0 (build 100).
+  2. If you have not uploaded yet: scripts/appstore.sh upload, or use
+     Transporter.app with "$PACKAGE".
+  3. In App Store Connect, wait for the build to finish processing, then attach
+     it to the 1.0.0 version.
+  4. Fill in the listing: description, keywords, screenshots (1280x800,
+     1440x900, 2560x1600 or 2880x1800), support URL
+     https://github.com/shivamchopra7/Macbook-Duo-App/issues and privacy policy
+     URL https://shivamchopra7.github.io/Macbook-Duo-App/privacy.html.
+  5. Complete App Privacy (no data collected) and the export compliance
+     question (no non-exempt encryption; ITSAppUsesNonExemptEncryption is
+     already false in Info.plist).
+  6. Add review notes explaining that the app reads the lid-angle sensor via
+     the com.apple.security.device.usb entitlement and needs Screen Recording
+     permission, then submit for review.
+EOF
+}
+
+generate_project
+archive_app
+export_package
+case "$ACTION" in
+  validate) validate_package ;;
+  upload) upload_package ;;
+esac
+print_next_steps
