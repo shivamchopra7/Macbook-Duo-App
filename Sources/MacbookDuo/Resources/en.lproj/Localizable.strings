@@ -29,7 +29,7 @@
 "to pause" = "to pause";
 "⌃⌥⌘F anywhere" = "⌃⌥⌘F anywhere";
 "Reduce Motion on" = "Reduce Motion on";
-"on your Macbook Only" = "on your Macbook Only";
+"On your Macbook only" = "On your Macbook only";
 "Quit" = "Quit";
 "Menu bar icon" = "Menu bar icon";
 "Show the Macbook Duo icon in the menu bar. With it hidden, open Macbook Duo from Applications or Spotlight to bring this window back." = "Show the Macbook Duo icon in the menu bar. With it hidden, open Macbook Duo from Applications or Spotlight to bring this window back.";
@@ -198,3 +198,4 @@
 "Made by Shivam Chopra" = "Made by Shivam Chopra";
 "Version %@" = "Version %@";
 "Open source on GitHub" = "Open source on GitHub";
+"Needs a MacBook with a lid-angle sensor. Use Replay to see the effects." = "Needs a MacBook with a lid-angle sensor. Use Replay to see the effects.";

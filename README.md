@@ -10,6 +10,9 @@
 
 ## Download
 
+> [!NOTE]
+> Macbook Duo 1.0.0 has not been published yet. The download links below start working with the first release, and the Mac App Store version is in review. Until then, [build it from source](#build-from-source) — it takes one command.
+
 | Build | Link |
 |---|---|
 | Apple silicon (recommended) | [**Macbook-Duo.dmg**](https://github.com/shivamchopra7/Macbook-Duo-App/releases/latest/download/Macbook-Duo.dmg) |
@@ -45,12 +48,12 @@ Duo is the default. Fold, Accordion, Louver, Card, Curtain and Blackhole were ad
 | **Shutter** | Rigid panels telescope behind each other into the hinge. |
 | **Flex** | One bowing flexible display collapses toward the hinge. |
 | **Iris** | Eight overlapping blades close an aperture above the hinge. |
-| **Fold** · New | The display creases across the middle and the top half folds down over the bottom. |
-| **Accordion** · New | Pleats zig-zag and gather toward the hinge like a paper fan. |
-| **Louver** · New | Horizontal slats tilt and overlap like closing window blinds. |
-| **Card** · New | The whole desktop tips back as one rigid card in perspective. |
-| **Curtain** · New | Drapes draw together from both sides and settle at the hinge. |
-| **Blackhole** · New | The desktop swirls into a black hole opening at the hinge. |
+| **Fold** | The display creases across the middle and the top half folds down over the bottom. |
+| **Accordion** | Pleats zig-zag and gather toward the hinge like a paper fan. |
+| **Louver** | Horizontal slats tilt and overlap like closing window blinds. |
+| **Card** | The whole desktop tips back as one rigid card in perspective. |
+| **Curtain** | Drapes draw together from both sides and settle at the hinge. |
+| **Blackhole** | The desktop swirls into a black hole opening at the hinge. |
 
 Shutter, Accordion, Louver and Curtain divide the display into a configurable number of segments.
 
@@ -64,7 +67,7 @@ Shutter, Accordion, Louver and Curtain divide the display into a configurable nu
 
 | Louver | Card | Curtain | Blackhole |
 |---|---|---|---|
-| ![Louver effect preview](docs/assets/louver.gif) | ![Card effect preview](docs/assets/card.gif) | ![Curtain effect preview](docs/assets/curtain.gif) | ![Blackhole effect preview](docs/assets/ripple.gif) |
+| ![Louver effect preview](docs/assets/louver.gif) | ![Card effect preview](docs/assets/card.gif) | ![Curtain effect preview](docs/assets/curtain.gif) | ![Blackhole effect preview](docs/assets/blackhole.gif) |
 
 Previews are generated artwork. Your real desktop never leaves your Mac.
 
@@ -103,6 +106,8 @@ Every control lives in the settings window. **Reset to defaults** restores the o
 For manual control, turn off **Follow my lid** and drag **Preview angle**. Keep **Clear when the lid is still** on for everyday use at any angle. Prefer a ZIP? Unzip it, move **Macbook Duo.app** into Applications and follow steps 2–5.
 
 ## Updating
+
+This applies to the direct download. The Mac App Store build updates through the App Store and contains no in-app updater.
 
 Choose **Check for Updates…** from the settings window or the menu bar, then **Install & Relaunch**. Macbook Duo reads the latest stable release from the official GitHub repository, picks the native Apple-silicon or Intel ZIP, verifies its SHA-256 checksum and bundle before replacing itself, and preserves your preferences. Checks run only when you ask; there is no background polling.
 
@@ -152,6 +157,8 @@ swift test
 swift build
 .build/debug/MacbookDuo --render-check validation
 ```
+
+Two flavours are built from this source. `./build.sh` produces the direct download, with the in-app updater. The Mac App Store build comes from `Macbook Duo.xcodeproj` (scheme **Macbook Duo**), which compiles the updater out, turns on App Sandbox and Hardened Runtime, and is packaged by `scripts/appstore.sh`.
 
 `scripts/verify.sh` runs all of that plus the live overlay sandbox, release packaging and the updater's self-checks in one go. Add `--effects duo,fold` to check a subset, `--animation` to export closing and reopening frames for each effect, `--no-timing` to record GPU times without gating, or `--strict-timing` to enforce the absolute 6 ms budget on median and p95 (run it on a quiet machine; by default each effect is gated at 2.5× the Duo median measured in the same run, which stays meaningful on a busy desktop). See [docs/DEVELOPMENT.md](docs/DEVELOPMENT.md) for signing, the Intel build, packaging, releases and adding a new effect.
 

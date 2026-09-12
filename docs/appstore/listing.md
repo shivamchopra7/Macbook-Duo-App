@@ -16,7 +16,7 @@ Copy for the Mac App Store record of Macbook Duo 1.0.0 (build 100), bundle ident
 | Content rights | Does not contain, show or access third-party content |
 | Age rating | 4+ (see the answers below) |
 | Copyright | `© 2026 Shivam Chopra` |
-| Support URL | `https://github.com/shivamchopra7/Macbook-Duo-App/issues` |
+| Support URL | `https://github.com/shivamchopra7/MacBook-Duo-App/issues` |
 | Marketing URL | `https://macbookduo.illusionart.ai/` |
 | Privacy policy URL | `https://macbookduo.illusionart.ai/privacy.html` |
 | License agreement | Apple's standard EULA (the source is MIT-licensed; nothing extra is required) |
@@ -29,7 +29,7 @@ Copy for the Mac App Store record of Macbook Duo 1.0.0 (build 100), bundle ident
 ### Promotional text (170 characters max)
 
 ```
-Close the lid and watch your desktop fold, roll, ripple or drain away. Twelve Metal effects that track the lid angle in real time, rendered entirely on your Mac.
+Close the lid and watch your desktop fold, roll, swirl or drain away. Twelve Metal effects that track the lid angle in real time, rendered entirely on your Mac.
 ```
 
 ### Description (4000 characters max, no emoji)
@@ -133,11 +133,11 @@ SCREEN RECORDING. The app asks for Screen Recording permission for a single purp
 
 LID-ANGLE SENSOR. The effect is driven by the continuous lid-angle sensor built into MacBook Air (M2 or newer) and the 14-inch and 16-inch MacBook Pro (M1 Pro/Max or newer). The sensor is a built-in HID device read through IOKit, and reading it inside the App Sandbox requires the standard com.apple.security.device.usb entitlement; without it IOHIDManagerOpen fails. That entitlement is the only addition to the sandbox. The angle is a single number used for the animation and is not stored or transmitted.
 
-REVIEWING ON A MAC WITHOUT THE SENSOR. Every effect can be evaluated without moving a lid. On the Effects page, pick any effect and press "Replay" to watch it close and reopen in the built-in preview (no permission needed). Press "Test desktop" to run the real full-screen effect on the reviewer's actual desktop for eight seconds (this prompts for Screen Recording). On the Motion page, turn off "Follow my lid" and drag "Preview angle" to hold the effect at any position. Press Esc or Control-Option-Command-F at any time to stop the effect.
+REVIEWING ON A MAC WITHOUT THE SENSOR. Every effect can be evaluated without moving a lid. On the Effects page, pick any effect and press "Replay" to watch it close and reopen in the built-in preview (no permission needed). "Enable Macbook Duo" and "Test desktop" require a MacBook with the built-in lid-angle sensor and are disabled on other Macs, so on review hardware without that sensor please evaluate the app through Replay and Preview angle, which exercise the same Metal effects. On the Motion page, turn off "Follow my lid" and drag "Preview angle" to hold the effect at any position. Press Esc or Control-Option-Command-F at any time to stop the effect.
 
 NETWORK AND UPDATES. The App Store build contains no networking code and never connects to any server; there is no self-updater, no analytics and no third-party SDK. Updates arrive only through the App Store. The privacy manifest declares the two required-reason APIs the app uses (system boot time for the animation clock and user defaults for preferences).
 
-The app is open source: https://github.com/shivamchopra7/Macbook-Duo-App
+The app is open source: https://github.com/shivamchopra7/MacBook-Duo-App
 ```
 
 ## Screenshots

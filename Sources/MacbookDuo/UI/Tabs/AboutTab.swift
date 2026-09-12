@@ -6,9 +6,11 @@ struct AboutTab: View {
     @ObservedObject var updater: AppUpdater
     @Environment(\.colorScheme) private var scheme
     private static let repository = URL(string:"https://github.com/shivamchopra7/Macbook-Duo-App")!
-    /// The app's numeric Apple ID. Filled in after App Store Connect assigns it;
-    /// until then the review link opens the store without a matching product.
-    static let appStoreID = "0000000000"
+    /// The app's numeric Apple ID, assigned by App Store Connect. While it is
+    /// the placeholder the review link would open the store on no product, so
+    /// the button is left out of the build entirely.
+    static let placeholderAppStoreID = "0000000000"
+    static let appStoreID = placeholderAppStoreID
     private static let reviewPage = URL(string:"macappstore://apps.apple.com/app/id\(appStoreID)?action=write-review")!
 
     private var version: String {
@@ -40,10 +42,10 @@ struct AboutTab: View {
                 .buttonStyle(.glassQuiet)
                 .accessibilityLabel(L10n.text("Open source on GitHub"))
                 .help(Self.repository.absoluteString)
-                if AppUpdater.isAppStoreBuild {
-                    rateButton
-                } else {
+                if !AppUpdater.isAppStoreBuild {
                     updateButton
+                } else if Self.appStoreID != Self.placeholderAppStoreID {
+                    rateButton
                 }
             }
             .padding(.top,4)

@@ -21,12 +21,17 @@ struct SettingsFooter: View {
 
     private var actions: some View {
         HStack(spacing:8) {
+            // Following the lid needs the hardware sensor. Without it both actions
+            // are unavailable, so they read as a hardware requirement rather than
+            // as buttons that silently do nothing.
             Button(enableTitle) { if model.enabled { model.pause() } else { model.enable() } }
-                .buttonStyle(.glassProminent).disabled(model.checkingPermission)
+                .buttonStyle(.glassProminent).disabled(model.checkingPermission || !model.sensorAvailable)
                 .accessibilityLabel(enableTitle)
+                .help(model.sensorAvailable ? enableTitle : L10n.text("Needs a MacBook with a lid-angle sensor. Use Replay to see the effects."))
             Button(model.demoRunning ? L10n.text("Testing…") : L10n.text("Test desktop · 8 sec")) { model.testDesktop() }
-                .buttonStyle(.glassQuiet).disabled(model.demoRunning || model.checkingPermission)
+                .buttonStyle(.glassQuiet).disabled(model.demoRunning || model.checkingPermission || !model.sensorAvailable)
                 .accessibilityLabel(L10n.text("Test desktop · 8 sec"))
+                .help(model.sensorAvailable ? L10n.text("Test desktop · 8 sec") : L10n.text("Needs a MacBook with a lid-angle sensor. Use Replay to see the effects."))
             Button { model.playPreview() } label: {
                 HStack(spacing:5) { Image(systemName:"play.fill").font(.system(size:10,weight:.bold));Text(L10n.text("Replay")) }
             }

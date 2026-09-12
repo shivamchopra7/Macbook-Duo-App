@@ -13,6 +13,8 @@ command -v ffmpeg >/dev/null || { echo "ffmpeg is required (brew install ffmpeg)
 for dir in "$SRC"/*/; do
   id="$(basename "$dir")"
   [[ -f "$dir/frame-000.png" ]] || continue
+  # Published media use the effect's display name; the persisted id stays stable.
+  case "$id" in ripple) id=blackhole ;; esac
   ffmpeg -loglevel error -y -framerate 60 -i "$dir/frame-%03d.png" -vf "scale=960:-2,format=yuv420p" -c:v libx264 -crf 22 -movflags +faststart "docs/assets/$id.mp4"
   ffmpeg -loglevel error -y -framerate 60 -i "$dir/frame-%03d.png" -vf "fps=15,scale=480:-2:flags=lanczos,split[s0][s1];[s0]palettegen=max_colors=128[p];[s1][p]paletteuse=dither=bayer:bayer_scale=3" -loop 0 "docs/assets/$id.gif"
   ffmpeg -loglevel error -y -i "$dir/frame-060.png" -vf "scale=960:-2" -q:v 4 "docs/assets/$id.jpg"

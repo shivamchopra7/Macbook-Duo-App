@@ -29,7 +29,7 @@
 "to pause" = "暫停";
 "⌃⌥⌘F anywhere" = "全域快捷鍵 ⌃⌥⌘F";
 "Reduce Motion on" = "已開啟減少動態效果";
-"on your Macbook Only" = "僅在本機處理";
+"On your Macbook only" = "僅在本機處理";
 "Quit" = "結束";
 "Menu bar icon" = "選單列圖示";
 "Show the Macbook Duo icon in the menu bar. With it hidden, open Macbook Duo from Applications or Spotlight to bring this window back." = "在選單列顯示 Macbook Duo 圖示。隱藏後，可從「應用程式」或 Spotlight 開啟 Macbook Duo，以重新顯示此視窗。";
@@ -198,3 +198,4 @@
 "Made by Shivam Chopra" = "由 Shivam Chopra 製作";
 "Version %@" = "版本 %@";
 "Open source on GitHub" = "在 GitHub 上開源";
+"Needs a MacBook with a lid-angle sensor. Use Replay to see the effects." = "需要配備蓋子角度感應器的 MacBook。點按「重播」即可預覽效果。";

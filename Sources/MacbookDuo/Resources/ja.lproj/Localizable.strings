@@ -29,7 +29,7 @@
 "to pause" = "で一時停止";
 "⌃⌥⌘F anywhere" = "どこでも ⌃⌥⌘F";
 "Reduce Motion on" = "視差効果を減らす：オン";
-"on your Macbook Only" = "この Mac 内でのみ処理";
+"On your Macbook only" = "この Mac 内でのみ処理";
 "Quit" = "終了";
 "Menu bar icon" = "メニューバーアイコン";
 "Show the Macbook Duo icon in the menu bar. With it hidden, open Macbook Duo from Applications or Spotlight to bring this window back." = "メニューバーに Macbook Duo アイコンを表示します。非表示にした場合は、アプリケーションまたは Spotlight から Macbook Duo を開くと、このウインドウを再表示できます。";
@@ -198,3 +198,4 @@
 "Made by Shivam Chopra" = "Shivam Chopra 制作";
 "Version %@" = "バージョン %@";
 "Open source on GitHub" = "GitHub でオープンソース";
+"Needs a MacBook with a lid-angle sensor. Use Replay to see the effects." = "蓋の角度センサーを備えた MacBook が必要です。「再生」でエフェクトを確認できます。";
