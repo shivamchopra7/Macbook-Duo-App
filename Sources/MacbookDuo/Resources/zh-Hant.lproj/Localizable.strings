@@ -164,14 +164,14 @@
 "Louver" = "百葉";
 "Card" = "卡片";
 "Curtain" = "帷幕";
-"Ripple" = "漣漪";
+"Blackhole" = "黑洞";
 "Rigid panels telescope behind each other into the hinge." = "剛性面板依序縮入轉軸後方。";
 "The display creases across the middle and the top half folds down over the bottom." = "螢幕從中間摺痕，上半部向下摺疊覆蓋下半部。";
 "Pleats zig-zag and gather toward the hinge like a paper fan." = "褶皺像紙扇一樣呈鋸齒狀向轉軸聚攏。";
 "Horizontal slats tilt and overlap like closing window blinds." = "水平葉片傾斜重疊，如同關閉的百葉窗。";
 "The whole desktop tips back as one rigid card in perspective." = "整個桌面像一張硬卡片在透視中向後傾斜。";
 "Drapes draw together from both sides and settle at the hinge." = "帷幕從兩側合攏並落到轉軸處。";
-"Liquid rings spread from the hinge and the desktop drains into it." = "液態漣漪從轉軸擴散，桌面隨之流入其中。";
+"The desktop swirls into a black hole opening at the hinge." = "桌面旋入轉軸處張開的黑洞。";
 "Smooth" = "平滑";
 "Gentle" = "柔和";
 "Linear" = "線性";
@@ -189,7 +189,6 @@
 "%.0f ms" = "%.0f ms";
 "%.1f s" = "%.1f 秒";
 "%d" = "%d";
-"New" = "新";
 "Effects" = "效果";
 "Motion" = "動態";
 "Look" = "外觀";

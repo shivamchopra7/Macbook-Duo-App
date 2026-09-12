@@ -1,7 +1,7 @@
 import SwiftUI
 import FoldCore
 
-/// Twelve glass tiles, the selected effect's summary, and its options.
+/// Twelve tiles, the selected effect's summary, and its options.
 struct EffectsTab: View {
     @ObservedObject var model: AppModel
     @Environment(\.colorScheme) private var scheme
@@ -65,9 +65,6 @@ private struct EffectTile: View {
                     .lineLimit(1).minimumScaleFactor(0.85)
             }
             .frame(maxWidth:.infinity).frame(height:58)
-            .overlay(alignment:.topTrailing) {
-                if effect.isExpansion { GlassBadge(text:L10n.text("New")).padding(4) }
-            }
             .background {
                 if selected {
                     RoundedRectangle(cornerRadius:11,style:.continuous)

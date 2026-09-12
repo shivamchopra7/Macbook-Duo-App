@@ -25,20 +25,6 @@ struct GlassPill<Content: View>: View {
     }
 }
 
-/// The "New" marker on expansion effects.
-struct GlassBadge: View {
-    let text: String
-    var body: some View {
-        Text(text)
-            .font(.system(size:8.5,weight:.bold,design:.rounded))
-            .foregroundStyle(.white)
-            .padding(.horizontal,5).padding(.vertical,2)
-            .background(LinearGradient(colors:[GlassPalette.indigo,GlassPalette.electricBlue],
-                                       startPoint:.topLeading,endPoint:.bottomTrailing),in:Capsule())
-            .accessibilityHidden(true)
-    }
-}
-
 /// A small caption in the contrast-checked secondary tone.
 struct GlassCaption: View {
     let text: String

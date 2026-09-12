@@ -54,7 +54,7 @@ public enum FoldEffect: String, CaseIterable, Sendable, Identifiable {
         case .louver: return "Louver"
         case .card: return "Card"
         case .curtain: return "Curtain"
-        case .ripple: return "Ripple"
+        case .ripple: return "Blackhole"
         }
     }
 
@@ -71,7 +71,7 @@ public enum FoldEffect: String, CaseIterable, Sendable, Identifiable {
         case .louver: return "rectangle.stack"
         case .card: return "rectangle.portrait.rotate"
         case .curtain: return "curtains.closed"
-        case .ripple: return "water.waves"
+        case .ripple: return "hurricane"
         }
     }
 
@@ -88,7 +88,7 @@ public enum FoldEffect: String, CaseIterable, Sendable, Identifiable {
         case .louver: return "Horizontal slats tilt and overlap like closing window blinds."
         case .card: return "The whole desktop tips back as one rigid card in perspective."
         case .curtain: return "Drapes draw together from both sides and settle at the hinge."
-        case .ripple: return "Liquid rings spread from the hinge and the desktop drains into it."
+        case .ripple: return "The desktop swirls into a black hole opening at the hinge."
         }
     }
 

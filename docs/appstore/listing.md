@@ -49,7 +49,7 @@ Accordion: pleats zig-zag and gather toward the hinge like a paper fan.
 Louver: horizontal slats tilt and overlap like closing window blinds.
 Card: the whole desktop tips back as one rigid card in perspective.
 Curtain: drapes draw together from both sides and settle at the hinge.
-Ripple: liquid rings spread from the hinge and the desktop drains into it.
+Blackhole: liquid rings spread from the hinge and the desktop drains into it.
 
 MAKE IT YOURS
 Every control lives in one settings window with a live MacBook-shaped preview. Intensity exaggerates each effect's geometry. Segments sets the panel, pleat, slat or drape count for Shutter, Accordion, Louver and Curtain. Curve chooses how the effect advances between open and closed: Smooth, Gentle, Linear or Brisk. Response and Clear duration tune the timing, and Perspective, Softness and Shadow shape the look. Clears at sets the lid angle at which the desktop is fully clear, and Clear when the lid is still decides how long a resting lid waits before the effect fades. Reset to defaults restores the original tuning in one click. Turn off Follow my lid to drive the preview by hand, or press Replay to watch any effect without touching the lid.
@@ -75,7 +75,7 @@ lid,hinge,fold,desktop,animation,effect,metal,menu bar,screen,wallpaper,motion,l
 ### What's New in This Version
 
 ```
-First Mac App Store release. Twelve lid-following effects (Duo, Ghost, Roll, Shutter, Flex, Iris, Fold, Accordion, Louver, Card, Curtain and Ripple), per-effect tuning, a live MacBook-shaped preview, light, dark or system appearance, and four languages. Sandboxed, private, and free of accounts, analytics and network access.
+First Mac App Store release. Twelve lid-following effects (Duo, Ghost, Roll, Shutter, Flex, Iris, Fold, Accordion, Louver, Card, Curtain and Blackhole), per-effect tuning, a live MacBook-shaped preview, light, dark or system appearance, and four languages. Sandboxed, private, and free of accounts, analytics and network access.
 ```
 
 ## Age rating (4+)

@@ -164,14 +164,14 @@
 "Louver" = "ルーバー";
 "Card" = "カード";
 "Curtain" = "カーテン";
-"Ripple" = "リップル";
+"Blackhole" = "ブラックホール";
 "Rigid panels telescope behind each other into the hinge." = "硬い板が順に重なりながらヒンジへ収まります。";
 "The display creases across the middle and the top half folds down over the bottom." = "画面が中央で折れ、上半分が下半分の上に折り重なります。";
 "Pleats zig-zag and gather toward the hinge like a paper fan." = "ひだが扇子のようにジグザグにヒンジへ集まります。";
 "Horizontal slats tilt and overlap like closing window blinds." = "水平のスラットが傾き、閉じるブラインドのように重なります。";
 "The whole desktop tips back as one rigid card in perspective." = "デスクトップ全体が一枚の硬いカードのように遠近感を伴って後ろへ傾きます。";
 "Drapes draw together from both sides and settle at the hinge." = "カーテンが両側から閉じてヒンジに落ち着きます。";
-"Liquid rings spread from the hinge and the desktop drains into it." = "液体の輪がヒンジから広がり、デスクトップがそこへ流れ込みます。";
+"The desktop swirls into a black hole opening at the hinge." = "デスクトップがヒンジに開くブラックホールへ渦を巻いて吸い込まれます。";
 "Smooth" = "スムーズ";
 "Gentle" = "ジェントル";
 "Linear" = "リニア";
@@ -189,7 +189,6 @@
 "%.0f ms" = "%.0f ms";
 "%.1f s" = "%.1f 秒";
 "%d" = "%d";
-"New" = "新着";
 "Effects" = "エフェクト";
 "Motion" = "モーション";
 "Look" = "外観";

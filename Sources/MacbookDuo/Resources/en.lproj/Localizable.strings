@@ -164,14 +164,14 @@
 "Louver" = "Louver";
 "Card" = "Card";
 "Curtain" = "Curtain";
-"Ripple" = "Ripple";
+"Blackhole" = "Blackhole";
 "Rigid panels telescope behind each other into the hinge." = "Rigid panels telescope behind each other into the hinge.";
 "The display creases across the middle and the top half folds down over the bottom." = "The display creases across the middle and the top half folds down over the bottom.";
 "Pleats zig-zag and gather toward the hinge like a paper fan." = "Pleats zig-zag and gather toward the hinge like a paper fan.";
 "Horizontal slats tilt and overlap like closing window blinds." = "Horizontal slats tilt and overlap like closing window blinds.";
 "The whole desktop tips back as one rigid card in perspective." = "The whole desktop tips back as one rigid card in perspective.";
 "Drapes draw together from both sides and settle at the hinge." = "Drapes draw together from both sides and settle at the hinge.";
-"Liquid rings spread from the hinge and the desktop drains into it." = "Liquid rings spread from the hinge and the desktop drains into it.";
+"The desktop swirls into a black hole opening at the hinge." = "The desktop swirls into a black hole opening at the hinge.";
 "Smooth" = "Smooth";
 "Gentle" = "Gentle";
 "Linear" = "Linear";
@@ -189,7 +189,6 @@
 "%.0f ms" = "%.0f ms";
 "%.1f s" = "%.1f s";
 "%d" = "%d";
-"New" = "New";
 "Effects" = "Effects";
 "Motion" = "Motion";
 "Look" = "Look";

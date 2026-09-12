@@ -35,7 +35,7 @@ Macbook Duo reads the lid-angle sensor built into recent MacBooks, captures the 
 
 ## Twelve effects
 
-Duo is the default. The six effects marked **New** were added in 1.0.0.
+Duo is the default. Fold, Accordion, Louver, Card, Curtain and Blackhole were added in 1.0.0.
 
 | Effect | What it feels like |
 |---|---|
@@ -50,7 +50,7 @@ Duo is the default. The six effects marked **New** were added in 1.0.0.
 | **Louver** · New | Horizontal slats tilt and overlap like closing window blinds. |
 | **Card** · New | The whole desktop tips back as one rigid card in perspective. |
 | **Curtain** · New | Drapes draw together from both sides and settle at the hinge. |
-| **Ripple** · New | Liquid rings spread from the hinge and the desktop drains into it. |
+| **Blackhole** · New | The desktop swirls into a black hole opening at the hinge. |
 
 Shutter, Accordion, Louver and Curtain divide the display into a configurable number of segments.
 
@@ -62,9 +62,9 @@ Shutter, Accordion, Louver and Curtain divide the display into a configurable nu
 |---|---|---|---|
 | ![Flex effect preview](docs/assets/flex.gif) | ![Iris effect preview](docs/assets/iris.gif) | ![Fold effect preview](docs/assets/fold.gif) | ![Accordion effect preview](docs/assets/accordion.gif) |
 
-| Louver | Card | Curtain | Ripple |
+| Louver | Card | Curtain | Blackhole |
 |---|---|---|---|
-| ![Louver effect preview](docs/assets/louver.gif) | ![Card effect preview](docs/assets/card.gif) | ![Curtain effect preview](docs/assets/curtain.gif) | ![Ripple effect preview](docs/assets/ripple.gif) |
+| ![Louver effect preview](docs/assets/louver.gif) | ![Card effect preview](docs/assets/card.gif) | ![Curtain effect preview](docs/assets/curtain.gif) | ![Blackhole effect preview](docs/assets/ripple.gif) |
 
 Previews are generated artwork. Your real desktop never leaves your Mac.
 
@@ -76,7 +76,7 @@ Every control lives in the settings window. **Reset to defaults** restores the o
 
 | Control | Range | Default | Notes |
 |---|---|---|---|
-| Effect | Duo, Ghost, Roll, Shutter, Flex, Iris, Fold, Accordion, Louver, Card, Curtain, Ripple | Duo | Persisted across launches. |
+| Effect | Duo, Ghost, Roll, Shutter, Flex, Iris, Fold, Accordion, Louver, Card, Curtain, Blackhole | Duo | Persisted across launches. |
 | Intensity | 0–100% | 50% | Exaggerates each effect's geometry. 50% reproduces the original tuning. |
 | Segments | 2–8 | 4 | Panel, pleat, slat or drape count for Shutter, Accordion, Louver and Curtain. |
 | Curve | Smooth, Gentle, Linear, Brisk | Smooth | How fold progress advances between open and closed. Smooth eases in and out; Gentle starts slowly; Linear tracks the lid one-to-one; Brisk responds immediately, then settles. |
