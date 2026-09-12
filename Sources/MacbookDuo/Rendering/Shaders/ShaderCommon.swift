@@ -8,7 +8,7 @@ enum ShaderCommon {
     static let header = #"""
     #include <metal_stdlib>
     using namespace metal;
-    struct Uniforms { float progress; float perspective; float blur; float shadow; float2 size; float fadeOnly; uint effect; float defocus; float coverage; float tilt; float referenceAngle; };
+    struct Uniforms { float progress; float perspective; float blur; float shadow; float2 size; float fadeOnly; uint effect; float defocus; float coverage; float tilt; float referenceAngle; float intensity; uint segments; float2 reserved; };
     struct Varying { float4 position [[position]]; float2 uv; };
 
     vertex Varying foldVertex(uint id [[vertex_id]]) {
@@ -60,12 +60,18 @@ enum ShaderCommon {
         if (u.fadeOnly > 0.5f) return float4(desktop.sample(s,screenUV).rgb*(1-p),1);
         if (p >= 1.0f) return float4(0,0,0,1);
         if (u.effect == 5u) return foldGhost(screenUV,desktop,pyramid,s,u,p);
-        if (u.effect >= 1u && u.effect <= 4u) {
+        if ((u.effect >= 1u && u.effect <= 4u) || (u.effect >= 6u && u.effect <= 11u)) {
             float4 result;
             if (u.effect == 1u) result = foldRoll(screenUV,desktop,pyramid,s,u,p);
             else if (u.effect == 2u) result = foldShutter(screenUV,desktop,pyramid,s,u,p);
             else if (u.effect == 3u) result = foldFlex(screenUV,desktop,pyramid,s,u,p);
-            else result = foldIris(screenUV,desktop,pyramid,s,u,p);
+            else if (u.effect == 4u) result = foldIris(screenUV,desktop,pyramid,s,u,p);
+            else if (u.effect == 6u) result = foldFold(screenUV,desktop,pyramid,s,u,p);
+            else if (u.effect == 7u) result = foldAccordion(screenUV,desktop,pyramid,s,u,p);
+            else if (u.effect == 8u) result = foldLouver(screenUV,desktop,pyramid,s,u,p);
+            else if (u.effect == 9u) result = foldCard(screenUV,desktop,pyramid,s,u,p);
+            else if (u.effect == 10u) result = foldCurtain(screenUV,desktop,pyramid,s,u,p);
+            else result = foldRipple(screenUV,desktop,pyramid,s,u,p);
             // Introduce the material's seams and contact shadows continuously.
             // Without this short angle-driven onset, fixed antialias widths and
             // depth shading can flash when the exact-open branch disengages.

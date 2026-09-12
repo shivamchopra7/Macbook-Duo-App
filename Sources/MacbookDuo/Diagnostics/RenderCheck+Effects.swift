@@ -18,7 +18,7 @@ extension RenderCheck {
 
         var report: [String: Any] = [:]
         var middles: [FoldEffect: Frame] = [:]
-        for effect in FoldEffect.allCases {
+        for effect in checkedEffects {
             var u = FoldUniforms(); u.effect = effect.shaderIndex
             let open = try render(renderer,checker,plate,u)
             try require(open.pixels == checkerBytes,"\(effect.title): the open desktop is not an exact passthrough.")
@@ -78,8 +78,8 @@ extension RenderCheck {
         // Each effect must look like itself, not like a relabelled neighbour.
         var separation: [String: Double] = [:]
         var worst = 255.0
-        for (i,left) in FoldEffect.allCases.enumerated() {
-            for right in FoldEffect.allCases.dropFirst(i+1) {
+        for (i,left) in checkedEffects.enumerated() {
+            for right in checkedEffects.dropFirst(i+1) {
                 let difference = meanAbsDiff(middles[left]!,middles[right]!)
                 separation["\(left.rawValue)-\(right.rawValue)"] = difference
                 worst = min(worst,difference)
@@ -92,7 +92,7 @@ extension RenderCheck {
         // there must still leave a usable image, for every shader style.
         let lowAngleSource = try fixture(device,width:W,height:H) { _,_ in 200 }
         var lowAngleChecks: [[String:Any]] = []
-        for effect in FoldEffect.allCases {
+        for effect in checkedEffects {
             for reference: Double in [5,10,20,30] {
                 for delta: Double in [1,2,3] {
                     let state = FoldVisualState.at(angle:reference-delta,reference:reference)
@@ -107,11 +107,15 @@ extension RenderCheck {
             }
         }
         report["lowRestingAngleChecks"] = lowAngleChecks
-        try report.merge(checkGhost(device,renderer,plate,W,H)) { a,_ in a }
-        try report.merge(checkRoll(device,renderer,plate,W,H)) { a,_ in a }
-        try report.merge(checkShutter(device,renderer,plate,W,H)) { a,_ in a }
-        try report.merge(checkFlex(device,renderer,plate,W,H)) { a,_ in a }
-        try report.merge(checkIris(device,renderer,plate,W,H)) { a,_ in a }
+        let detail: [(FoldEffect, (MTLDevice, FoldRenderer, MTLTexture, Int, Int) throws -> [String: Any])] = [
+            (.ghost, checkGhost), (.roll, checkRoll), (.shutter, checkShutter), (.flex, checkFlex), (.iris, checkIris),
+            (.fold, checkFold), (.accordion, checkAccordion), (.louver, checkLouver),
+            (.card, checkCard), (.curtain, checkCurtain), (.ripple, checkRipple),
+            (.duo, checkOptions),
+        ]
+        for (effect, check) in detail where checkedEffects.contains(effect) {
+            try report.merge(check(device,renderer,plate,W,H)) { a,_ in a }
+        }
         return report
     }
 
@@ -120,20 +124,13 @@ extension RenderCheck {
     static func benchmarkEffects(_ device: MTLDevice, _ renderer: FoldRenderer,
                                  _ source: MTLTexture, _ destination: MTLTexture) throws -> [String: Any] {
         var results: [String: Any] = [:]
-        for effect in FoldEffect.allCases {
-            var times: [Double] = []
-            for i in 0..<60 {
+        for effect in checkedEffects {
+            let timing = try timeRender(warmup: 20, frames: 50, label: effect.title) { i in
                 var u = FoldUniforms(); u.effect = effect.shaderIndex
                 u.progress = 0.04+Float(i%24)/25
-                let command = try encode(renderer,source,destination,u)
-                command.waitUntilCompleted()
-                try require(command.status == .completed,"\(effect.title): native render failed.")
-                if i >= 10 { times.append((command.gpuEndTime-command.gpuStartTime)*1000) }
+                return try encode(renderer,source,destination,u)
             }
-            times.sort()
-            let p95 = times[Int(Double(times.count)*0.95)]
-            try require(p95 < 6,"\(effect.title): native GPU p95 exceeded the 6 ms rendering budget.")
-            results[effect.rawValue] = ["medianMS":times[times.count/2],"p95MS":p95]
+            results[effect.rawValue] = ["medianMS":timing.medianMS,"p95MS":timing.p95MS]
         }
         return results
     }

@@ -1,6 +1,6 @@
 import FoldCore
 
-/// 48 bytes, mirrored field for field by `Uniforms` in `FoldShader.source`.
+/// 64 bytes, mirrored field for field by `Uniforms` in `FoldShader.source`.
 struct FoldUniforms: Equatable {
     var progress: Float = 0
     var perspective: Float = 0.7
@@ -15,6 +15,11 @@ struct FoldUniforms: Equatable {
     // Negative values keep normalized-progress fixtures convenient. App paths supply radians.
     var tilt: Float = -1
     var referenceAngle: Float = 105
+    /// `EffectOptions.intensity`; 0.5 reproduces each effect's original tuning.
+    var intensity: Float = 0.5
+    /// `EffectOptions.segments` for panel, pleat, slat and drape counts.
+    var segments: UInt32 = 4
+    var reserved = SIMD2<Float>(0, 0)
 
     var selectedEffect: FoldEffect { FoldEffect.resolve(shaderIndex: effect) }
 }

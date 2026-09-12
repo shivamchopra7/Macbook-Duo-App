@@ -17,6 +17,12 @@ enum FoldShader {
         ShaderShutter.function,
         ShaderFlex.function,
         ShaderIris.function,
+        ShaderFold.function,
+        ShaderAccordion.function,
+        ShaderLouver.function,
+        ShaderCard.function,
+        ShaderCurtain.function,
+        ShaderRipple.function,
         ShaderCommon.dispatch,
     ].joined(separator:"\n")
 }

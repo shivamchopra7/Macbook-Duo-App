@@ -64,6 +64,9 @@ final class FoldRenderer: NSObject, MTKViewDelegate {
         view.enableSetNeedsDisplay = false
     }
 
+    /// Preview timing follows the same options as the live overlay.
+    func apply(options: EffectOptions) { animation.apply(options) }
+
     func resetProgress(to value: Double) {
         progress = value; lastTime = ProcessInfo.processInfo.systemUptime
         renderedUniforms = nil

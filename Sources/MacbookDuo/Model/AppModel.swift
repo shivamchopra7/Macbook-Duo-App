@@ -54,6 +54,35 @@ import ServiceManagement
     @Published var shadow = UserDefaults.standard.object(forKey:"shadow") as? Double ?? 0.65 {
         didSet { UserDefaults.standard.set(shadow,forKey:"shadow") }
     }
+    @Published var intensity = UserDefaults.standard.object(forKey:"effectIntensity") as? Double ?? EffectOptions.default.intensity {
+        didSet { UserDefaults.standard.set(intensity,forKey:"effectIntensity");wakePreview() }
+    }
+    @Published var segments = UserDefaults.standard.object(forKey:"effectSegments") as? Int ?? EffectOptions.default.segments {
+        didSet { UserDefaults.standard.set(segments,forKey:"effectSegments");wakePreview() }
+    }
+    @Published var curve = FoldCurve.resolve(persisted:UserDefaults.standard.string(forKey:"effectCurve")) {
+        didSet { UserDefaults.standard.set(curve.rawValue,forKey:"effectCurve");wakePreview();update() }
+    }
+    @Published var responseTime = UserDefaults.standard.object(forKey:"effectResponse") as? Double ?? EffectOptions.default.responseTime {
+        didSet { UserDefaults.standard.set(responseTime,forKey:"effectResponse");applyTiming() }
+    }
+    @Published var clearDuration = UserDefaults.standard.object(forKey:"effectClearDuration") as? Double ?? EffectOptions.default.clearDuration {
+        didSet { UserDefaults.standard.set(clearDuration,forKey:"effectClearDuration");applyTiming() }
+    }
+    /// The validated, clamped view of the option properties above.
+    var options: EffectOptions {
+        EffectOptions(intensity:intensity,segments:segments,curve:curve,responseTime:responseTime,clearDuration:clearDuration)
+    }
+    func resetOptions() {
+        let defaults = EffectOptions.default
+        intensity = defaults.intensity;segments = defaults.segments;curve = defaults.curve
+        responseTime = defaults.responseTime;clearDuration = defaults.clearDuration
+        perspective = 0.7;blur = 0.65;shadow = 0.65
+    }
+    private func applyTiming() {
+        liveAnimation.apply(options)
+        previewRenderer?.apply(options:options)
+    }
     @Published var clearWhenStill = UserDefaults.standard.object(forKey:"clearWhenStill") as? Bool ?? true {
         didSet {
             if oldValue != clearWhenStill {
@@ -77,7 +106,9 @@ import ServiceManagement
     let sensor = LidSensor()
     let capture = DesktopCapture()
     let device = MTLCreateSystemDefaultDevice()
-    var previewRenderer: FoldRenderer?
+    var previewRenderer: FoldRenderer? {
+        didSet { previewRenderer?.apply(options:options) }
+    }
     weak var previewView: MTKView?
     var renderer: FoldRenderer?
     var panel: OverlayPanel?
@@ -134,6 +165,7 @@ import ServiceManagement
 
     init() {
         NSApp.appearance = appearance.native
+        liveAnimation.apply(options)
         sensor.onReading = { [weak self] angle in
             guard let self else { return }
             let angleChanged = self.lidAngle != angle
@@ -174,10 +206,10 @@ import ServiceManagement
     private var previewState: FoldVisualState {
         if let start = previewStart {
             let t = ProcessInfo.processInfo.systemUptime-start
-            if t <= 5 { return .at(angle:demoAngle(t/5),reference:fixedReference) }
+            if t <= 5 { return .at(angle:demoAngle(t/5),reference:fixedReference,curve:curve) }
         }
         if followLid { return liveState }
-        return .at(angle:previewAngle,reference:fixedReference)
+        return .at(angle:previewAngle,reference:fixedReference,curve:curve)
     }
 
     /// Both views read the same physical and optical state, including the clear handoff.
@@ -202,6 +234,7 @@ import ServiceManagement
         u.progress = Float(visual.progress);u.defocus = Float(visual.defocus);u.tilt = Float(visual.tilt)
         u.referenceAngle = Float(visual.referenceAngle)
         u.perspective = Float(perspective);u.blur = Float(blur);u.shadow = Float(shadow)
+        u.intensity = options.shaderIntensity;u.segments = options.shaderSegments
         u.fadeOnly = reducedMotion ? 1 : 0
         u.effect = effect.shaderIndex // The desktop and its preview always share one selection.
         return u
@@ -215,11 +248,11 @@ import ServiceManagement
         guard enabled,sessionActive,systemAwake,displayAwake,!waitingForSensor else { return .clear }
         if let start = demoStart {
             let t = min(1,(ProcessInfo.processInfo.systemUptime-start)/demoDuration)
-            return .at(angle:demoAngle(t),reference:fixedReference)
+            return .at(angle:demoAngle(t),reference:fixedReference,curve:curve)
         }
         if shouldClearForStillness { return .clear }
         guard let angle = lidAngle else { return .clear }
-        return .at(angle:angle,reference:liveReference)
+        return .at(angle:angle,reference:liveReference,curve:curve)
     }
 
     private func demoAngle(_ t: Double) -> Double { clearAngle + 8 - sin(min(1,max(0,t)) * .pi) * (clearAngle-12) }

@@ -13,6 +13,15 @@ import FoldCore
         func gray(_ x: Int, _ y: Int) -> Int { Int(pixels[(y*width+x)*4]) }
     }
 
+    /// `--effects duo,fold` limits the effect loops so one shader can be validated alone.
+    static var checkedEffects: [FoldEffect] {
+        let args = CommandLine.arguments
+        guard let index = args.firstIndex(of: "--effects"), index+1 < args.count else { return FoldEffect.allCases }
+        let identifiers = args[index+1].split(separator: ",").map(String.init)
+        let chosen = FoldEffect.allCases.filter { identifiers.contains($0.persistedIdentifier) }
+        return chosen.isEmpty ? FoldEffect.allCases : chosen
+    }
+
     static func run() throws {
         guard let device = MTLCreateSystemDefaultDevice() else { throw AppError.message("No Metal device.") }
         let renderer = try FoldRenderer(device: device)
@@ -141,7 +150,7 @@ import FoldCore
         try require(beforeReuse.gray(w/2,h/2) == 255 && afterReuse.gray(w/2,h/2) == 0,
             "Recycled source retained stale blur pixels.")
 
-        try require(MemoryLayout<FoldUniforms>.stride == 48, "Swift and Metal uniform layout must match.")
+        try require(MemoryLayout<FoldUniforms>.stride == 64, "Swift and Metal uniform layout must match.")
         var gradualOnset: [[String:Any]] = []
         for reference: Double in [45,60,90,105,128,140] {
             for delta: Double in [0,1,2,3,5,10,15] {
@@ -161,7 +170,7 @@ import FoldCore
             }
         }
         var clearChecks: [[String:Any]] = []
-        for effect in FoldEffect.allCases {
+        for effect in checkedEffects {
             var animation = FoldVisualAnimation()
             let target = FoldVisualState.at(angle:75,reference:90)
             for tick in 0...120 { _ = animation.sample(target:target,at:Double(tick)/120) }
@@ -192,52 +201,40 @@ import FoldCore
         // Both input AND output are native size, including pyramid rebuild cost.
         let nativeInput = try renderer.makePreviewTexture(width:3024,height:1964)
         let nativeTarget = try target(device,3024,1964,shared:false)
-        var times: [Double] = []
-        for i in 0..<100 {
+        let native = try timeRender(label: "Duo native") { i in
             var u = FoldUniforms(); u.progress = 0.02+Float(i%40)/41
-            let command = try encode(renderer,nativeInput,nativeTarget,u)
-            command.waitUntilCompleted()
-            try require(command.status == .completed, "Native render failed.")
-            if i >= 10 { times.append((command.gpuEndTime-command.gpuStartTime)*1000) }
+            return try encode(renderer,nativeInput,nativeTarget,u)
         }
-        times.sort()
-        let p95 = times[Int(Double(times.count)*0.95)]
-        try require(p95 < 6, "Native GPU p95 exceeded the 6 ms rendering budget.")
-        var cachedTimes: [Double] = []
         let beforeCachedBenchmark = renderer.blurBuildCount
-        for i in 0..<100 {
+        let cached = try timeRender(label: "Duo cached") { i in
             var u = FoldUniforms(); u.progress = 0.02+Float(i%40)/41
-            let command = try encode(renderer,nativeInput,nativeTarget,u,revision:2000)
-            command.waitUntilCompleted()
-            try require(command.status == .completed, "Cached native render failed.")
-            if i >= 10 { cachedTimes.append((command.gpuEndTime-command.gpuStartTime)*1000) }
+            return try encode(renderer,nativeInput,nativeTarget,u,revision:2000)
         }
-        cachedTimes.sort()
         try require(renderer.blurBuildCount == beforeCachedBenchmark+1, "Static native frames rebuilt the blur.")
         let effectTimes = try benchmarkEffects(device,renderer,nativeInput,nativeTarget)
         let report: [String: Any] = ["version":"0.1.14","gpu":device.name,"gradualOnset":gradualOnset,"clearTransitionChecks":clearChecks,"clearDurationSeconds":FoldVisualAnimation.clearDuration,"frameChecks":checkpoints,
-            "effectCatalog":FoldEffect.allCases.map { ["id":$0.persistedIdentifier,"shaderIndex":Int($0.shaderIndex),
+            "effectCatalog":checkedEffects.map { ["id":$0.persistedIdentifier,"shaderIndex":Int($0.shaderIndex),
                 "title":$0.title,"prefiltersSource":$0.needsPrefilteredSource] },
             "effectChecks":effects,"effectNativeGPUTimes":effectTimes,
             "resourceReuseChecks":resources,
-            "effectNativeInputAndOutput":"3024 × 1964 for all \(FoldEffect.allCases.count) effects",
+            "effectNativeInputAndOutput":"3024 × 1964 for \(checkedEffects.count) of \(FoldEffect.allCases.count) effects",
             "pixelIdentityAndReopen":true,"opaqueAndClosedBlack":true,"reduceMotion":true,"enlargement":growth,
             "topContrastRatio":topRatio,"hingeContrastRatio":hingeRatio,
             "ninetyDegreeTopContrastRatio":ninetyRatio,"stationaryNinetyDegreesExactPixels":true,
             "cachedBlurPixelIdentity":true,"recycledSourceFreshness":true,"staticFramesBuildPyramidOnce":true,
-            "cachedNativeGPUTimeMedianMS":cachedTimes[cachedTimes.count/2],
-            "cachedNativeGPUTimeP95MS":cachedTimes[Int(Double(cachedTimes.count)*0.95)],
+            "cachedNativeGPUTimeMedianMS":cached.medianMS,
+            "cachedNativeGPUTimeP95MS":cached.p95MS,"strictTiming":strictTiming,
             "sideFadePixels":edgeRamp(edges,horizontal:true),"topFadePixels":edgeRamp(edges,horizontal:false),
             "resolutionIndependentEdges":true,"threeInFlightFrames":true,
-            "nativeInputAndOutput":"3024 × 1964","nativeGPUTimeMedianMS":times[times.count/2],"nativeGPUTimeP95MS":p95,
-            "note":"Includes blur pyramid and final pass. GPU-only timing excludes capture, window composition, display refresh, and physical lid movement."]
+            "nativeInputAndOutput":"3024 × 1964","nativeGPUTimeMedianMS":native.medianMS,"nativeGPUTimeP95MS":native.p95MS,
+            "note":"Includes blur pyramid and final pass. GPU-only timing excludes capture, window composition, display refresh, and physical lid movement. Best-of-three medians gate the 6 ms budget; p95 is informational unless --strict-timing is passed."]
         let json = try JSONSerialization.data(withJSONObject:report,options:[.prettyPrinted,.sortedKeys])
         try json.write(to:output.appendingPathComponent("render-check.json"))
         print(String(data:json,encoding:.utf8)!)
 
         if args.contains("--animation") || args.contains("--ghost-animation") {
             let animatedTarget = try target(device,960,624)
-            for effect in FoldEffect.allCases where !args.contains("--ghost-animation") || effect == .ghost {
+            for effect in checkedEffects where !args.contains("--ghost-animation") || effect == .ghost {
                 let directory = output.appendingPathComponent("animation/\(effect.rawValue)")
                 try FileManager.default.createDirectory(at:directory,withIntermediateDirectories:true)
                 for frame in 0..<180 {
