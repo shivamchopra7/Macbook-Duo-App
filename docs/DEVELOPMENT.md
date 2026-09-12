@@ -82,7 +82,7 @@ scripts/appstore.sh upload     # archive and upload the build
 1. Create the app record: platform macOS, name **Macbook Duo**, primary language English, bundle identifier `com.shivamchopra.macbookduo`, any SKU.
 2. Fill the listing from [docs/appstore/listing.md](appstore/listing.md): subtitle, promotional text, description, keywords, support and marketing URLs, categories (Utilities, Entertainment), copyright and the age-rating answers.
 3. Generate the screenshots with `scripts/appstore-screenshots.sh` (it needs the packaged app, `ffmpeg` and Screen Recording access for the terminal) and upload the five 2880×1800 PNGs from `docs/appstore/screenshots/`. Regenerate them from the store build (`MACBOOKDUO_APP=build-appstore/…/Macbook Duo.app`) so the About page shows no update button.
-4. Answer App Privacy with **Data Not Collected** and enter the privacy policy URL `https://shivamchopra7.github.io/Macbook-Duo-App/privacy.html`.
+4. Answer App Privacy with **Data Not Collected** and enter the privacy policy URL `https://macbookduo.illusionart.ai/privacy.html`.
 5. Select the uploaded build, paste the *Notes for App Review* section from the listing, answer the export-compliance question, and submit for review.
 
 **Icon.** The store needs the full `AppIcon` set in `Resources/Assets.xcassets`. To replace the artwork with a 1024 px master instead of the generated brand icon, run `swift scripts/make-icon.swift Resources --from icon-1024.png`, which rewrites the `.icns`, the PNGs and the asset catalog together, then rebuild.

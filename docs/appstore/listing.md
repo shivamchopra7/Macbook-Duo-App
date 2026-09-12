@@ -17,8 +17,8 @@ Copy for the Mac App Store record of Macbook Duo 1.0.0 (build 100), bundle ident
 | Age rating | 4+ (see the answers below) |
 | Copyright | `© 2026 Shivam Chopra` |
 | Support URL | `https://github.com/shivamchopra7/Macbook-Duo-App/issues` |
-| Marketing URL | `https://shivamchopra7.github.io/Macbook-Duo-App/` |
-| Privacy policy URL | `https://shivamchopra7.github.io/Macbook-Duo-App/privacy.html` |
+| Marketing URL | `https://macbookduo.illusionart.ai/` |
+| Privacy policy URL | `https://macbookduo.illusionart.ai/privacy.html` |
 | License agreement | Apple's standard EULA (the source is MIT-licensed; nothing extra is required) |
 | Pricing | Free, all territories |
 
@@ -109,7 +109,7 @@ The resulting rating is 4+.
 |---|---|
 | Do you or your third-party partners collect data from this app? | **No** (the summary shown on the product page is **Data Not Collected**) |
 | Does the app use tracking? | No |
-| Privacy policy URL | `https://shivamchopra7.github.io/Macbook-Duo-App/privacy.html` |
+| Privacy policy URL | `https://macbookduo.illusionart.ai/privacy.html` |
 | Privacy choices URL | Leave empty |
 
 Rationale, matching the privacy manifest in `App/PrivacyInfo.xcprivacy`: the app collects no data of any kind, has no analytics or third-party SDKs, and the App Store build makes no network connections. Screen frames stay in memory while the effect runs and preferences are stored locally in user defaults.

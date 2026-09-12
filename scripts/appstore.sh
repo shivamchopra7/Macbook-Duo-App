@@ -150,7 +150,7 @@ Next steps:
   4. Fill in the listing: description, keywords, screenshots (1280x800,
      1440x900, 2560x1600 or 2880x1800), support URL
      https://github.com/shivamchopra7/Macbook-Duo-App/issues and privacy policy
-     URL https://shivamchopra7.github.io/Macbook-Duo-App/privacy.html.
+     URL https://macbookduo.illusionart.ai/privacy.html.
   5. Complete App Privacy (no data collected) and the export compliance
      question (no non-exempt encryption; ITSAppUsesNonExemptEncryption is
      already false in Info.plist).
