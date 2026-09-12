@@ -12,14 +12,25 @@ import OSLog
     private let logger = Logger(subsystem:"com.shivamchopra.macbookduo",category:"settings")
     func applicationDidFinishLaunching(_ notification: Notification) {
         model = AppModel()
-        let content = NSHostingView(rootView:Controls(model:model,updater:updater))
+        let content = NSHostingView(rootView:SettingsRootView(model:model,updater:updater))
         // The window owns its size. SwiftUI's ideal content height must never
         // stretch it to the screen edges; every control stays visible beside the preview.
         content.sizingOptions = []
         window = NSWindow(contentRect:NSRect(x:0,y:0,width:940,height:528),styleMask:[.titled,.closable,.miniaturizable,.resizable],backing:.buffered,defer:false)
         window.delegate = self
+        // The title stays for accessibility and window listings; the glass header
+        // draws under the transparent title bar and around the traffic lights.
         window.title = "Macbook Duo"
+        window.styleMask.insert(.fullSizeContentView)
         window.titlebarAppearsTransparent = true
+        window.titleVisibility = .hidden
+        window.titlebarSeparatorStyle = .none
+        // An empty unified toolbar makes the title bar as tall as the glass header,
+        // so the traffic lights sit on the header's centre line.
+        let toolbar = NSToolbar(identifier:"MacbookDuoSettingsChrome")
+        toolbar.showsBaselineSeparator = false
+        window.toolbar = toolbar
+        window.toolbarStyle = .unified
         window.backgroundColor = .windowBackgroundColor
         window.contentView = content
         window.collectionBehavior = [.fullScreenNone]
