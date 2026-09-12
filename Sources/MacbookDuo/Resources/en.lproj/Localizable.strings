@@ -199,5 +199,5 @@
 "Version %@" = "Version %@";
 "Open source on GitHub" = "Open source on GitHub";
 "Needs a MacBook with a lid-angle sensor. Use Replay to see the effects." = "Needs a MacBook with a lid-angle sensor. Use Replay to see the effects.";
-"No lid sensor" = "No lid sensor";
-"This Mac has no lid-angle sensor. Replay and Preview angle still show every effect." = "This Mac has no lid-angle sensor. Replay and Preview angle still show every effect.";
+"MacBook unsupported" = "MacBook unsupported";
+"Unsupported MacBook: no lid-angle sensor. Replay and Preview angle still show every effect." = "Unsupported MacBook: no lid-angle sensor. Replay and Preview angle still show every effect.";

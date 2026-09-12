@@ -205,7 +205,7 @@ import ServiceManagement
         sensor.onUnsupported = { [weak self] in
             guard let self, !self.sensorUnsupported else { return }
             self.sensorUnsupported = true
-            self.status = L10n.text("This Mac has no lid-angle sensor. Replay and Preview angle still show every effect.")
+            self.status = L10n.text("Unsupported MacBook: no lid-angle sensor. Replay and Preview angle still show every effect.")
         }
         capture.onFirstFrame = { [weak self] in self?.update() }
         capture.onUnavailable = { [weak self] in self?.hideOverlay() }
@@ -213,7 +213,7 @@ import ServiceManagement
         registerHotKey()
         if simulatesMissingSensor {
             sensorUnsupported = true
-            status = L10n.text("This Mac has no lid-angle sensor. Replay and Preview angle still show every effect.")
+            status = L10n.text("Unsupported MacBook: no lid-angle sensor. Replay and Preview angle still show every effect.")
         } else {
             sensor.start()
         }
@@ -296,7 +296,7 @@ import ServiceManagement
         guard !checkingPermission else { return }
         guard device != nil else { status = L10n.text("This Mac does not have a supported Metal GPU.");return }
         guard sensorAvailable else {
-            status = L10n.text(sensorUnsupported ? "This Mac has no lid-angle sensor. Replay and Preview angle still show every effect."
+            status = L10n.text(sensorUnsupported ? "Unsupported MacBook: no lid-angle sensor. Replay and Preview angle still show every effect."
                                                  : "No working lid angle sensor was found. The preview still works.")
             return
         }

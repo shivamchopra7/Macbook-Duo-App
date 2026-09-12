@@ -45,11 +45,11 @@ struct SettingsHeader: View {
             .ignoresSafeArea()
     }
 
-    /// "Lid 102°" while reading, "No lid sensor" once discovery has given up,
+    /// "Lid 102°" while reading, "MacBook unsupported" once discovery has given up,
     /// and "Looking for sensor" only while it is genuinely still looking.
     private var lidText: String {
         if let angle = model.lidAngle { return L10n.format("Lid %.0f°",angle) }
-        return L10n.text(model.sensorUnsupported ? "No lid sensor" : "Looking for sensor")
+        return L10n.text(model.sensorUnsupported ? "MacBook unsupported" : "Looking for sensor")
     }
 
     private var lidPill: some View {

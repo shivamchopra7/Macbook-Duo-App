@@ -199,5 +199,5 @@
 "Version %@" = "バージョン %@";
 "Open source on GitHub" = "GitHub でオープンソース";
 "Needs a MacBook with a lid-angle sensor. Use Replay to see the effects." = "蓋の角度センサーを備えた MacBook が必要です。「再生」でエフェクトを確認できます。";
-"No lid sensor" = "センサーなし";
-"This Mac has no lid-angle sensor. Replay and Preview angle still show every effect." = "この Mac には蓋の角度センサーがありません。「再生」と「プレビュー角度」ですべてのエフェクトを確認できます。";
+"MacBook unsupported" = "非対応の MacBook";
+"Unsupported MacBook: no lid-angle sensor. Replay and Preview angle still show every effect." = "非対応の MacBook：蓋の角度センサーがありません。「再生」と「プレビュー角度」ですべてのエフェクトを確認できます。";
