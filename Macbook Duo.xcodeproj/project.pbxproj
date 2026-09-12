@@ -11,6 +11,7 @@
 		0E9754D00E0344D661CE23E0 /* RenderCheck+Fold.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7B64B3940A7042B8856CC82 /* RenderCheck+Fold.swift */; };
 		115B0FE492BAB153D3EE2347 /* MotionTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E7BEC01A231154331152614 /* MotionTab.swift */; };
 		120FC00572CFED5BA102FE0B /* RenderCheck+Ghost.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D9525EB40AD7970CF35D16E /* RenderCheck+Ghost.swift */; };
+		15C9C3EEA48021907AFC11C1 /* ServiceManagement.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 69C75BEE2AF00FA4C6BB7FDD /* ServiceManagement.framework */; };
 		162717120542ECBCA8C9727D /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4810065C7417010B38BA4CC1 /* main.swift */; };
 		1A4D0EA81EAAE3AEE296FF83 /* EffectOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F65DF8FE7EE9D3E509B2B907 /* EffectOptions.swift */; };
 		1A99191D72A9FFF03AD415C4 /* ShaderAccordion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 100D9EE1E1CAF96E0FF12287 /* ShaderAccordion.swift */; };
@@ -20,6 +21,8 @@
 		25DCC11E36BB99680C56409F /* SettingsHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09B5182FB32611EB75E99B70 /* SettingsHeader.swift */; };
 		26E1D118293522FF14311EC6 /* ShaderCurtain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99FA8341B193BDE80BEB1CEA /* ShaderCurtain.swift */; };
 		280E69C99D6CDAFDCC627A76 /* MetalPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86CA8B805C000DFDD9C44E0F /* MetalPreview.swift */; };
+		2836E9EEC6CD43D643699A65 /* ScreenCaptureKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8ACA817373E1B02D686DA06F /* ScreenCaptureKit.framework */; };
+		28BB682CD25A590F14999D80 /* MetalKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5D59EE517F341680617C636A /* MetalKit.framework */; };
 		293E70CFC373E16749F3A25F /* UpdateJob.swift in Sources */ = {isa = PBXBuildFile; fileRef = E01ECE4F29C5C0F4B5FD1BF8 /* UpdateJob.swift */; };
 		2BB9A75F239B6587C77B0473 /* AppError.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAD12B43FE9114FCC7E36BBD /* AppError.swift */; };
 		2DCCD77D617C03C93DAE3CE9 /* UpdateInstallation.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B6CFEC043401A847A30970 /* UpdateInstallation.swift */; };
@@ -59,6 +62,7 @@
 		9227A5F61D4A86279BF97E7A /* LookTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EFFA7765DFBCF8666FA9918 /* LookTab.swift */; };
 		93463AFFC791C167D740D05B /* RenderCheck.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0542F0D4B6A8310ED42FD7E /* RenderCheck.swift */; };
 		9573E15D3DD354B58551DDAC /* AppModel+System.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BE031475F4FAEB7BE5D85FB /* AppModel+System.swift */; };
+		967B596A3466F7952114CC70 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BFCAF361E17968B24DE2C130 /* Carbon.framework */; };
 		976CB532772F2AD4B6DCCBFC /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = E4640B0C92D72899E78087B7 /* PrivacyInfo.xcprivacy */; };
 		98793BB636DE33B9AC10E72F /* UpdateArchive.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61A52FA583686693EEA13C32 /* UpdateArchive.swift */; };
 		9A1B16469CF1163DA1D6A22F /* FoldShader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45280B4ECAEB585E03A498FF /* FoldShader.swift */; };
@@ -82,19 +86,10 @@
 		CEED7970CC77B4B15DD458E4 /* GlassSliderRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5915A4C1569C81BFB0A88CC0 /* GlassSliderRow.swift */; };
 		D544326C5746D1273CAA6ABB /* AppAppearance.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0CC01BAC05B36CF72894A32 /* AppAppearance.swift */; };
 		D8546157684B9CF58B7106A1 /* FoldUniforms.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4956D8B20B96D39DD3E113B4 /* FoldUniforms.swift */; };
+		DA528DE55CF09E5DACE4F36C /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 68BCE88CC8F4C2A787C39E94 /* IOKit.framework */; };
 		DAF757A6DE1CF942A26A8B46 /* ShaderGhost.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EEE19452082D613B45D31D4 /* ShaderGhost.swift */; };
 		DCD79568D414C6DFC3CD5261 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DB1ED385A69C899B56F1C081 /* Assets.xcassets */; };
 		DFF9C97A80FD94B44B306994 /* MacbookDuoMark.png in Resources */ = {isa = PBXBuildFile; fileRef = 9CE1EB8A2C14466890A01401 /* MacbookDuoMark.png */; };
-		E2ACD9A63055D03600E50891 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BFCAF361E17968B24DE2C130 /* Carbon.framework */; };
-		E2ACD9A73055D03600E50891 /* Carbon.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = BFCAF361E17968B24DE2C130 /* Carbon.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		E2ACD9A93055D03800E50891 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 68BCE88CC8F4C2A787C39E94 /* IOKit.framework */; };
-		E2ACD9AA3055D03800E50891 /* IOKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 68BCE88CC8F4C2A787C39E94 /* IOKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		E2ACD9AB3055D03900E50891 /* MetalKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5D59EE517F341680617C636A /* MetalKit.framework */; };
-		E2ACD9AC3055D03900E50891 /* MetalKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 5D59EE517F341680617C636A /* MetalKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		E2ACD9AD3055D03B00E50891 /* ScreenCaptureKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8ACA817373E1B02D686DA06F /* ScreenCaptureKit.framework */; };
-		E2ACD9AE3055D03B00E50891 /* ScreenCaptureKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8ACA817373E1B02D686DA06F /* ScreenCaptureKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		E2ACD9AF3055D03E00E50891 /* ServiceManagement.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 69C75BEE2AF00FA4C6BB7FDD /* ServiceManagement.framework */; };
-		E2ACD9B03055D03E00E50891 /* ServiceManagement.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 69C75BEE2AF00FA4C6BB7FDD /* ServiceManagement.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		E3AF9F68E8DCCDF1C22AA0F2 /* GlassSurface.swift in Sources */ = {isa = PBXBuildFile; fileRef = B106712EE2BE7E87D0917A87 /* GlassSurface.swift */; };
 		E57DDEDF326ACABF8EB716AD /* ShaderFold.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7630D806E7A8489EFE88939 /* ShaderFold.swift */; };
 		E5F55AFF4132BD5B3B56E74E /* AppModel+Overlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACF2404CD0E1BEF8AE32CCE0 /* AppModel+Overlay.swift */; };
@@ -118,24 +113,6 @@
 			remoteInfo = FoldCore;
 		};
 /* End PBXContainerItemProxy section */
-
-/* Begin PBXCopyFilesBuildPhase section */
-		E2ACD9A83055D03600E50891 /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				E2ACD9AC3055D03900E50891 /* MetalKit.framework in Embed Frameworks */,
-				E2ACD9A73055D03600E50891 /* Carbon.framework in Embed Frameworks */,
-				E2ACD9B03055D03E00E50891 /* ServiceManagement.framework in Embed Frameworks */,
-				E2ACD9AE3055D03B00E50891 /* ScreenCaptureKit.framework in Embed Frameworks */,
-				E2ACD9AA3055D03800E50891 /* IOKit.framework in Embed Frameworks */,
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		02405F28D04999337F2C95D5 /* RenderCheck+Ripple.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RenderCheck+Ripple.swift"; sourceTree = "<group>"; };
@@ -190,7 +167,7 @@
 		8ACA95656BFE1FA526104779 /* GlassCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlassCard.swift; sourceTree = "<group>"; };
 		8E8465CEA85B6EE94A2E084F /* OverlayPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverlayPanel.swift; sourceTree = "<group>"; };
 		8E8EE0A16977CA6B2653920C /* LidMotionReference.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LidMotionReference.swift; sourceTree = "<group>"; };
-		964B6F2DF58806D5BD00ED04 /* Macbook Duo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Macbook Duo.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		964B6F2DF58806D5BD00ED04 /* MacbookDuo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MacbookDuo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		99FA8341B193BDE80BEB1CEA /* ShaderCurtain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShaderCurtain.swift; sourceTree = "<group>"; };
 		9CE1EB8A2C14466890A01401 /* MacbookDuoMark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MacbookDuoMark.png; sourceTree = "<group>"; };
 		A0DFA7A008EC9CC00C3B2552 /* UpdateReplacement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateReplacement.swift; sourceTree = "<group>"; };
@@ -223,7 +200,7 @@
 		DDE4DA8A7FD6FCD286BF84C8 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		E01ECE4F29C5C0F4B5FD1BF8 /* UpdateJob.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateJob.swift; sourceTree = "<group>"; };
 		E0CC01BAC05B36CF72894A32 /* AppAppearance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppAppearance.swift; sourceTree = "<group>"; };
-		E4640B0C92D72899E78087B7 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
+		E4640B0C92D72899E78087B7 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		E7B64B3940A7042B8856CC82 /* RenderCheck+Fold.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RenderCheck+Fold.swift"; sourceTree = "<group>"; };
 		E897ED56790474632995E1B0 /* SettingsRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsRootView.swift; sourceTree = "<group>"; };
 		EBB154E070A2EE673CAF4219 /* ATTRIBUTION.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = ATTRIBUTION.md; sourceTree = "<group>"; };
@@ -247,12 +224,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E2ACD9A63055D03600E50891 /* Carbon.framework in Frameworks */,
-				E2ACD9AD3055D03B00E50891 /* ScreenCaptureKit.framework in Frameworks */,
-				E2ACD9AF3055D03E00E50891 /* ServiceManagement.framework in Frameworks */,
 				BF9EFD47F9B5AF75796282A5 /* libFoldCore.a in Frameworks */,
-				E2ACD9A93055D03800E50891 /* IOKit.framework in Frameworks */,
-				E2ACD9AB3055D03900E50891 /* MetalKit.framework in Frameworks */,
+				967B596A3466F7952114CC70 /* Carbon.framework in Frameworks */,
+				DA528DE55CF09E5DACE4F36C /* IOKit.framework in Frameworks */,
+				2836E9EEC6CD43D643699A65 /* ScreenCaptureKit.framework in Frameworks */,
+				15C9C3EEA48021907AFC11C1 /* ServiceManagement.framework in Frameworks */,
+				28BB682CD25A590F14999D80 /* MetalKit.framework in Frameworks */,
 				5CC3FBA7A474C2CC0B1F6A0E /* libz.tbd in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -342,7 +319,7 @@
 			isa = PBXGroup;
 			children = (
 				39CF698EB640F6EDC3735BA6 /* libFoldCore.a */,
-				964B6F2DF58806D5BD00ED04 /* Macbook Duo.app */,
+				964B6F2DF58806D5BD00ED04 /* MacbookDuo.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -566,7 +543,6 @@
 				0950BFC5859A3C9EF0C040E4 /* Sources */,
 				A37E957250F7FF3AB3251DA1 /* Resources */,
 				6F33325C99538980FCFA171E /* Frameworks */,
-				E2ACD9A83055D03600E50891 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -577,7 +553,7 @@
 			packageProductDependencies = (
 			);
 			productName = MacbookDuo;
-			productReference = 964B6F2DF58806D5BD00ED04 /* Macbook Duo.app */;
+			productReference = 964B6F2DF58806D5BD00ED04 /* MacbookDuo.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -587,7 +563,7 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = YES;
-				LastUpgradeCheck = 2660;
+				LastUpgradeCheck = 2600;
 				TargetAttributes = {
 					828B87FEA3D87F2441FF4F36 = {
 						DevelopmentTeam = ZB6623U832;
@@ -792,7 +768,6 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = App/MacbookDuo.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
-				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 100;
@@ -803,8 +778,6 @@
 				EXECUTABLE_NAME = MacbookDuo;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = App/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "Macbook Duo";
-				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
@@ -827,7 +800,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
-				DEAD_CODE_STRIPPING = YES;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
@@ -844,7 +816,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
-				DEAD_CODE_STRIPPING = YES;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
@@ -861,7 +832,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -892,11 +862,10 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
-				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
-				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -917,7 +886,6 @@
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
-				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -928,7 +896,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -959,11 +926,10 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
-				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -977,7 +943,6 @@
 				MTL_FAST_MATH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
-				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				SWIFT_VERSION = 5.0;
@@ -990,7 +955,6 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = App/MacbookDuo.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
-				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 100;
@@ -1001,8 +965,6 @@
 				EXECUTABLE_NAME = MacbookDuo;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = App/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "Macbook Duo";
-				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
