@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<meta name="description" content="Macbook Duo privacy policy. The app collects no data, keeps desktop frames in memory only, and the Mac App Store build has no network access at all.">
+<link rel="canonical" href="https://shivamchopra7.github.io/Macbook-Duo-App/privacy.html">
+<meta property="og:title" content="Privacy Policy — Macbook Duo">
+<meta property="og:description" content="Macbook Duo collects no data, stores nothing off your Mac and sends nothing anywhere.">
+<meta property="og:url" content="https://shivamchopra7.github.io/Macbook-Duo-App/privacy.html">
+<meta property="og:image" content="https://shivamchopra7.github.io/Macbook-Duo-App/assets/social.jpg">
+<meta name="theme-color" content="#2F6BFF">
+<title>Privacy Policy — Macbook Duo</title>
+<link rel="icon" href="assets/mark.png" type="image/png">
+<link rel="apple-touch-icon" href="assets/app-icon.png">
+<link rel="stylesheet" href="style.css">
+<style>
+/* Page-specific layout for a long-form document; colours and glass come from style.css. */
+.policy{max-width:760px;margin:0 auto;padding:56px 0 90px}
+.policy h1{font-size:clamp(38px,6vw,58px);line-height:1.08;letter-spacing:-2.4px;margin:0 0 14px}
+.policy .updated{font-family:ui-monospace,monospace;font-size:11px;letter-spacing:.6px;color:var(--accent);margin:0 0 30px}
+.policy .summary{border-radius:16px;padding:22px 24px;margin:0 0 40px;border-left:3px solid var(--accent)}
+.policy .summary p{margin:0;font-size:16px;line-height:1.7;color:var(--ink)}
+.policy h2{font-size:22px;font-weight:600;letter-spacing:-.5px;margin:40px 0 12px}
+.policy p,.policy li{font-size:15px;line-height:1.75;color:var(--muted);margin:0 0 12px}
+.policy p strong,.policy li strong,.policy td strong{color:var(--ink)}
+.policy ul{padding-left:22px;margin:0 0 12px}
+.policy li{margin:6px 0}
+.policy a{color:var(--accent);text-decoration:underline;text-underline-offset:3px}
+.policy table{width:100%;border-collapse:collapse;font-size:14px;margin:12px 0 16px}
+.policy th,.policy td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top;line-height:1.6}
+.policy th{font-weight:600;color:var(--ink)}
+.policy td{color:var(--muted)}
+.policy .back{margin-top:44px}
+@media(max-width:700px){.policy{padding-top:32px}.policy th,.policy td{padding:8px 6px;font-size:13px}}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<div class="glow" aria-hidden="true"></div>
+
+<header class="nav wrap">
+  <a class="brand" href="./" aria-label="Macbook Duo home"><img src="assets/mark.png" alt="" width="28" height="28">Macbook Duo</a>
+  <nav aria-label="Main">
+    <a href="./#effects">Effects</a>
+    <a href="./#options">Options</a>
+    <a href="./#install">Install</a>
+    <a href="https://github.com/shivamchopra7/Macbook-Duo-App">GitHub <span aria-hidden="true">↗</span></a>
+  </nav>
+</header>
+
+<main id="main" class="wrap">
+  <article class="policy">
+    <p class="eyebrow"><span class="dot"></span> PRIVACY POLICY</p>
+    <h1>Your desktop stays on your Mac.</h1>
+    <p class="updated">LAST UPDATED 12 SEPTEMBER 2026 · APPLIES TO MACBOOK DUO 1.0.0 AND LATER, INCLUDING THE MAC APP STORE BUILD</p>
+
+    <aside class="summary glass" aria-label="Summary">
+      <p><strong>Macbook Duo does not collect, store or transmit any data.</strong> There are no accounts, no analytics, no advertising, no crash reporting and no third-party SDKs. The Mac App Store build has no network access at all. Everything the app does happens on your Mac, in memory, while you are using it.</p>
+    </aside>
+
+    <h2>Who this policy covers</h2>
+    <p>This policy describes the Macbook Duo app for macOS, published by Shivam Chopra, in both of its builds: the version distributed on the Mac App Store and the direct-download version published on GitHub. The two builds are compiled from the same source code and behave identically, except for the update mechanism described below.</p>
+
+    <h2>What Macbook Duo does with your screen</h2>
+    <p>Macbook Duo animates your desktop as the MacBook lid moves. To draw that animation it needs a live copy of what is on the built-in display, which it obtains through Apple's ScreenCaptureKit after you grant <strong>Screen Recording</strong> permission.</p>
+    <ul>
+      <li>Screen frames are captured <strong>only while the effect is running</strong>, that is, while the lid is moving and the animation is on screen. Capture stops as soon as the desktop clears, when you pause the app and when you quit it.</li>
+      <li>Frames <strong>stay in memory</strong> on the graphics processor and in a small, bounded buffer. They are <strong>never written to disk</strong>, never saved as images or video, never analyzed, and <strong>never sent anywhere</strong>.</li>
+      <li>Audio is never captured. Macbook Duo's own windows are excluded from the capture.</li>
+      <li>Screen Recording permission is used <strong>solely to render the effect</strong>. Nothing else in the app reads the screen. You can revoke the permission at any time in System Settings → Privacy &amp; Security → Screen &amp; System Audio Recording; the app then falls back to its built-in preview artwork.</li>
+    </ul>
+
+    <h2>The lid-angle sensor</h2>
+    <p>Macbook Duo reads the angle of the lid from the sensor built into recent MacBooks. The reading is a single number that drives the animation. It is not logged, stored or transmitted. On a Mac without the sensor the app still runs and shows the effect with the Replay and Test desktop buttons.</p>
+
+    <h2>Network access</h2>
+    <table>
+      <thead><tr><th scope="col">Build</th><th scope="col">Network activity</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Mac App Store</strong></td><td><strong>None.</strong> The App Store build contains no networking code. It never connects to any server, and updates arrive through the App Store itself.</td></tr>
+        <tr><td><strong>Direct download (GitHub)</strong></td><td>The app contacts GitHub <strong>only when you choose Check for Updates</strong>, to read the latest release information and, if you confirm, download the new version over HTTPS. There is no background polling. The request carries no identifier, no preference and no screen content; GitHub sees the same connection information any web request carries and handles it under <a href="https://docs.github.com/site-policy/privacy-policies/github-general-privacy-statement">GitHub's privacy statement</a>.</td></tr>
+      </tbody>
+    </table>
+
+    <h2>Preferences</h2>
+    <p>Your settings, such as the chosen effect, its tuning, the appearance, whether the menu-bar icon is shown and whether the app opens at login, are stored <strong>locally on your Mac</strong> in the app's standard preferences. They never leave the device. Removing the app or resetting to defaults removes or restores them.</p>
+
+    <h2>Permissions the app may ask for</h2>
+    <table>
+      <thead><tr><th scope="col">Permission</th><th scope="col">Why</th><th scope="col">Required?</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Screen Recording</strong></td><td>To render a live copy of the desktop inside the effect.</td><td>Only to animate your real desktop. The preview and Replay work without it.</td></tr>
+        <tr><td><strong>Open at login</strong></td><td>To start the app when you log in, if you turn that option on. It opens paused.</td><td>No. Off by default.</td></tr>
+      </tbody>
+    </table>
+    <p>The Mac App Store build runs inside the macOS App Sandbox. Its only additional entitlement lets it read the built-in lid-angle sensor; it has no entitlement for the network, your files, your camera, your microphone, your location or your contacts.</p>
+
+    <h2>What Macbook Duo does not do</h2>
+    <ul>
+      <li>It does not collect personal information of any kind.</li>
+      <li>It does not use analytics, telemetry, crash reporting or advertising.</li>
+      <li>It does not require or offer an account.</li>
+      <li>It does not include third-party SDKs or frameworks; it is written in Swift and Metal using Apple's system frameworks only.</li>
+      <li>It does not track you across apps or websites, and it does not share data with anyone, because it has none to share.</li>
+    </ul>
+
+    <h2>Children</h2>
+    <p>Macbook Duo is suitable for all ages and does not knowingly collect information from anyone, including children, because it collects no information at all.</p>
+
+    <h2>Open source</h2>
+    <p>The complete source code is published under the MIT License at <a href="https://github.com/shivamchopra7/Macbook-Duo-App">github.com/shivamchopra7/Macbook-Duo-App</a>, so every statement on this page can be checked against the code.</p>
+
+    <h2>Changes to this policy</h2>
+    <p>If the app's behaviour ever changes in a way that affects privacy, this page will be updated and the date at the top revised. The policy is versioned with the source code, so its history is visible in the repository.</p>
+
+    <h2>Contact</h2>
+    <p>Questions or concerns about privacy are welcome on the project's GitHub issues page: <a href="https://github.com/shivamchopra7/Macbook-Duo-App/issues">github.com/shivamchopra7/Macbook-Duo-App/issues</a>.</p>
+
+    <p class="back"><a class="button secondary" href="./">← Back to Macbook Duo</a></p>
+  </article>
+</main>
+
+<footer class="wrap">
+  <span>Macbook Duo <span class="muted">/ 1.0.0</span> · Made by Shivam Chopra · <span class="muted">Independent software, not affiliated with Apple.</span></span>
+  <span><a href="privacy.html">Privacy</a> · <a href="https://github.com/shivamchopra7/Macbook-Duo-App/blob/main/CHANGELOG.md">What's new ↗</a></span>
+</footer>
+</body>
+</html>

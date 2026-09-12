@@ -50,6 +50,45 @@ scripts/release.sh 1.0.0
 
 `release.sh <version>` builds both architectures, runs `package.sh`, then creates the GitHub release `v<version>` with `gh release create`, attaching the assets under the exact names the updater expects and using `CHANGELOG.md` as the notes. Keep those asset names stable: `AppUpdater` selects `Macbook-Duo-mac.zip` on ARM64 and `Macbook-Duo-Intel.zip` on x86_64 and validates both against `Macbook-Duo-SHA256SUMS.txt`. Bump `CFBundleShortVersionString` and `CFBundleVersion` in `build.sh`, the `version` field in `RenderCheck.swift`, and the changelog before tagging.
 
+## Mac App Store
+
+Macbook Duo ships in two flavours from the same sources.
+
+| Flavour | Built by | Updates | Signing and runtime |
+|---|---|---|---|
+| Direct download | `./build.sh` (SwiftPM) | In-app updater against the GitHub release | Ad-hoc or Apple Development, not notarized, no sandbox |
+| Mac App Store | `Macbook Duo.xcodeproj`, scheme `Macbook Duo` | The App Store; the updater is compiled out | Apple Distribution, App Sandbox, Hardened Runtime |
+
+The Xcode project is generated from `project.yml` at the repository root with [xcodegen](https://github.com/yonaskolb/XcodeGen) (`xcodegen generate`; version 2.46 is known to work). It defines two targets: the static library `FoldCore` from `Sources/FoldCore` and the app `MacbookDuo`, which produces `Macbook Duo.app` with the executable `MacbookDuo`, bundle identifier `com.shivamchopra.macbookduo`, `App/Info.plist`, the entitlements in `App/MacbookDuo.entitlements`, the privacy manifest `App/PrivacyInfo.xcprivacy` and the asset catalog `Resources/Assets.xcassets` with its `AppIcon` set. The store target sets `SWIFT_ACTIVE_COMPILATION_CONDITIONS = APPSTORE`; the SwiftPM build does not define it and keeps the updater.
+
+**What `APPSTORE` removes.** App Review Guideline 2.4.5 forbids apps that download or install code or replace themselves, so the store build must not contain the self-updater. Under `APPSTORE` the files in `Sources/MacbookDuo/Updates/` (`AppUpdater`, `UpdateDownload`, `UpdateJob` and `UpdateInstallation*`) are compiled out, together with the **Check for Updates…** menu item and `UpdateInstallation.confirmRelaunch()` in `AppDelegate.swift`, the `--update-*` diagnostic flags in `main.swift`, the update button in `SettingsHeader.swift` and the button in `AboutTab.swift`. The pure parsing code in `Sources/FoldCore/Updates` stays, because it has no side effects and its tests still run. Check the SwiftPM build under the same condition with `swift build -Xswiftc -DAPPSTORE`; CI runs that and an unsigned `xcodebuild` of the store scheme on every push.
+
+**Entitlements and why.** `com.apple.security.app-sandbox` is mandatory for the store. `com.apple.security.device.usb` is the one addition: the lid-angle sensor is a built-in IOKit HID device, and `IOHIDManagerOpen` fails under App Sandbox alone but succeeds with this standard entitlement, so no temporary-exception entitlement is needed. Verify on a supported MacBook with `"Macbook Duo.app/Contents/MacOS/MacbookDuo" --sensor-check`, which prints the lid angle or an explicit failure. ScreenCaptureKit, `SMAppService` login items, Carbon hot keys, `IOPSCopyPowerSourcesInfo` and runtime Metal shader compilation all work under App Sandbox and Hardened Runtime without further entitlements. The store build never touches the network, so it has no network entitlement.
+
+**Privacy manifest.** `App/PrivacyInfo.xcprivacy` declares the two required-reason APIs the app uses, `ProcessInfo.systemUptime` (`NSPrivacyAccessedAPICategorySystemBootTime`, reason `35F9.1`) and `UserDefaults` (`NSPrivacyAccessedAPICategoryUserDefaults`, reason `CA92.1`), with `NSPrivacyTracking` false and no collected data types. Add an entry whenever a new required-reason API is introduced; App Store Connect rejects uploads that use one without declaring it.
+
+**Team and signing.** Signing is automatic under the team `ZB6623U832` (ILLUSIONART AI PRIVATE LIMITED), set as `DEVELOPMENT_TEAM` in `project.yml`, which is where to change it for another account before regenerating the project; the same setting is visible under *Signing & Capabilities* in Xcode. An *Apple Distribution* certificate for the team must be in the login keychain for archiving, and the bundle identifier must match the App Store Connect record. Keep the version and build number in the Xcode project in step with `build.sh` and the changelog; App Store Connect needs a strictly higher build number for every upload.
+
+**Archive and upload.** In Xcode open `Macbook Duo.xcodeproj`, select the `Macbook Duo` scheme with the *My Mac* destination and choose *Product → Archive*. In the Organizer choose *Distribute App → App Store Connect → Upload* (or *Export* to validate first). The same flow is scripted:
+
+```sh
+scripts/appstore.sh validate   # archive and validate against App Store Connect
+scripts/appstore.sh export     # archive and export the signed app into build-appstore/
+scripts/appstore.sh upload     # archive and upload the build
+```
+
+**App Store Connect checklist.**
+
+1. Create the app record: platform macOS, name **Macbook Duo**, primary language English, bundle identifier `com.shivamchopra.macbookduo`, any SKU.
+2. Fill the listing from [docs/appstore/listing.md](appstore/listing.md): subtitle, promotional text, description, keywords, support and marketing URLs, categories (Utilities, Entertainment), copyright and the age-rating answers.
+3. Generate the screenshots with `scripts/appstore-screenshots.sh` (it needs the packaged app, `ffmpeg` and Screen Recording access for the terminal) and upload the five 2880×1800 PNGs from `docs/appstore/screenshots/`. Regenerate them from the store build (`MACBOOKDUO_APP=build-appstore/…/Macbook Duo.app`) so the About page shows no update button.
+4. Answer App Privacy with **Data Not Collected** and enter the privacy policy URL `https://shivamchopra7.github.io/Macbook-Duo-App/privacy.html`.
+5. Select the uploaded build, paste the *Notes for App Review* section from the listing, answer the export-compliance question, and submit for review.
+
+**Icon.** The store needs the full `AppIcon` set in `Resources/Assets.xcassets`. To replace the artwork with a 1024 px master instead of the generated brand icon, run `swift scripts/make-icon.swift Resources --from icon-1024.png`, which rewrites the `.icns`, the PNGs and the asset catalog together, then rebuild.
+
+**TestFlight for macOS.** Every build uploaded to App Store Connect can be tested before review. Open the app's *TestFlight* tab, add internal testers (App Store Connect users, no review) or an external group (a short Beta App Review), and testers install the *TestFlight* app from the Mac App Store and redeem the invitation. TestFlight builds run with the same sandbox, entitlements and signing as the store build, so use them to confirm the lid sensor, the Screen Recording prompt and Open at login on real hardware; builds expire after 90 days, and a build cannot be tested until its export-compliance answer is recorded.
+
 ## Icon
 
 The app icon and the menu-bar template mark are rendered from code so the brand assets are reproducible:
@@ -108,7 +147,8 @@ The remaining diagnostics exercise the real app and the updater:
 ```
 Package.swift             SwiftPM manifest: FoldCore library, MacbookDuo app, two test targets
 build.sh                  Builds, strips, bundles and signs "Macbook Duo.app"
-scripts/                  package.sh (DMG, ZIP, checksums), release.sh (GitHub release), make-icon.swift (brand assets)
+scripts/                  package.sh (DMG, ZIP, checksums), release.sh (GitHub release), make-icon.swift (brand assets),
+                          appstore.sh (validate, export, upload) and appstore-screenshots.sh (store screenshots)
 Resources/                App icon (.icns, .png) and the menu-bar template mark
 Sources/FoldCore/         Platform-independent core with no AppKit or Metal dependency
   Effects/                FoldEffect catalog (ids, shader indices, titles, summaries) and EffectOptions with FoldCurve
@@ -127,7 +167,8 @@ Sources/MacbookDuo/       The menu-bar app
   Resources/              en, zh-Hans, zh-Hant and ja .lproj string tables
 Tests/FoldCoreTests/      Unit tests for effects, options, motion, pacing and updates
 Tests/LocalizationTests/  Key coverage and format-placeholder checks across all languages
-docs/                     GitHub Pages site (index.html, style.css, assets/) and this guide
+docs/                     GitHub Pages site (index.html, privacy.html, style.css, assets/), this guide,
+                          and appstore/ with the App Store Connect listing copy and screenshots
 ```
 
 Every file stays under 400 lines; split a file rather than growing it past that.

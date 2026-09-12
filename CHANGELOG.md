@@ -13,6 +13,15 @@
 - **Requirements.** macOS 13 Ventura or newer on Apple silicon, with a native Intel preview build. A MacBook with a continuous lid-angle sensor is required: MacBook Air with M2 or newer, or 14-/16-inch MacBook Pro with M1 Pro/Max or newer. The M1 MacBook Air and 13-inch M1/M2 MacBook Pro are unsupported.
 - **Release assets.** `Macbook-Duo.dmg` and `Macbook-Duo-mac.zip` for Apple silicon, `Macbook-Duo-Intel.dmg` and `Macbook-Duo-Intel.zip` for Intel, and `Macbook-Duo-SHA256SUMS.txt`, all produced by `scripts/package.sh` and published by `scripts/release.sh`.
 
+## 1.0.0 (App Store)
+
+The Mac App Store submission of 1.0.0 is built from the same sources by the Xcode project `Macbook Duo.xcodeproj` (scheme `Macbook Duo`) with the `APPSTORE` compilation condition. It behaves like the direct download except where noted here.
+
+- **Sandboxed build.** App Sandbox and Hardened Runtime, signed with an Apple Distribution certificate. Besides `com.apple.security.app-sandbox`, the only entitlement is `com.apple.security.device.usb`, which the built-in lid-angle sensor needs to stay readable inside the sandbox.
+- **No self-updater.** The in-app updater, its menu items, buttons and `--update-*` diagnostic flags are compiled out; updates arrive through the App Store, as App Review Guideline 2.4.5 requires. The pure release-parsing code in FoldCore is unchanged.
+- **Privacy manifest.** `App/PrivacyInfo.xcprivacy` declares the two required-reason APIs the app uses (system boot time for the animation clock, user defaults for preferences), no tracking and no collected data.
+- **Listing assets.** App Store Connect copy in `docs/appstore/listing.md`, five 2880×1800 screenshots produced by `scripts/appstore-screenshots.sh`, the published privacy policy at `docs/privacy.html`, and CI coverage of both build flavours.
+
 ## Earlier
 
 1.0.0 is the first Macbook Duo release. The codebase descends from the MIT-licensed Mac Duo project; see [LICENSE](LICENSE) and [ATTRIBUTION.md](ATTRIBUTION.md) for the license text and third-party notices.
