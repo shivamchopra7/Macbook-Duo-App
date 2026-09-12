@@ -16,3 +16,4 @@ dist/
 DerivedData/
 build-appstore/
 .build-appstore/
+.claude/

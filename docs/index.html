@@ -4,10 +4,10 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="color-scheme" content="light dark">
-<meta name="description" content="Macbook Duo is an open-source Mac app that animates your desktop as you close your MacBook lid, with twelve Metal effects and a Liquid Glass settings window.">
+<meta name="description" content="Macbook Duo is a free, open-source Mac app that animates your desktop as you close your MacBook lid: twelve Metal effects that follow the hinge in real time. The other Duo costs $1,999 and fades.">
 <link rel="canonical" href="https://macbookduo.illusionart.ai/">
 <meta property="og:title" content="Macbook Duo — Your desktop follows your lid">
-<meta property="og:description" content="Twelve effects that follow the movement of your MacBook lid. Native Swift + Metal, free and open source.">
+<meta property="og:description" content="Apple built a $1,999 phone that folds. Your MacBook has folded since day one. Macbook Duo gives it twelve reasons to. Free, open source, MacBook only.">
 <meta property="og:url" content="https://macbookduo.illusionart.ai/">
 <meta property="og:image" content="https://macbookduo.illusionart.ai/assets/social.jpg">
 <meta name="theme-color" content="#2F6BFF">
@@ -18,13 +18,15 @@
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
+<div class="progress" aria-hidden="true"></div>
 <div class="glow" aria-hidden="true"></div>
 
 <header class="nav wrap">
   <a class="brand" href="./" aria-label="Macbook Duo home"><img src="assets/mark.png" alt="" width="28" height="28">Macbook Duo</a>
   <nav aria-label="Main">
+    <a href="#iphone-duo">vs iPhone Duo</a>
     <a href="#effects">Effects</a>
-    <a href="#options">Options</a>
+    <a href="#compatibility">Compatibility</a>
     <a href="#install">Install</a>
     <a href="https://github.com/shivamchopra7/Macbook-Duo-App">GitHub <span aria-hidden="true">↗</span></a>
   </nav>
@@ -34,117 +36,169 @@
   <section class="hero wrap">
     <p class="eyebrow"><span class="dot"></span> OPEN SOURCE · MADE FOR macOS · VERSION 1.0.0</p>
     <h1>Your desktop<br><span>follows your lid.</span></h1>
-    <p class="intro">Close the lid. Watch your desktop fold, roll, swirl or drain away.<br class="wide"> Open it again, and everything comes back into focus.</p>
+    <p class="intro">Apple just built a $1,999 phone that folds. Your MacBook has folded since day one; it simply never made a thing of it.<br class="wide"> Macbook Duo makes a thing of it. Close the lid and your desktop folds, rolls, swirls or drains away. Open it, and everything snaps back into focus.</p>
     <div class="actions">
       <a class="button primary" href="https://github.com/shivamchopra7/Macbook-Duo-App/releases">Download for Apple silicon <span aria-hidden="true">↓</span></a>
       <a class="button secondary" href="https://github.com/shivamchopra7/Macbook-Duo-App/releases/latest/download/Macbook-Duo-Intel.dmg">Intel preview <span aria-hidden="true">↓</span></a>
       <a class="button secondary" href="#install">How to install</a>
     </div>
-    <p class="fine">Free and open source · macOS 13 Ventura or newer · Compatible lid sensor required · <a href="https://github.com/shivamchopra7/Macbook-Duo-App/releases">All releases and checksums</a></p>
-
-    <aside class="compatibility glass" aria-labelledby="compatibility-title">
-      <h2 id="compatibility-title">MacBook compatibility · macOS 13+</h2>
-      <p><strong>Supported:</strong> MacBook Air with M2 or newer, and 14-/16-inch MacBook Pro with M1 Pro/Max or newer.</p>
-      <p><strong>Intel preview:</strong> 2019 16-inch MacBook Pro. A native build is provided; physical Intel verification is pending.</p>
-      <p><strong>Unsupported:</strong> M1 MacBook Air, 13-inch MacBook Pro with M1 or M2, and Intel models with only an open/closed clamshell switch.</p>
-      <p class="compatibility-note">Macbook Duo checks for a continuous lid-angle sensor at launch. External displays are not animated.</p>
-    </aside>
+    <p class="fine">Free and open source · macOS 13 Ventura or newer · MacBook with a lid-angle sensor required (<a href="#compatibility">which ones?</a>) · <a href="https://github.com/shivamchopra7/Macbook-Duo-App/releases">All releases and checksums</a></p>
 
     <div class="demo">
       <div class="demo-bar"><span><i></i><i></i><i></i></span><span>DUO / THE DEFAULT EFFECT</span><span>PREVIEW</span></div>
       <video id="demo-video" poster="assets/duo.jpg" src="assets/duo.mp4" loop muted playsinline controls preload="metadata" aria-label="Generated demonstration of the Duo effect closing and reopening"></video>
     </div>
-    <p class="caption">Generated artwork demonstrating Duo. Your actual desktop is animated locally on your Mac.</p>
+    <p class="caption">Generated artwork demonstrating Duo. Your actual desktop is animated locally on your Mac, and never leaves it.</p>
+  </section>
+
+  <section class="compare wrap" id="iphone-duo" aria-labelledby="compare-title">
+    <div class="compare-intro">
+      <p class="eyebrow reveal">THE OTHER DUO</p>
+      <h2 id="compare-title" class="reveal" style="--i:1">Apple made a Duo.<br>So did we.<br>Ours is free.</h2>
+      <p class="section-copy reveal" style="--i:2">In September 2026 Apple unveiled the iPhone Duo: a book-style foldable with a 7.6-inch inner display, a titanium hinge with more than a hundred parts, and a nano-texture layer so you can feel the crease but not see it. Close it and the inner screen fades while your apps hop to the outer display. Lovely.</p>
+      <p class="section-copy reveal" style="--i:3">We would like to point out that your MacBook has had a hinge, a lid and a fade-to-black this whole time, and that only one of these Duos does something interesting on the way down.</p>
+    </div>
+    <div class="compare-table">
+      <table class="vs">
+        <thead class="reveal">
+          <tr><th scope="col"><span class="visually-hidden">Feature</span></th><th scope="col">iPhone Duo</th><th scope="col" class="ours">Macbook Duo</th></tr>
+        </thead>
+        <tbody>
+          <tr class="reveal"><th scope="row">Folds</th><td>Yes. Like a book, 7.6 inches wide open.</td><td>Yes. Like a laptop, up to 16 inches wide open.</td></tr>
+          <tr class="reveal"><th scope="row">When you close it</th><td>The inner screen fades and your apps hop to the outer display.</td><td>Your desktop folds, rolls, swirls, shutters, drapes or drains into a black hole. Twelve options. A plain fade is not one of them; we have standards.</td></tr>
+          <tr class="reveal"><th scope="row">The hinge</th><td>Grade 5 titanium, more than 100 components, a 3D-printed cover.</td><td>Whatever Apple already screwed into your MacBook. We just ask it for the angle, sixty times a second.</td></tr>
+          <tr class="reveal"><th scope="row">The crease</th><td>Nano-texture, so you can feel it but not see it.</td><td>Drawn on purpose, in Metal. See: Fold.</td></tr>
+          <tr class="reveal"><th scope="row">Angles it understands</th><td>Open, closed, and a few poses in between.</td><td>Every degree from wide open to shut, in real time, in both directions. Change your mind halfway and it follows you back.</td></tr>
+          <tr class="reveal"><th scope="row">Price</th><td>From $1,999.</td><td>$0. MIT licensed. Tips accepted in GitHub stars.</td></tr>
+          <tr class="reveal"><th scope="row">Availability</th><td>Pre-orders October 16. Ships October 23.</td><td>Now. Download, drag, open.</td></tr>
+          <tr class="reveal"><th scope="row">Cameras</th><td>Two 48-megapixel cameras, plus one hiding under the screen.</td><td>None. Your desktop is captured into memory for the effect and never leaves the Mac. We do not even keep the frames.</td></tr>
+          <tr class="reveal"><th scope="row">Works on the iPhone Duo</th><td>Yes, obviously.</td><td>No. MacBook only. We tried to be clear about this.</td></tr>
+        </tbody>
+      </table>
+      <p class="compare-note reveal">iPhone Duo details are from Apple's September 2026 announcement. iPhone Duo is Apple's product; Macbook Duo is independent software, neither affiliated with nor endorsed by Apple. We just really like hinges.</p>
+    </div>
   </section>
 
   <section class="features wrap" id="how">
     <div class="section-heading">
-      <p class="eyebrow">SMALL APP. TANGIBLE MOVEMENT.</p>
-      <h2>Move the lid.<br>Feel the difference.</h2>
+      <p class="eyebrow reveal">SMALL APP. TANGIBLE MOVEMENT.</p>
+      <h2 class="reveal" style="--i:1">Move the lid.<br>Feel the difference.</h2>
     </div>
     <div class="feature-grid">
-      <article><span class="number">01</span><h3>It follows your hand.</h3><p>The effect tracks the MacBook's lid angle in real time. Reverse direction and the display follows you back.</p></article>
-      <article><span class="number">02</span><h3>Hold still. See clearly.</h3><p>Pause at any comfortable angle. After your chosen 1–5 seconds, the desktop and live preview return to normal.</p></article>
-      <article><span class="number">03</span><h3>Quiet when you are.</h3><p>Settled previews stop rendering. Blur work is cached, with refresh limits that respond to power and temperature.</p></article>
-      <article><span class="number">04</span><h3>Your screen stays yours.</h3><p>Desktop frames stay in memory on your Mac. No uploads, recordings, accounts or analytics.</p></article>
+      <article class="reveal"><span class="number">01</span><h3>It follows your hand.</h3><p>The effect tracks the lid angle in real time. Change your mind halfway and the desktop comes back with you. No commitment required.</p></article>
+      <article class="reveal" style="--i:1"><span class="number">02</span><h3>Hold still. See clearly.</h3><p>Park the lid at any comfortable angle. After 1–5 seconds of your choosing the desktop clears, so you can keep working at 70° like a person with a plan.</p></article>
+      <article class="reveal" style="--i:2"><span class="number">03</span><h3>Quiet when you are.</h3><p>Settled previews stop rendering, blur work is cached, and the refresh rate bows to power and temperature. Your fans stay off. Your battery is unbothered.</p></article>
+      <article class="reveal" style="--i:3"><span class="number">04</span><h3>Your screen stays yours.</h3><p>Frames stay in memory on your Mac. No uploads, recordings, accounts or analytics. We could not tell you what is on your desktop if you asked.</p></article>
     </div>
   </section>
 
   <section class="effects wrap" id="effects">
     <div class="section-heading">
-      <p class="eyebrow">TWELVE WAYS TO CLOSE</p>
-      <h2>Pick a feel.</h2>
-      <p class="section-copy">Duo is the default. Six new effects arrive in 1.0.0, each with its own tuning.</p>
+      <p class="eyebrow reveal">TWELVE WAYS TO CLOSE</p>
+      <h2 class="reveal" style="--i:1">Pick a feel.</h2>
+      <p class="section-copy reveal" style="--i:2">Duo is the default. The iPhone Duo has one closing animation. We have twelve, and none of them is a fade. Fine: Ghost is a fade. A tasteful one.</p>
     </div>
     <div class="effect-grid">
-      <article class="glass"><span class="effect-index">01 / DUO · DEFAULT</span><video src="assets/duo.mp4" poster="assets/duo.jpg" loop muted playsinline controls preload="none" aria-label="Generated Duo effect closing and reopening"></video><h3>Your desktop.<br>Following the fold.</h3><p>The desktop swells around the hinge as the lid closes.</p></article>
-      <article class="glass"><span class="effect-index">02 / GHOST</span><video src="assets/ghost.mp4" poster="assets/ghost.jpg" loop muted playsinline controls preload="none" aria-label="Generated Ghost effect closing and reopening"></video><h3>The lid moves.<br>The desktop stays behind.</h3><p>The desktop holds its resting plane as the lid tilts and gently falls out of focus.</p></article>
-      <article class="glass"><span class="effect-index">03 / ROLL</span><video src="assets/roll.mp4" poster="assets/roll.jpg" loop muted playsinline controls preload="none" aria-label="Generated Roll effect closing and reopening"></video><h3>A flexible sheet.<br>A rolling hinge.</h3><p>The desktop curls into a roll that travels down to the hinge.</p></article>
-      <article class="glass"><span class="effect-index">04 / SHUTTER</span><video src="assets/shutter.mp4" poster="assets/shutter.jpg" loop muted playsinline controls preload="none" aria-label="Generated Shutter effect closing and reopening"></video><h3>Rigid panels.<br>One smooth close.</h3><p>Rigid panels telescope behind each other into the hinge.</p></article>
-      <article class="glass"><span class="effect-index">05 / FLEX</span><video src="assets/flex.mp4" poster="assets/flex.jpg" loop muted playsinline controls preload="none" aria-label="Generated Flex effect closing and reopening"></video><h3>A little tension.<br>A gentle bend.</h3><p>One bowing flexible display collapses toward the hinge.</p></article>
-      <article class="glass"><span class="effect-index">06 / IRIS</span><video src="assets/iris.mp4" poster="assets/iris.jpg" loop muted playsinline controls preload="none" aria-label="Generated Iris effect closing and reopening"></video><h3>Eight blades.<br>A closing aperture.</h3><p>Eight overlapping blades close an aperture above the hinge.</p></article>
-      <article class="glass"><span class="effect-index">07 / FOLD</span><video src="assets/fold.mp4" poster="assets/fold.jpg" loop muted playsinline controls preload="none" aria-label="Generated Fold effect closing and reopening"></video><h3>A crease in the middle.<br>A half folding over.</h3><p>The display creases across the middle and the top half folds down over the bottom.</p></article>
-      <article class="glass"><span class="effect-index">08 / ACCORDION</span><video src="assets/accordion.mp4" poster="assets/accordion.jpg" loop muted playsinline controls preload="none" aria-label="Generated Accordion effect closing and reopening"></video><h3>Pleats gather.<br>Like a paper fan.</h3><p>Pleats zig-zag and gather toward the hinge like a paper fan.</p></article>
-      <article class="glass"><span class="effect-index">09 / LOUVER</span><video src="assets/louver.mp4" poster="assets/louver.jpg" loop muted playsinline controls preload="none" aria-label="Generated Louver effect closing and reopening"></video><h3>Slats tilt.<br>Blinds close.</h3><p>Horizontal slats tilt and overlap like closing window blinds.</p></article>
-      <article class="glass"><span class="effect-index">10 / CARD</span><video src="assets/card.mp4" poster="assets/card.jpg" loop muted playsinline controls preload="none" aria-label="Generated Card effect closing and reopening"></video><h3>One rigid card.<br>Tipping back.</h3><p>The whole desktop tips back as one rigid card in perspective.</p></article>
-      <article class="glass"><span class="effect-index">11 / CURTAIN</span><video src="assets/curtain.mp4" poster="assets/curtain.jpg" loop muted playsinline controls preload="none" aria-label="Generated Curtain effect closing and reopening"></video><h3>Drapes draw.<br>Settle at the hinge.</h3><p>Drapes draw together from both sides and settle at the hinge.</p></article>
-      <article class="glass"><span class="effect-index">12 / BLACKHOLE</span><video src="assets/blackhole.mp4" poster="assets/blackhole.jpg" loop muted playsinline controls preload="none" aria-label="Generated Blackhole effect closing and reopening"></video><h3>A horizon opens.<br>The desktop falls in.</h3><p>The desktop swirls into a black hole opening at the hinge.</p></article>
+      <article class="glass reveal"><span class="effect-index">01 / DUO · DEFAULT</span><video src="assets/duo.mp4" poster="assets/duo.jpg" loop muted playsinline controls preload="none" aria-label="Generated Duo effect closing and reopening"></video><h3>Your desktop.<br>Following the fold.</h3><p>The desktop swells around the hinge as the lid closes.</p></article>
+      <article class="glass reveal" style="--i:1"><span class="effect-index">02 / GHOST</span><video src="assets/ghost.mp4" poster="assets/ghost.jpg" loop muted playsinline controls preload="none" aria-label="Generated Ghost effect closing and reopening"></video><h3>The lid moves.<br>The desktop stays behind.</h3><p>The desktop holds its resting plane as the lid tilts and gently falls out of focus. The fade, done properly.</p></article>
+      <article class="glass reveal"><span class="effect-index">03 / ROLL</span><video src="assets/roll.mp4" poster="assets/roll.jpg" loop muted playsinline controls preload="none" aria-label="Generated Roll effect closing and reopening"></video><h3>A flexible sheet.<br>A rolling hinge.</h3><p>The desktop curls into a roll that travels down to the hinge.</p></article>
+      <article class="glass reveal" style="--i:1"><span class="effect-index">04 / SHUTTER</span><video src="assets/shutter.mp4" poster="assets/shutter.jpg" loop muted playsinline controls preload="none" aria-label="Generated Shutter effect closing and reopening"></video><h3>Rigid panels.<br>One smooth close.</h3><p>Rigid panels telescope behind each other into the hinge.</p></article>
+      <article class="glass reveal"><span class="effect-index">05 / FLEX</span><video src="assets/flex.mp4" poster="assets/flex.jpg" loop muted playsinline controls preload="none" aria-label="Generated Flex effect closing and reopening"></video><h3>A little tension.<br>A gentle bend.</h3><p>One bowing flexible display collapses toward the hinge.</p></article>
+      <article class="glass reveal" style="--i:1"><span class="effect-index">06 / IRIS</span><video src="assets/iris.mp4" poster="assets/iris.jpg" loop muted playsinline controls preload="none" aria-label="Generated Iris effect closing and reopening"></video><h3>Eight blades.<br>A closing aperture.</h3><p>Eight overlapping blades close an aperture above the hinge.</p></article>
+      <article class="glass reveal"><span class="effect-index">07 / FOLD</span><video src="assets/fold.mp4" poster="assets/fold.jpg" loop muted playsinline controls preload="none" aria-label="Generated Fold effect closing and reopening"></video><h3>A crease in the middle.<br>A half folding over.</h3><p>The display creases across the middle and the top half folds down over the bottom. The crease Apple spent years hiding, back by popular demand.</p></article>
+      <article class="glass reveal" style="--i:1"><span class="effect-index">08 / ACCORDION</span><video src="assets/accordion.mp4" poster="assets/accordion.jpg" loop muted playsinline controls preload="none" aria-label="Generated Accordion effect closing and reopening"></video><h3>Pleats gather.<br>Like a paper fan.</h3><p>Pleats zig-zag and gather toward the hinge like a paper fan.</p></article>
+      <article class="glass reveal"><span class="effect-index">09 / LOUVER</span><video src="assets/louver.mp4" poster="assets/louver.jpg" loop muted playsinline controls preload="none" aria-label="Generated Louver effect closing and reopening"></video><h3>Slats tilt.<br>Blinds close.</h3><p>Horizontal slats tilt and overlap like closing window blinds.</p></article>
+      <article class="glass reveal" style="--i:1"><span class="effect-index">10 / CARD</span><video src="assets/card.mp4" poster="assets/card.jpg" loop muted playsinline controls preload="none" aria-label="Generated Card effect closing and reopening"></video><h3>One rigid card.<br>Tipping back.</h3><p>The whole desktop tips back as one rigid card in perspective.</p></article>
+      <article class="glass reveal"><span class="effect-index">11 / CURTAIN</span><video src="assets/curtain.mp4" poster="assets/curtain.jpg" loop muted playsinline controls preload="none" aria-label="Generated Curtain effect closing and reopening"></video><h3>Drapes draw.<br>Settle at the hinge.</h3><p>Drapes draw together from both sides and settle at the hinge.</p></article>
+      <article class="glass reveal" style="--i:1"><span class="effect-index">12 / BLACKHOLE</span><video src="assets/blackhole.mp4" poster="assets/blackhole.jpg" loop muted playsinline controls preload="none" aria-label="Generated Blackhole effect closing and reopening"></video><h3>A horizon opens.<br>The desktop falls in.</h3><p>The desktop swirls into a black hole opening at the hinge. Nothing escapes, including your unsaved tabs. (They are fine. It is a shader.)</p></article>
     </div>
+  </section>
+
+  <section class="compat wrap" id="compatibility" aria-labelledby="compat-title">
+    <div class="section-heading">
+      <p class="eyebrow reveal">COMPATIBILITY · MACBOOK ONLY</p>
+      <h2 id="compat-title" class="reveal" style="--i:1">It needs a lid.<br>A specific kind of lid.</h2>
+      <p class="section-copy reveal" style="--i:2">Macbook Duo reads the continuous lid-angle sensor Apple builds into recent MacBooks. No sensor, no angle; no angle, no show. The app checks at launch and tells you straight away, and Replay still shows every effect on the built-in preview so you can window-shop.</p>
+    </div>
+    <div class="compat-grid">
+      <article class="glass reveal"><span class="compat-status ok">SUPPORTED</span><h3>The ones with the sensor.</h3><p>MacBook Air with M2 or newer. 14-inch and 16-inch MacBook Pro with M1 Pro, M1 Max or newer. macOS 13 Ventura or later.</p></article>
+      <article class="glass reveal" style="--i:1"><span class="compat-status maybe">INTEL PREVIEW</span><h3>Probably. Tell us.</h3><p>2019 16-inch MacBook Pro. A native Intel build ships with every release; physical verification on Intel is still pending, so reports are welcome.</p></article>
+      <article class="glass reveal" style="--i:2"><span class="compat-status no">UNSUPPORTED</span><h3>Lid, yes. Sensor, no.</h3><p>M1 MacBook Air, 13-inch MacBook Pro with M1 or M2, and Intel models that only report open or closed. They know the lid moved; they refuse to say how far.</p></article>
+      <article class="glass reveal" style="--i:3"><span class="compat-status no">ALSO NO, SINCE YOU ASKED</span><h3>Things without the right lid.</h3><p>iMac (no lid). Mac mini (no lid). Mac Studio (no lid, many ports). iPad (a cover is not a lid). iPhone Duo (has a hinge, wrong hinge). Your fridge (has a hinge, no macOS).</p></article>
+    </div>
+    <p class="compat-note reveal">External displays are not animated. The desktop on your MacBook's own screen is the star; everything else is the audience.</p>
   </section>
 
   <section class="options wrap" id="options">
     <div class="section-heading">
-      <p class="eyebrow">TUNE IT YOUR WAY</p>
-      <h2>Every effect, your settings.</h2>
-      <p class="section-copy">A settings window in a Liquid Glass design with four sections — Effects, Motion, Look and About — and a live MacBook-shaped preview. Light, dark or system appearance. Reset to defaults restores the original tuning.</p>
+      <p class="eyebrow reveal">TUNE IT YOUR WAY</p>
+      <h2 class="reveal" style="--i:1">Every effect, your settings.</h2>
+      <p class="section-copy reveal" style="--i:2">A settings window in a Liquid Glass design with four sections — Effects, Motion, Look and About — and a live MacBook-shaped preview that folds while you drag sliders, so you never have to close the real lid to find out. Light, dark or system appearance. Reset to defaults forgives everything.</p>
     </div>
     <dl class="option-grid">
-      <div class="glass"><dt>Intensity</dt><dd><span class="range">0–100% · default 50%</span>Exaggerates each effect's geometry. 50% reproduces the original tuning.</dd></div>
-      <div class="glass"><dt>Segments</dt><dd><span class="range">2–8 · default 4</span>Panel, pleat, slat or drape count for Shutter, Accordion, Louver and Curtain.</dd></div>
-      <div class="glass"><dt>Curve</dt><dd><span class="range">Smooth · Gentle · Linear · Brisk</span>How fold progress advances between an open lid and a closed one.</dd></div>
-      <div class="glass"><dt>Response</dt><dd><span class="range">20–120 ms · default 45 ms</span>Time constant of the motion smoothing while the lid moves.</dd></div>
-      <div class="glass"><dt>Clear duration</dt><dd><span class="range">0.3–1.2 s · default 0.6 s</span>Length of the animation back to a clear desktop.</dd></div>
-      <div class="glass"><dt>Perspective, Softness, Shadow</dt><dd><span class="range">0–100% each</span>Depth of the projection, progressive defocus, and contact shadows.</dd></div>
-      <div class="glass"><dt>Clears at · Clear when still</dt><dd><span class="range">60°–140° · 1–5 s</span>The angle at which the effect is fully clear, and how long a resting lid waits before clearing.</dd></div>
-      <div class="glass"><dt>Follow my lid · Preview angle</dt><dd><span class="range">5°–140°</span>Turn off lid following to drive the preview by hand.</dd></div>
+      <div class="glass reveal"><dt>Intensity</dt><dd><span class="range">0–100% · default 50%</span>Exaggerates each effect's geometry. 50% reproduces the original tuning; 100% is for people who own a fog machine.</dd></div>
+      <div class="glass reveal" style="--i:1"><dt>Segments</dt><dd><span class="range">2–8 · default 4</span>Panel, pleat, slat or drape count for Shutter, Accordion, Louver and Curtain.</dd></div>
+      <div class="glass reveal" style="--i:2"><dt>Curve</dt><dd><span class="range">Smooth · Gentle · Linear · Brisk</span>How fold progress advances between an open lid and a closed one.</dd></div>
+      <div class="glass reveal" style="--i:3"><dt>Response</dt><dd><span class="range">20–120 ms · default 45 ms</span>Time constant of the motion smoothing while the lid moves.</dd></div>
+      <div class="glass reveal"><dt>Clear duration</dt><dd><span class="range">0.3–1.2 s · default 0.6 s</span>Length of the animation back to a clear desktop.</dd></div>
+      <div class="glass reveal" style="--i:1"><dt>Perspective, Softness, Shadow</dt><dd><span class="range">0–100% each</span>Depth of the projection, progressive defocus, and contact shadows.</dd></div>
+      <div class="glass reveal" style="--i:2"><dt>Clears at · Clear when still</dt><dd><span class="range">60°–140° · 1–5 s</span>The angle at which the effect is fully clear, and how long a resting lid waits before clearing.</dd></div>
+      <div class="glass reveal" style="--i:3"><dt>Follow my lid · Preview angle</dt><dd><span class="range">5°–140°</span>Turn off lid following to drive the preview by hand. Useful for demos, screenshots and showing off.</dd></div>
     </dl>
   </section>
 
   <section class="install wrap" id="install">
     <div class="section-heading">
-      <p class="eyebrow">A MINUTE TO GET STARTED</p>
-      <h2>Download. Drag. Open.</h2>
+      <p class="eyebrow reveal">A MINUTE TO GET STARTED</p>
+      <h2 class="reveal" style="--i:1">Download. Drag. Open.</h2>
+      <p class="section-copy reveal" style="--i:2">No pre-order. No launch day queue. No 5:00 a.m. Pacific.</p>
     </div>
     <ol class="install-steps">
-      <li><strong>Download and move.</strong><p>Open <a href="https://github.com/shivamchopra7/Macbook-Duo-App/releases/latest/download/Macbook-Duo.dmg">Macbook-Duo.dmg for Apple silicon</a> or the <a href="https://github.com/shivamchopra7/Macbook-Duo-App/releases/latest/download/Macbook-Duo-Intel.dmg">Intel preview</a>, then drag Macbook Duo into Applications.</p></li>
-      <li><strong>Allow the first launch.</strong><p>Try opening Macbook Duo. This release is not notarized, so macOS may show "cannot be opened" or "Apple could not verify". Go to <strong>System Settings → Privacy &amp; Security → Security → Open Anyway</strong> for Macbook Duo, then confirm Open. <a href="https://support.apple.com/102445">Apple's guide ↗</a></p></li>
-      <li><strong>Let it follow your lid.</strong><p>Press Replay to see the effect without any permission. Then click Enable Macbook Duo and allow Screen Recording when prompted. Reopen if macOS asks. Frames stay in memory on your Mac.</p></li>
+      <li class="reveal"><strong>Download and move.</strong><p>Open <a href="https://github.com/shivamchopra7/Macbook-Duo-App/releases/latest/download/Macbook-Duo.dmg">Macbook-Duo.dmg for Apple silicon</a> or the <a href="https://github.com/shivamchopra7/Macbook-Duo-App/releases/latest/download/Macbook-Duo-Intel.dmg">Intel preview</a>, then drag Macbook Duo into Applications.</p></li>
+      <li class="reveal" style="--i:1"><strong>Allow the first launch.</strong><p>Try opening Macbook Duo. This release is not notarized, so macOS may show "cannot be opened" or "Apple could not verify". Go to <strong>System Settings → Privacy &amp; Security → Security → Open Anyway</strong> for Macbook Duo, then confirm Open. <a href="https://support.apple.com/102445">Apple's guide ↗</a></p></li>
+      <li class="reveal" style="--i:2"><strong>Let it follow your lid.</strong><p>Press Replay to see the effect without any permission. Then click Enable Macbook Duo and allow Screen Recording when prompted. Reopen if macOS asks. Frames stay in memory on your Mac.</p></li>
     </ol>
-    <p class="install-note">Macbook Duo speaks English, Simplified Chinese, Traditional Chinese and Japanese. Opt in to Open at login (launches start paused) and hide the menu-bar icon if you like. Use <strong>Check for Updates… → Install &amp; Relaunch</strong> for architecture-aware updates from the official GitHub release; checks run only when you ask, and no desktop frames leave your Mac. If macOS blocks an update, use <strong>Privacy &amp; Security → Open Anyway</strong>, then retry in the recovery dialog or restore the previous app. Prefer a ZIP? <a href="https://github.com/shivamchopra7/Macbook-Duo-App/releases/latest">All downloads and checksums ↗</a></p>
+    <p class="install-note reveal">Macbook Duo speaks English, Simplified Chinese, Traditional Chinese and Japanese. Opt in to Open at login (launches start paused) and hide the menu-bar icon if you like. Use <strong>Check for Updates… → Install &amp; Relaunch</strong> for architecture-aware updates from the official GitHub release; checks run only when you ask, and no desktop frames leave your Mac. If macOS blocks an update, use <strong>Privacy &amp; Security → Open Anyway</strong>, then retry in the recovery dialog or restore the previous app. Prefer the Mac App Store? The same app is arriving there as <strong>Lid Fold</strong>, because the store has opinions about product names. Prefer a ZIP? <a href="https://github.com/shivamchopra7/Macbook-Duo-App/releases/latest">All downloads and checksums ↗</a></p>
   </section>
 
   <section class="contribute wrap">
-    <p class="eyebrow">BUILT IN THE OPEN</p>
-    <h2>Make it your own.</h2>
-    <p>Swift. Metal. No third-party runtime dependencies.<br>Read the source, build the app, or add the thirteenth effect.</p>
-    <a class="button primary" href="https://github.com/shivamchopra7/Macbook-Duo-App">View the source <span aria-hidden="true">↗</span></a>
+    <p class="eyebrow reveal">BUILT IN THE OPEN</p>
+    <h2 class="reveal" style="--i:1">Make it your own.</h2>
+    <p class="reveal" style="--i:2">Swift. Metal. No third-party runtime dependencies.<br>Read the source, build the app, or add the thirteenth effect. We ran out of ideas after Blackhole; prove us wrong.</p>
+    <a class="button primary reveal" style="--i:3" href="https://github.com/shivamchopra7/Macbook-Duo-App">View the source <span aria-hidden="true">↗</span></a>
   </section>
 </main>
 
 <footer class="wrap">
-  <span>Macbook Duo <span class="muted">/ 1.0.0</span> · Made by Shivam Chopra · <span class="muted">Independent software, not affiliated with Apple.</span></span>
+  <span>Macbook Duo <span class="muted">/ 1.0.0</span> · Made by Shivam Chopra · <span class="muted">Independent software, not affiliated with or endorsed by Apple. iPhone, iPhone Duo, MacBook and macOS are trademarks of Apple Inc.</span></span>
   <span><a href="privacy.html">Privacy</a> · <a href="https://github.com/shivamchopra7/Macbook-Duo-App/blob/main/CHANGELOG.md">What's new ↗</a></span>
 </footer>
 
 <script>
+const reducedMotion=matchMedia('(prefers-reduced-motion: reduce)');
+
+// Scroll-triggered reveals: each .reveal fades and rises once as it enters the
+// viewport, staggered by its --i custom property. With Reduce Motion on, or
+// without IntersectionObserver, everything is simply visible.
+const reveals=[...document.querySelectorAll('.reveal')];
+function showAll(){for(const el of reveals)el.classList.add('in');}
+if(reducedMotion.matches||!('IntersectionObserver' in window))showAll();
+else{
+  const revealer=new IntersectionObserver(entries=>{
+    for(const entry of entries)if(entry.isIntersecting){entry.target.classList.add('in');revealer.unobserve(entry.target);}
+  },{rootMargin:'0px 0px -8% 0px',threshold:0.12});
+  for(const el of reveals)revealer.observe(el);
+}
+
+// Videos: the hero plays on its own, only one plays at a time, and anything
+// scrolled out of view or hidden pauses.
 const videos=[...document.querySelectorAll('video')];
 const hero=document.querySelector('#demo-video');
-const reducedMotion=matchMedia('(prefers-reduced-motion: reduce)');
 if(!reducedMotion.matches)hero.play().catch(()=>{});
 for(const video of videos)video.addEventListener('play',()=>{for(const other of videos)if(other!==video)other.pause();});
 const observer=new IntersectionObserver(entries=>{for(const entry of entries)if(!entry.isIntersecting)entry.target.pause();},{threshold:0});
 for(const video of videos)observer.observe(video);
-reducedMotion.addEventListener('change',event=>{if(event.matches)for(const video of videos)video.pause();});
+reducedMotion.addEventListener('change',event=>{if(event.matches){showAll();for(const video of videos)video.pause();}});
 document.addEventListener('visibilitychange',()=>{if(document.hidden)for(const video of videos)video.pause();});
 </script>
 </body>

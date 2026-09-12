@@ -2,7 +2,9 @@
 
 # Macbook Duo
 
-**Your desktop follows your lid.** A native Swift + Metal menu-bar app that animates the desktop as you close your MacBook, with twelve effects to choose from.
+**Your desktop follows your lid.** Apple just built a $1,999 phone that folds. Your MacBook has folded since day one; it simply never made a thing of it. Macbook Duo makes a thing of it: a native Swift + Metal menu-bar app that folds, rolls, swirls or drains your desktop away as you close the lid, with twelve effects to choose from. Open the lid and everything snaps back into focus.
+
+Works on MacBook. Only MacBook. (See [Compatibility](#compatibility) before you get excited on an iMac.)
 
 [![Release](https://img.shields.io/github/v/release/shivamchopra7/Macbook-Duo-App?color=2F6BFF&label=release)](https://github.com/shivamchopra7/Macbook-Duo-App/releases/latest)
 [![macOS 13+](https://img.shields.io/badge/macOS-13%2B-333333)](#compatibility)
@@ -24,7 +26,7 @@ Version 1.0.0 · [Website](https://macbookduo.illusionart.ai/) · [Changelog](CH
 
 ## What it does
 
-Macbook Duo reads the lid-angle sensor built into recent MacBooks, captures the desktop with ScreenCaptureKit and renders a Metal effect on a full-screen overlay. As the lid tilts, the desktop bends, folds, rolls or drains away in real time; open it again and everything returns to pixel-exact focus. Hold the lid still at any angle and the screen clears after a short pause.
+Macbook Duo reads the lid-angle sensor built into recent MacBooks, captures the desktop with ScreenCaptureKit and renders a Metal effect on a full-screen overlay. As the lid tilts, the desktop bends, folds, rolls or drains away in real time; open it again and everything returns to pixel-exact focus. Hold the lid still at any angle and the screen clears after a short pause, so you can keep working at 70° like a person with a plan.
 
 - Twelve effects, each with its own feel and its own tuning.
 - A settings window in a Liquid Glass design language with four sections: **Effects**, **Motion**, **Look** and **About**, plus a live MacBook-shaped preview.
@@ -33,9 +35,27 @@ Macbook Duo reads the lid-angle sensor built into recent MacBooks, captures the 
 - Press **Esc** or **⌃⌥⌘F** anywhere to pause.
 - Native Swift + Metal with no third-party runtime dependencies, accounts or analytics.
 
+## Macbook Duo vs iPhone Duo
+
+In September 2026 Apple unveiled the [iPhone Duo](https://www.apple.com/iphone-duo/): a book-style foldable with a 7.6-inch inner display, a titanium hinge with more than a hundred parts, and a nano-texture layer so you can feel the crease but not see it. Close it and the inner screen fades while your apps hop to the outer display. Lovely. We would like to point out that your MacBook has had a hinge, a lid and a fade-to-black this whole time, and that only one of these Duos does something interesting on the way down.
+
+| | iPhone Duo | Macbook Duo |
+|---|---|---|
+| Folds | Yes. Like a book, 7.6 inches wide open. | Yes. Like a laptop, up to 16 inches wide open. |
+| When you close it | The inner screen fades and your apps hop to the outer display. | Your desktop folds, rolls, swirls, shutters, drapes or drains into a black hole. Twelve options. A plain fade is not one of them; we have standards. |
+| The hinge | Grade 5 titanium, more than 100 components, a 3D-printed cover. | Whatever Apple already screwed into your MacBook. We just ask it for the angle, sixty times a second. |
+| The crease | Nano-texture, so you can feel it but not see it. | Drawn on purpose, in Metal. See: Fold. |
+| Angles it understands | Open, closed, and a few poses in between. | Every degree from wide open to shut, in real time, in both directions. |
+| Price | From $1,999. | $0. MIT licensed. Tips accepted in GitHub stars. |
+| Availability | Pre-orders October 16, 2026. Ships October 23. | Now. Download, drag, open. |
+| Cameras | Two 48-megapixel cameras, plus one hiding under the screen. | None. Your desktop is captured into memory for the effect and never leaves the Mac. |
+| Works on the iPhone Duo | Yes, obviously. | No. MacBook only. We tried to be clear about this. |
+
+iPhone Duo details are from Apple's September 2026 announcement. iPhone Duo is Apple's product; Macbook Duo is independent software, neither affiliated with nor endorsed by Apple. We just really like hinges.
+
 ## Twelve effects
 
-Duo is the default. Fold, Accordion, Louver, Card, Curtain and Blackhole were added in 1.0.0.
+Duo is the default. Fold, Accordion, Louver, Card, Curtain and Blackhole were added in 1.0.0. The iPhone Duo has one closing animation. We have twelve, and none of them is a fade. Fine: Ghost is a fade. A tasteful one.
 
 | Effect | What it feels like |
 |---|---|
@@ -112,15 +132,16 @@ macOS may require **Privacy & Security → Open Anyway** for the updated app, an
 
 ## Compatibility
 
-Macbook Duo requires **macOS 13 Ventura or newer** and a MacBook with a **continuous lid-angle sensor**. It checks for the sensor at launch; external displays are not animated.
+Macbook Duo works on **MacBook only**. It requires **macOS 13 Ventura or newer** and a MacBook with a **continuous lid-angle sensor**: no sensor, no angle; no angle, no show. The app checks for the sensor at launch and says so plainly ("MacBook unsupported") instead of looking for it forever. Replay still shows every effect on the built-in preview, so unsupported Macs can at least window-shop.
 
 | Status | Models |
 |---|---|
 | Supported | MacBook Air with M2 or newer; 14-inch and 16-inch MacBook Pro with M1 Pro/Max or newer |
-| Intel preview | 2019 16-inch MacBook Pro. A native x86_64 build is provided, but physical Intel verification is still pending. |
-| Unsupported | M1 MacBook Air; 13-inch MacBook Pro with M1 or M2; Intel models that expose only an open/closed clamshell switch |
+| Intel preview | 2019 16-inch MacBook Pro. A native x86_64 build is provided, but physical Intel verification is still pending, so reports are welcome. |
+| Unsupported | M1 MacBook Air; 13-inch MacBook Pro with M1 or M2; Intel models that expose only an open/closed clamshell switch. They know the lid moved; they refuse to say how far. |
+| Also no, since you asked | iMac (no lid). Mac mini (no lid). Mac Studio (no lid, many ports). iPad (a cover is not a lid). iPhone Duo (has a hinge, wrong hinge). Your fridge (has a hinge, no macOS). |
 
-The Apple-silicon build is native ARM64 and needs no Rosetta. Animation cannot be guaranteed while the display is asleep, during login or over protected content.
+The Apple-silicon build is native ARM64 and needs no Rosetta. External displays are not animated: the desktop on your MacBook's own screen is the star and everything else is the audience. Animation cannot be guaranteed while the display is asleep, during login or over protected content.
 
 ## Languages
 
@@ -167,4 +188,4 @@ Issues, hardware reports and focused pull requests are welcome. Please read [CON
 
 Macbook Duo is released under the [MIT License](LICENSE). Third-party notices, the sensor research it relies on and the effect studies that shaped it are listed in [ATTRIBUTION.md](ATTRIBUTION.md).
 
-Made by Shivam Chopra. Independent software, not affiliated with Apple.
+Made by Shivam Chopra. Independent software, not affiliated with or endorsed by Apple. iPhone, iPhone Duo, MacBook and macOS are trademarks of Apple Inc.
