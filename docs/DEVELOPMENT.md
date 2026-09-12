@@ -91,13 +91,13 @@ scripts/appstore.sh upload     # archive and upload the build
 
 ## Icon
 
-The app icon and the menu-bar template mark are rendered from code so the brand assets are reproducible:
+The shipped artwork is `Resources/AppIconSource.png` (1024×1024). `scripts/make-icon.swift` fits it into Apple's macOS icon shape — an 824-point rounded square centred on the 1024 canvas with the system-style shadow — and writes `Resources/MacbookDuo.icns` (direct-download build), `Resources/MacbookDuoIcon.png` (README, website) and `Resources/Assets.xcassets/AppIcon.appiconset` (App Store build). The menu-bar mark is always drawn from code.
 
 ```sh
-swift scripts/make-icon.swift
+swift scripts/make-icon.swift Resources --from Resources/AppIconSource.png
 ```
 
-This writes `Resources/MacbookDuo.icns`, `Resources/MacbookDuoIcon.png` (1024 px) and `Resources/MacbookDuoMark.png` (176 px template) and is the only way the brand assets should change. Pass a directory argument to write elsewhere.
+Add `--full-bleed` to skip the rounded-square fit for artwork that already includes its own shape and margins. Without `--from`, the script draws its built-in placeholder artwork instead.
 
 ## Verify
 

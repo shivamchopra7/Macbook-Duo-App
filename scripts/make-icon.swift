@@ -102,6 +102,8 @@ func drawMark(_ c: CGContext, _ s: CGFloat) {
 struct Options {
     var root = URL(fileURLWithPath: "Resources", isDirectory: true)
     var source: URL?
+    /// Draw the supplied artwork edge to edge instead of inside the macOS icon shape.
+    var fullBleed = false
 }
 
 func parseOptions(_ arguments: [String]) -> Options {
@@ -112,8 +114,10 @@ func parseOptions(_ arguments: [String]) -> Options {
         if argument == "--from" {
             guard index+1 < arguments.count else { fail("--from needs a PNG path") }
             options.source = URL(fileURLWithPath: arguments[index+1]); index += 2
+        } else if argument == "--full-bleed" {
+            options.fullBleed = true; index += 1
         } else if argument.hasPrefix("--") {
-            fail("Unknown option \(argument). Usage: swift scripts/make-icon.swift [Resources] [--from icon.png]")
+            fail("Unknown option \(argument). Usage: swift scripts/make-icon.swift [Resources] [--from icon.png] [--full-bleed]")
         } else {
             options.root = URL(fileURLWithPath: argument, isDirectory: true); index += 1
         }
@@ -125,8 +129,11 @@ func fail(_ message: String) -> Never {
     FileHandle.standardError.write(Data((message + "\n").utf8)); exit(1)
 }
 
-/// Loads a supplied 1024x1024 icon and returns a drawing closure that scales it.
-func loadSource(_ url: URL) -> (CGContext, CGFloat) -> Void {
+/// Loads a supplied 1024x1024 icon and returns a drawing closure. By default the
+/// artwork is fitted into Apple's macOS icon shape: an 824-point rounded square
+/// centred on the 1024 canvas with the system-style soft shadow, so it sits in
+/// the Dock and App Store like every other Mac icon. `--full-bleed` skips that.
+func loadSource(_ url: URL, fullBleed: Bool) -> (CGContext, CGFloat) -> Void {
     guard let image = NSImage(contentsOf: url),
           let cgImage = image.cgImage(forProposedRect: nil, context: nil, hints: nil) else {
         fail("Could not read an image from \(url.path)")
@@ -134,8 +141,24 @@ func loadSource(_ url: URL) -> (CGContext, CGFloat) -> Void {
     guard cgImage.width == 1024, cgImage.height == 1024 else {
         fail("The --from image must be 1024x1024 pixels; \(url.lastPathComponent) is \(cgImage.width)x\(cgImage.height)")
     }
+    if fullBleed {
+        return { context, size in context.draw(cgImage, in: CGRect(x: 0, y: 0, width: size, height: size)) }
+    }
     return { context, size in
-        context.draw(cgImage, in: CGRect(x: 0, y: 0, width: size, height: size))
+        let u = size/1024
+        let tile = CGRect(x: 100*u, y: 100*u, width: 824*u, height: 824*u)
+        let shape = squircle(tile, radius: 185.4*u)
+        context.saveGState()
+        context.setShadow(offset: CGSize(width: 0, height: -6*u), blur: 16*u,
+                          color: CGColor(red: 0, green: 0, blue: 0, alpha: 0.32))
+        context.setFillColor(CGColor(red: 0, green: 0, blue: 0, alpha: 1))
+        context.addPath(shape); context.fillPath()
+        context.restoreGState()
+        context.saveGState()
+        context.addPath(shape); context.clip()
+        context.interpolationQuality = .high
+        context.draw(cgImage, in: tile)
+        context.restoreGState()
     }
 }
 
@@ -181,7 +204,7 @@ func writeAssetCatalog(root: URL, draw: (CGContext, CGFloat) -> Void) throws {
 
 let options = parseOptions(Array(CommandLine.arguments.dropFirst()))
 let root = options.root
-let iconDraw: (CGContext, CGFloat) -> Void = options.source.map(loadSource) ?? drawIcon
+let iconDraw: (CGContext, CGFloat) -> Void = options.source.map { loadSource($0, fullBleed: options.fullBleed) } ?? drawIcon
 do {
     try writeIconset(root: root, draw: iconDraw)
     try writeAssetCatalog(root: root, draw: iconDraw)
