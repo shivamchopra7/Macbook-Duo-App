@@ -101,6 +101,8 @@
 "The current desktop frame could not be prepared for Metal." = "無法為 Metal 準備目前的桌面影格。";
 "Check for Updates…" = "檢查更新…";
 "Check for updates" = "檢查更新";
+"Rate on the App Store" = "在 App Store 上評分";
+"Updates come from the App Store" = "更新由 App Store 提供";
 "You’re up to date" = "已是最新版本";
 "Macbook Duo %@ is the latest stable release." = "Macbook Duo %@ 是最新穩定版本。";
 "Macbook Duo %@ is available" = "Macbook Duo %@ 已發布";

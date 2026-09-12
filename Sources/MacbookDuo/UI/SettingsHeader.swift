@@ -23,8 +23,11 @@ struct SettingsHeader: View {
             Spacer(minLength:8)
             lidPill
             appearanceMenu
-            GlassIconButton(symbol:"arrow.triangle.2.circlepath",label:updater.buttonTitle) { updater.checkForUpdates() }
-                .disabled(updater.isBusy)
+            // The App Store delivers updates itself, so its build shows no update button here.
+            if !AppUpdater.isAppStoreBuild {
+                GlassIconButton(symbol:"arrow.triangle.2.circlepath",label:updater.buttonTitle) { updater.checkForUpdates() }
+                    .disabled(updater.isBusy)
+            }
         }
         .padding(.leading,Self.trafficLightInset).padding(.trailing,14)
         .frame(height:Self.height)

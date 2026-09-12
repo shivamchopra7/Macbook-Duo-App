@@ -1,10 +1,15 @@
 import SwiftUI
 
-/// Identity, version, credit, source, and the manual update check.
+/// Identity, version, credit, source, and either the manual update check
+/// (direct-download build) or a review link (App Store build).
 struct AboutTab: View {
     @ObservedObject var updater: AppUpdater
     @Environment(\.colorScheme) private var scheme
     private static let repository = URL(string:"https://github.com/shivamchopra7/Macbook-Duo-App")!
+    /// The app's numeric Apple ID. Filled in after App Store Connect assigns it;
+    /// until then the review link opens the store without a matching product.
+    static let appStoreID = "0000000000"
+    private static let reviewPage = URL(string:"macappstore://apps.apple.com/app/id\(appStoreID)?action=write-review")!
 
     private var version: String {
         let raw = Bundle.main.object(forInfoDictionaryKey:"CFBundleShortVersionString") as? String
@@ -35,16 +40,34 @@ struct AboutTab: View {
                 .buttonStyle(.glassQuiet)
                 .accessibilityLabel(L10n.text("Open source on GitHub"))
                 .help(Self.repository.absoluteString)
-                Button { updater.checkForUpdates() } label: {
-                    HStack(spacing:5) { Image(systemName:"arrow.triangle.2.circlepath").font(.system(size:10,weight:.bold));Text(updater.buttonTitle) }
+                if AppUpdater.isAppStoreBuild {
+                    rateButton
+                } else {
+                    updateButton
                 }
-                .buttonStyle(.glassProminent).disabled(updater.isBusy)
-                .accessibilityLabel(updater.buttonTitle)
             }
             .padding(.top,4)
             Spacer(minLength:0)
         }
         .frame(maxWidth:.infinity,maxHeight:.infinity)
         .multilineTextAlignment(.center)
+    }
+
+    /// Direct-download builds check GitHub for a newer release on request.
+    private var updateButton: some View {
+        Button { updater.checkForUpdates() } label: {
+            HStack(spacing:5) { Image(systemName:"arrow.triangle.2.circlepath").font(.system(size:10,weight:.bold));Text(updater.buttonTitle) }
+        }
+        .buttonStyle(.glassProminent).disabled(updater.isBusy)
+        .accessibilityLabel(updater.buttonTitle)
+    }
+
+    /// App Store builds get their updates from the store, so the slot invites a review instead.
+    private var rateButton: some View {
+        Button { NSWorkspace.shared.open(Self.reviewPage) } label: {
+            HStack(spacing:5) { Image(systemName:"star").font(.system(size:10,weight:.bold));Text(L10n.text("Rate on the App Store")) }
+        }
+        .buttonStyle(.glassQuiet)
+        .accessibilityLabel(L10n.text("Rate on the App Store"))
     }
 }

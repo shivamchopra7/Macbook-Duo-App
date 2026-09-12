@@ -55,11 +55,18 @@ import OSLog
         model.menuBarVisibilityChanged = { [weak self] visible in self?.statusItem.isVisible = visible }
         let appMenu = NSMenu()
         let appItem = NSMenuItem();appMenu.addItem(appItem)
-        let submenu = NSMenu();submenu.addItem(effectItem());submenu.addItem(appearanceItem());submenu.addItem(updateItem());submenu.addItem(.separator())
+        let submenu = NSMenu();submenu.addItem(effectItem());submenu.addItem(appearanceItem())
+        #if !APPSTORE
+        submenu.addItem(updateItem())
+        #endif
+        submenu.addItem(.separator())
         submenu.addItem(withTitle:L10n.text("Quit Macbook Duo"),action:#selector(NSApplication.terminate(_:)),keyEquivalent:"q")
         appItem.submenu = submenu;NSApp.mainMenu = appMenu
         showSettings()
+        #if !APPSTORE
+        // The App Store build never replaces itself, so there is no relaunch to confirm.
         UpdateInstallation.confirmRelaunch()
+        #endif
         if let index = CommandLine.arguments.firstIndex(of:"--overlay-check"), index+1 < CommandLine.arguments.count {
             let path = CommandLine.arguments[index+1]
             DispatchQueue.main.asyncAfter(deadline:.now()+1) { [weak self] in self?.model.checkOverlay(output:path) }
@@ -125,6 +132,7 @@ import OSLog
     }
     @objc func toggleEffect() { if model.enabled { model.pause() } else { model.enable() } }
     @objc func testEffect() { model.testDesktop() }
+    #if !APPSTORE
     @objc private func checkForUpdates() { updater.checkForUpdates() }
     private func updateItem() -> NSMenuItem {
         let item = NSMenuItem(title:L10n.text("Check for Updates…"),action:#selector(checkForUpdates),keyEquivalent:"")
@@ -132,6 +140,7 @@ import OSLog
         item.image = NSImage(systemSymbolName:"arrow.triangle.2.circlepath",accessibilityDescription:nil)
         return item
     }
+    #endif
     @objc private func toggleLaunchAtLogin() { model.setLaunchAtLogin(!model.launchAtLogin) }
     // Reachable only while the icon is visible, so this always hides in practice.
     // Show the window as the icon leaves, keeping the switch that restores it on screen.
@@ -195,7 +204,9 @@ import OSLog
         let test = menu.addItem(withTitle:L10n.text("Test desktop for 8 seconds"),action:#selector(testEffect),keyEquivalent:"");test.target = self
         menu.addItem(effectItem())
         menu.addItem(appearanceItem())
+        #if !APPSTORE
         menu.addItem(updateItem())
+        #endif
         let icon = menu.addItem(withTitle:L10n.text("Show menu bar icon"),action:#selector(toggleMenuBarIcon),keyEquivalent:"")
         icon.target = self
         icon.state = model.showInMenuBar ? .on : .off

@@ -1,3 +1,5 @@
+// Direct-download builds only. App Store builds compile AppUpdater+AppStore.swift instead.
+#if !APPSTORE
 import Foundation
 import FoldCore
 
@@ -19,3 +21,4 @@ struct UpdateHelperReady: Codable {
     let processID: Int32
     let executableHash: String
 }
+#endif

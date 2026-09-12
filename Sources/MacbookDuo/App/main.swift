@@ -2,6 +2,9 @@ import AppKit
 import FoldCore
 
 MainActor.assumeIsolated {
+#if !APPSTORE
+// Self-updater diagnostics exist only in the direct-download build. The App Store
+// build ships without the updater, so none of the --update-* flags are recognised.
 if let index = CommandLine.arguments.firstIndex(of:"--update-handoff-check"), index+3 < CommandLine.arguments.count {
     Task {
         do {
@@ -47,6 +50,7 @@ if CommandLine.arguments.contains("--update-check") {
     }
     dispatchMain()
 }
+#endif
 if CommandLine.arguments.contains("--sensor-check") {
     // Reads the lid sensor for up to three seconds and reports whether the
     // HID device is reachable from this build (sandbox and entitlement checks).

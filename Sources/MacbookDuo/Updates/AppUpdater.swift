@@ -1,8 +1,12 @@
+// Direct-download builds only. App Store builds compile AppUpdater+AppStore.swift instead.
+#if !APPSTORE
 import AppKit
 import FoldCore
 
 /// One request only when the user asks. No scheduled checks, analytics, or updater daemon.
 @MainActor final class AppUpdater: ObservableObject {
+    /// Direct-download builds update themselves; the App Store variant never does.
+    static let isAppStoreBuild = false
     @Published private(set) var isBusy = false
     @Published private(set) var buttonTitle = L10n.text("Check for updates")
     private let releases = URL(string:"https://github.com/shivamchopra7/Macbook-Duo-App/releases/latest")!
@@ -61,3 +65,4 @@ import FoldCore
         NSApp.activate(ignoringOtherApps:true);alert.runModal()
     }
 }
+#endif

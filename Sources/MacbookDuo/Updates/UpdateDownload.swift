@@ -1,3 +1,5 @@
+// Direct-download builds only. App Store builds compile AppUpdater+AppStore.swift instead.
+#if !APPSTORE
 import Foundation
 import FoldCore
 
@@ -60,3 +62,4 @@ final class UpdateDownload: NSObject, URLSessionDataDelegate, @unchecked Sendabl
         completion = nil;session.invalidateAndCancel();self.session = nil
     }
 }
+#endif

@@ -101,6 +101,8 @@
 "The current desktop frame could not be prepared for Metal." = "現在のデスクトップフレームを Metal 用に準備できませんでした。";
 "Check for Updates…" = "アップデートを確認…";
 "Check for updates" = "アップデートを確認";
+"Rate on the App Store" = "App Store で評価する";
+"Updates come from the App Store" = "アップデートは App Store から提供されます";
 "You’re up to date" = "最新バージョンです";
 "Macbook Duo %@ is the latest stable release." = "Macbook Duo %@ は最新の安定版です。";
 "Macbook Duo %@ is available" = "Macbook Duo %@ が利用できます";

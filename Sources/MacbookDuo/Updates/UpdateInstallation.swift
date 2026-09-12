@@ -1,3 +1,5 @@
+// Direct-download builds only. App Store builds compile AppUpdater+AppStore.swift instead.
+#if !APPSTORE
 import Foundation
 import CryptoKit
 import FoldCore
@@ -186,3 +188,4 @@ enum UpdateInstallation {
         }
     }
 }
+#endif
