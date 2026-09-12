@@ -9,7 +9,7 @@ struct GlassSliderRow: View {
     let text: String
     var step: Double? = nil
     var labelWidth: CGFloat = 92
-    var valueWidth: CGFloat = 44
+    var valueWidth: CGFloat = 52
     @Environment(\.colorScheme) private var scheme
     @Environment(\.isEnabled) private var isEnabled
 

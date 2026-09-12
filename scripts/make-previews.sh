@@ -4,7 +4,11 @@
 # Run after: MacbookDuo --render-check validation --animation
 set -euo pipefail
 cd "$(dirname "$0")/.."
-SRC="${1:-validation/animation}"
+SRC="${1:-}"
+if [[ -z "$SRC" ]]; then
+  for candidate in validation/render/animation validation/animation; do [[ -d "$candidate" ]] && SRC="$candidate" && break; done
+fi
+[[ -n "$SRC" && -d "$SRC" ]] || { echo "No animation frames found; run scripts/verify.sh or the render check with --animation first." >&2; exit 1; }
 command -v ffmpeg >/dev/null || { echo "ffmpeg is required (brew install ffmpeg)" >&2; exit 1; }
 for dir in "$SRC"/*/; do
   id="$(basename "$dir")"

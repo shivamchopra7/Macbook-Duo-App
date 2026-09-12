@@ -184,7 +184,7 @@
 "Segments" = "分割数";
 "Response" = "応答";
 "Clear duration" = "復帰時間";
-"%.0f ms" = "%.0f ミリ秒";
+"%.0f ms" = "%.0f ms";
 "%.1f s" = "%.1f 秒";
 "%d" = "%d";
 "New" = "新着";

@@ -29,7 +29,7 @@ if let index = CommandLine.arguments.firstIndex(of:"--update-fixture-ready"), in
    Bundle.main.bundleIdentifier == "com.shivamchopra.macbookduo.update-fixture" {
     let ready = URL(fileURLWithPath:CommandLine.arguments[index+1])
     guard ready.lastPathComponent == "ready", ready.deletingLastPathComponent().lastPathComponent.hasPrefix("MacbookDuo-update-fixture-"),
-          ready.deletingLastPathComponent() == Bundle.main.bundleURL.deletingLastPathComponent() else { exit(1) }
+          ready.deletingLastPathComponent().resolvingSymlinksInPath() == Bundle.main.bundleURL.deletingLastPathComponent().resolvingSymlinksInPath() else { exit(1) }
     do { try Data("ready".utf8).write(to:ready,options:.withoutOverwriting) } catch { exit(1) }
     let app = NSApplication.shared;app.setActivationPolicy(.accessory);app.run();exit(0)
 }

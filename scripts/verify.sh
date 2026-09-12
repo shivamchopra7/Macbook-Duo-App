@@ -46,8 +46,9 @@ step "Updater package check against dist/"
   "$(/usr/libexec/PlistBuddy -c 'Print CFBundleShortVersionString' "build/Macbook Duo.app/Contents/Info.plist")" "$OUT/package-check"
 
 step "Updater installer fixture (disposable apps, LaunchServices handshake, rollback)"
-FIXTURE="$(mktemp -d)/MacbookDuo-update-fixture-$$"
+# Kept inside the checkout: the fixture compares real paths, and /var/folders is a symlink.
+FIXTURE="$PWD/$OUT/MacbookDuo-update-fixture-$$"
 "$BIN/MacbookDuo" --update-installer-fixture "$FIXTURE"
-cat "$FIXTURE/result.json"; rm -rf "$(dirname "$FIXTURE")"
+cat "$FIXTURE/result.json"; rm -rf "$FIXTURE"
 
 printf '\nAll checks passed. Reports in %s/, artifacts in dist/.\n' "$OUT"
