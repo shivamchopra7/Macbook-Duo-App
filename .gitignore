@@ -7,7 +7,6 @@ validation/
 validation-*/
 signing-identity.txt
 .DS_Store
-.claude/
 *.xcuserstate
 xcuserdata/
 .remember/
