@@ -96,6 +96,7 @@
 		E728764E0E211D32D7383C1E /* AppBrand.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3D33E6E765E5A6CE11E9E9A /* AppBrand.swift */; };
 		EE69A2BE5CCC7D9C0383513C /* GlassButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7B2019B3428323A5B121582 /* GlassButtonStyle.swift */; };
 		F014FFC936A7B50CEE5627DF /* FoldMath.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD968FBCF8DD03D7CC28A510 /* FoldMath.swift */; };
+		F0F1785DB6EEA75DA0BE7FE1 /* AppUpdater+AppStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE1BDEA0449CF6183A572D0C /* AppUpdater+AppStore.swift */; };
 		F26014B0732685549A0A41E9 /* ReleaseUpdate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 229E896676443A6A7FD6F1B1 /* ReleaseUpdate.swift */; };
 		F2718C7A5772CA74F26CA1F4 /* FrameStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17E17E8AD1BB22A6D91EA8EB /* FrameStore.swift */; };
 		F52043FE9F38CBEE74CA2B93 /* LidStillness.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73E0D14AF83A6F9CFA9BB043 /* LidStillness.swift */; };
@@ -214,6 +215,7 @@
 		F8B6CFEC043401A847A30970 /* UpdateInstallation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateInstallation.swift; sourceTree = "<group>"; };
 		FD968FBCF8DD03D7CC28A510 /* FoldMath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoldMath.swift; sourceTree = "<group>"; };
 		FE1628662D636EF7892EE501 /* AboutTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutTab.swift; sourceTree = "<group>"; };
+		FE1BDEA0449CF6183A572D0C /* AppUpdater+AppStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppUpdater+AppStore.swift"; sourceTree = "<group>"; };
 		FE657ECFB791879BD2154C49 /* ShaderCommon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShaderCommon.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -291,6 +293,7 @@
 			isa = PBXGroup;
 			children = (
 				A5FB9D433933EDEEF316B979 /* AppUpdater.swift */,
+				FE1BDEA0449CF6183A572D0C /* AppUpdater+AppStore.swift */,
 				F5B8ADCC4002C92FDCD4BF69 /* UpdateDownload.swift */,
 				F8B6CFEC043401A847A30970 /* UpdateInstallation.swift */,
 				630DB3F0ADB5BBBB15BDB18E /* UpdateInstallation+Diagnostics.swift */,
@@ -640,6 +643,7 @@
 				E5F55AFF4132BD5B3B56E74E /* AppModel+Overlay.swift in Sources */,
 				9573E15D3DD354B58551DDAC /* AppModel+System.swift in Sources */,
 				B579699D2C7346C7C62B05CE /* AppModel.swift in Sources */,
+				F0F1785DB6EEA75DA0BE7FE1 /* AppUpdater+AppStore.swift in Sources */,
 				4B3391F04A9BADA02E57051C /* AppUpdater.swift in Sources */,
 				C458DB994EA06C4D42006611 /* DesktopCapture.swift in Sources */,
 				53C4DEB9D905FE81305C2518 /* DiagnosticPaths.swift in Sources */,
