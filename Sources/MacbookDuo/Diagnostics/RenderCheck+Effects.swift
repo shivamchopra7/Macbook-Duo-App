@@ -124,13 +124,17 @@ extension RenderCheck {
     static func benchmarkEffects(_ device: MTLDevice, _ renderer: FoldRenderer,
                                  _ source: MTLTexture, _ destination: MTLTexture) throws -> [String: Any] {
         var results: [String: Any] = [:]
-        for effect in checkedEffects {
-            let timing = try timeRender(warmup: 20, frames: 50, label: effect.title) { i in
+        // Duo is measured first so every other effect is gated against it.
+        var reference: Double?
+        for effect in [FoldEffect.duo] + checkedEffects.filter({ $0 != .duo }) where checkedEffects.contains(effect) || effect == .duo {
+            let timing = try timeRender(warmup: 20, frames: 50, label: effect.title,
+                                        referenceMS: effect == .duo ? nil : reference) { i in
                 var u = FoldUniforms(); u.effect = effect.shaderIndex
                 u.progress = 0.04+Float(i%24)/25
                 return try encode(renderer,source,destination,u)
             }
-            results[effect.rawValue] = ["medianMS":timing.medianMS,"p95MS":timing.p95MS]
+            if effect == .duo { reference = timing.medianMS }
+            if checkedEffects.contains(effect) { results[effect.rawValue] = ["medianMS":timing.medianMS,"p95MS":timing.p95MS] }
         }
         return results
     }

@@ -6,5 +6,6 @@ let package = Package(name: "MacbookDuo", defaultLocalization: "en", platforms: 
     .target(name: "FoldCore"),
     .executableTarget(name: "MacbookDuo", dependencies: ["FoldCore"], resources: [.process("Resources")], swiftSettings: [.swiftLanguageMode(.v5)]),
     .testTarget(name: "FoldCoreTests", dependencies: ["FoldCore"]),
-    .testTarget(name: "LocalizationTests", dependencies: ["MacbookDuo"])
+    .testTarget(name: "LocalizationTests", dependencies: ["MacbookDuo"]),
+    .testTarget(name: "AppTests", dependencies: ["MacbookDuo"])
 ])

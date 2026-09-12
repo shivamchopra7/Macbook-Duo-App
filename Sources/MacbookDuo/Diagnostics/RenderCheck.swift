@@ -22,12 +22,18 @@ import FoldCore
         return chosen.isEmpty ? FoldEffect.allCases : chosen
     }
 
+    /// Validated once; `--render-check <dir>` must name a new directory outside protected locations.
+    static let outputDirectory: Result<URL, Error> = {
+        let args = CommandLine.arguments
+        let path = args.firstIndex(of: "--render-check").flatMap { $0+1 < args.count ? args[$0+1] : nil } ?? "render-check"
+        return Result { try DiagnosticPaths.newDirectory(path) }
+    }()
+
     static func run() throws {
         guard let device = MTLCreateSystemDefaultDevice() else { throw AppError.message("No Metal device.") }
         let renderer = try FoldRenderer(device: device)
         let args = CommandLine.arguments
-        let path = args.firstIndex(of: "--render-check").flatMap { $0+1 < args.count ? args[$0+1] : nil } ?? "render-check"
-        let output = URL(fileURLWithPath: path)
+        let output = try outputDirectory.get()
         try FileManager.default.createDirectory(at: output, withIntermediateDirectories: true)
         let input = try renderer.makePreviewTexture()
         let surface = try target(device, input.width, input.height)
@@ -223,11 +229,11 @@ import FoldCore
             "ninetyDegreeTopContrastRatio":ninetyRatio,"stationaryNinetyDegreesExactPixels":true,
             "cachedBlurPixelIdentity":true,"recycledSourceFreshness":true,"staticFramesBuildPyramidOnce":true,
             "cachedNativeGPUTimeMedianMS":cached.medianMS,
-            "cachedNativeGPUTimeP95MS":cached.p95MS,"strictTiming":strictTiming,
+            "cachedNativeGPUTimeP95MS":cached.p95MS,"timingGate":timingMode,
             "sideFadePixels":edgeRamp(edges,horizontal:true),"topFadePixels":edgeRamp(edges,horizontal:false),
             "resolutionIndependentEdges":true,"threeInFlightFrames":true,
             "nativeInputAndOutput":"3024 × 1964","nativeGPUTimeMedianMS":native.medianMS,"nativeGPUTimeP95MS":native.p95MS,
-            "note":"Includes blur pyramid and final pass. GPU-only timing excludes capture, window composition, display refresh, and physical lid movement. Best-of-three medians gate the 6 ms budget; p95 is informational unless --strict-timing is passed."]
+            "note":"Includes blur pyramid and final pass. GPU-only timing excludes capture, window composition, display refresh, and physical lid movement. Best-of-three medians; by default each effect is gated at 2.5× the Duo median of the same run (Duo itself at a 12 ms sanity limit), --strict-timing enforces the absolute 6 ms budget on median and p95, --no-timing only records."]
         let json = try JSONSerialization.data(withJSONObject:report,options:[.prettyPrinted,.sortedKeys])
         try json.write(to:output.appendingPathComponent("render-check.json"))
         print(String(data:json,encoding:.utf8)!)

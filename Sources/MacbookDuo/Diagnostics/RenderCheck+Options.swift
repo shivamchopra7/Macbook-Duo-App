@@ -34,9 +34,7 @@ extension RenderCheck {
     /// Checker art at the intensity extremes and, for Shutter, at two and eight
     /// panels, next to the default frames the effect loop already writes.
     private static func saveOptionPreviews(_ renderer: FoldRenderer, _ plate: MTLTexture) throws {
-        let args = CommandLine.arguments
-        guard let index = args.firstIndex(of: "--render-check"), index+1 < args.count else { return }
-        let output = URL(fileURLWithPath: args[index+1])
+        let output = try outputDirectory.get()
         let art = try renderer.makePreviewTexture(width:plate.width,height:plate.height)
         for effect in optionEffects where checkedEffects.contains(effect) {
             for step in [25,50,75] {

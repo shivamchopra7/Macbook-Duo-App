@@ -14,7 +14,7 @@ struct AboutTab: View {
     var body: some View {
         VStack(spacing:12) {
             Spacer(minLength:0)
-            Image(nsImage:AppBrand.mark).resizable().scaledToFit().frame(width:72,height:72)
+            Image(nsImage:AppBrand.icon).resizable().scaledToFit().frame(width:84,height:84)
                 .shadow(color:GlassPalette.electricBlue.opacity(0.45),radius:16,y:6)
                 .accessibilityHidden(true)
             VStack(spacing:4) {

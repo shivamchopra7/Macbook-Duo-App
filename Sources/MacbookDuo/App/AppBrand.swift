@@ -7,6 +7,13 @@ import AppKit
         return NSImage(systemSymbolName:"macbook",accessibilityDescription:"Macbook Duo") ?? NSImage()
     }()
 
+    /// The full-color app icon, packaged as MacbookDuo.icns; the mark stands in during development.
+    static let icon: NSImage = {
+        if let url = Bundle.main.url(forResource:"MacbookDuo",withExtension:"icns"),
+           let image = NSImage(contentsOf:url) { return image }
+        return mark
+    }()
+
     static var menuBarMark: NSImage {
         let image = mark.copy() as! NSImage
         image.size = NSSize(width:22,height:22)

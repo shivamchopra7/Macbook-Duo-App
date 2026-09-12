@@ -54,19 +54,19 @@ import ServiceManagement
     @Published var shadow = UserDefaults.standard.object(forKey:"shadow") as? Double ?? 0.65 {
         didSet { UserDefaults.standard.set(shadow,forKey:"shadow") }
     }
-    @Published var intensity = UserDefaults.standard.object(forKey:"effectIntensity") as? Double ?? EffectOptions.default.intensity {
+    @Published var intensity = EffectOptions(intensity:UserDefaults.standard.object(forKey:"effectIntensity") as? Double ?? EffectOptions.default.intensity).intensity {
         didSet { UserDefaults.standard.set(intensity,forKey:"effectIntensity");wakePreview() }
     }
-    @Published var segments = UserDefaults.standard.object(forKey:"effectSegments") as? Int ?? EffectOptions.default.segments {
+    @Published var segments = EffectOptions(segments:UserDefaults.standard.object(forKey:"effectSegments") as? Int ?? EffectOptions.default.segments).segments {
         didSet { UserDefaults.standard.set(segments,forKey:"effectSegments");wakePreview() }
     }
     @Published var curve = FoldCurve.resolve(persisted:UserDefaults.standard.string(forKey:"effectCurve")) {
         didSet { UserDefaults.standard.set(curve.rawValue,forKey:"effectCurve");wakePreview();update() }
     }
-    @Published var responseTime = UserDefaults.standard.object(forKey:"effectResponse") as? Double ?? EffectOptions.default.responseTime {
+    @Published var responseTime = EffectOptions(responseTime:UserDefaults.standard.object(forKey:"effectResponse") as? Double ?? EffectOptions.default.responseTime).responseTime {
         didSet { UserDefaults.standard.set(responseTime,forKey:"effectResponse");applyTiming() }
     }
-    @Published var clearDuration = UserDefaults.standard.object(forKey:"effectClearDuration") as? Double ?? EffectOptions.default.clearDuration {
+    @Published var clearDuration = EffectOptions(clearDuration:UserDefaults.standard.object(forKey:"effectClearDuration") as? Double ?? EffectOptions.default.clearDuration).clearDuration {
         didSet { UserDefaults.standard.set(clearDuration,forKey:"effectClearDuration");applyTiming() }
     }
     /// The validated, clamped view of the option properties above.
@@ -135,7 +135,7 @@ import ServiceManagement
     var idleSince: TimeInterval?
     var screenID: CGDirectDisplayID?
     var notifications: [NSObjectProtocol] = []
-    var syntheticCheckPath: String?
+    var syntheticCheckPath: URL?
     var presentedFrames = 0
     var showWindow: (() -> Void)?
     var overlayVisibilityChanged: ((Bool) -> Void)?
@@ -312,7 +312,8 @@ import ServiceManagement
                 "skippedFrames":renderer?.skippedFrames ?? 0,"preferredFPS":metalView?.preferredFramesPerSecond ?? 0,
                 "stopReason":message,"overlayWasVisible":overlayVisible,"gpuTimeMS":renderer?.lastGPUTimeMS ?? 0]
             if let data = try? JSONSerialization.data(withJSONObject:report,options:[.prettyPrinted,.sortedKeys]) {
-                try? data.write(to:URL(fileURLWithPath:path))
+                do { try data.write(to:path,options:.withoutOverwriting) }
+                catch { logger.error("Overlay check report was not written: \(error.localizedDescription,privacy:.public)") }
             }
             syntheticCheckPath = nil
             renderer?.reportsEveryPresentation = false
@@ -337,11 +338,12 @@ import ServiceManagement
     /// Exercises the real overlay with generated pixels. Never requests or starts screen capture.
     func checkOverlay(output: String) {
         do {
+            let report = try DiagnosticPaths.newFile(output)
             guard let screen = builtInScreen(), let device else { throw AppError.message(L10n.text("Built-in display or GPU unavailable.")) }
             try prepareOverlay(on:screen)
             let factory = try FoldRenderer(device:device)
             capture.frames.put(try factory.makeSyntheticFrame())
-            syntheticCheckPath = output;presentedFrames = 0
+            syntheticCheckPath = report;presentedFrames = 0
             renderer?.reportsEveryPresentation = true
             enabled = true;demoStart = ProcessInfo.processInfo.systemUptime;demoRunning = true
             status = L10n.text("Testing the overlay with generated artwork. Esc stops the test.")

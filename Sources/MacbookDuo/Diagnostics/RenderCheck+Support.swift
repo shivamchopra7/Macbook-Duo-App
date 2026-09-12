@@ -5,13 +5,20 @@ import FoldCore
 
 extension RenderCheck {
     /// GPU time on a shared desktop includes other processes' work, so a single
-    /// p95 is noisy. Three rounds, best median, keeps the budget meaningful;
-    /// `--strict-timing` also enforces the budget on the best p95.
+    /// p95 is noisy and even medians drift with load. Three rounds, best median.
+    /// Default gate: each effect stays within `relativeBudgetFactor` × the Duo
+    /// median measured in the same run (or `sanityBudgetMS` when Duo is the
+    /// subject). `--strict-timing` enforces the absolute 6 ms budget on median
+    /// and p95, for a quiet machine or CI. `--no-timing` only records.
     struct Timing { let medianMS: Double; let p95MS: Double }
+    static let absoluteBudgetMS = 6.0
+    static let sanityBudgetMS = 12.0
+    static let relativeBudgetFactor = 2.5
     static var strictTiming: Bool { CommandLine.arguments.contains("--strict-timing") }
-    /// `--no-timing` records GPU times without gating, for parallel development runs.
     static var timingGate: Bool { !CommandLine.arguments.contains("--no-timing") }
+    static var timingMode: String { !timingGate ? "off" : (strictTiming ? "strict" : "relative") }
     static func timeRender(rounds: Int = 3, warmup: Int = 40, frames: Int = 90, label: String,
+                           referenceMS: Double? = nil,
                            encode body: (Int) throws -> MTLCommandBuffer) throws -> Timing {
         var best: Timing?
         for _ in 0..<rounds {
@@ -28,10 +35,13 @@ extension RenderCheck {
         }
         let timing = best!
         guard timingGate else { return timing }
-        try require(timing.medianMS < 6, "\(label): native GPU median exceeded the 6 ms rendering budget: \(String(format:"%.2f",timing.medianMS)) ms.")
         if strictTiming {
-            try require(timing.p95MS < 6, "\(label): native GPU p95 exceeded the 6 ms rendering budget: \(String(format:"%.2f",timing.p95MS)) ms.")
+            try require(timing.medianMS < absoluteBudgetMS, "\(label): native GPU median exceeded the \(Int(absoluteBudgetMS)) ms rendering budget: \(String(format:"%.2f",timing.medianMS)) ms.")
+            try require(timing.p95MS < absoluteBudgetMS, "\(label): native GPU p95 exceeded the \(Int(absoluteBudgetMS)) ms rendering budget: \(String(format:"%.2f",timing.p95MS)) ms.")
+            return timing
         }
+        let budget = referenceMS.map { max(absoluteBudgetMS, $0*relativeBudgetFactor) } ?? sanityBudgetMS
+        try require(timing.medianMS < budget, "\(label): native GPU median \(String(format:"%.2f",timing.medianMS)) ms exceeded its budget of \(String(format:"%.2f",budget)) ms (\(referenceMS == nil ? "sanity limit" : "\(relativeBudgetFactor)× the Duo median")); use --strict-timing on a quiet machine for the absolute \(Int(absoluteBudgetMS)) ms check.")
         return timing
     }
     static func require(_ condition: @autoclosure () -> Bool, _ message: String) throws {

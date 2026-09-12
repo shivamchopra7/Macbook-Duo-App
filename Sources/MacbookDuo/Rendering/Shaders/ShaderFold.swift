@@ -44,7 +44,9 @@ enum ShaderFold {
 
         // Flap: the row's projective inverse, then the trapezoid in x.
         float denom = (h-ey)*sn+D*cs;
-        denom = abs(denom) < 1e-5f ? 1e-5f : denom;
+        // Keep the sign: the divisor legitimately crosses zero as the flap sweeps past
+        // the eye line, and forcing it positive would flip t for one frame.
+        denom = abs(denom) < 1e-5f ? (denom < 0.0f ? -1e-5f : 1e-5f) : denom;
         float t = D*(h-c)/denom;
         float ratio = abs(D*((c-ey)*sn+D*cs))/(denom*denom);
         float feather = min(0.0025f*max(ratio,1.0f),0.02f);

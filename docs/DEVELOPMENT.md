@@ -68,6 +68,8 @@ swift build
 .build/debug/MacbookDuo --render-check validation
 ```
 
+`scripts/verify.sh` chains everything below in one run: the unit tests, the render check for all twelve effects with animation export, the live overlay sandbox (`--overlay-check`, which shows generated artwork on the built-in display for about twenty seconds without Screen Recording access), the release build and packaging, and finally the updater's own `--update-package-check` and `--update-installer-fixture` against the freshly packaged `dist/` artifacts. Pass `--strict-timing` through to it on a quiet machine. After a run, `scripts/make-previews.sh` turns `validation/animation/<effect>/` into the `docs/assets/<effect>.{mp4,gif,jpg}` media used by the website and README.
+
 The render check uses generated artwork only and never captures the desktop. For every effect it verifies pixel identity when open and reopened, black closure, opacity, blur, practical geometry, distinct intermediate frames, smooth onset, Reduce Motion, cache freshness, low-resting-angle behaviour and GPU timing, then runs the effect's own detail check and writes `render-check.json` plus reference PNGs into the output directory.
 
 | Flag | Effect |
@@ -75,8 +77,8 @@ The render check uses generated artwork only and never captures the desktop. For
 | `--render-check <dir>` | Output directory for the report and images. |
 | `--effects duo,fold` | Limit the per-effect loops to the listed identifiers, so one shader can be validated alone. |
 | `--animation` | Export 180 closing and reopening frames per effect into `<dir>/animation/<effect>/`. |
-| `--no-timing` | Record GPU times without enforcing the 6 ms budget, for parallel development runs. |
-| `--strict-timing` | Enforce the budget on the best p95 as well as the best-of-three median. |
+| `--no-timing` | Record GPU times without gating them, for parallel development runs. |
+| `--strict-timing` | Enforce the absolute 6 ms budget on the best-of-three median and p95. Without it, every effect is gated at 2.5× the Duo median of the same run (Duo itself at a 12 ms sanity limit), because GPU time on a shared desktop includes other processes' work. |
 
 GPU measurements exclude capture and display composition; do not infer a frame-rate or battery-life guarantee from them.
 

@@ -150,7 +150,7 @@ swift build
 .build/debug/MacbookDuo --render-check validation
 ```
 
-Add `--effects duo,fold` to check a subset, `--animation` to export closing and reopening frames for each effect, `--no-timing` to record GPU times without gating, or `--strict-timing` to enforce the budget on p95 as well. See [docs/DEVELOPMENT.md](docs/DEVELOPMENT.md) for signing, the Intel build, packaging, releases and adding a new effect.
+`scripts/verify.sh` runs all of that plus the live overlay sandbox, release packaging and the updater's self-checks in one go. Add `--effects duo,fold` to check a subset, `--animation` to export closing and reopening frames for each effect, `--no-timing` to record GPU times without gating, or `--strict-timing` to enforce the absolute 6 ms budget on median and p95 (run it on a quiet machine; by default each effect is gated at 2.5× the Duo median measured in the same run, which stays meaningful on a busy desktop). See [docs/DEVELOPMENT.md](docs/DEVELOPMENT.md) for signing, the Intel build, packaging, releases and adding a new effect.
 
 ## Contributing
 
