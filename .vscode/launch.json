@@ -1,0 +1,24 @@
+{
+    "configurations": [
+        {
+            "type": "swift",
+            "request": "launch",
+            "args": [],
+            "cwd": "${workspaceFolder:Macbook-Duo-App}",
+            "name": "Debug MacbookDuo",
+            "target": "MacbookDuo",
+            "configuration": "debug",
+            "preLaunchTask": "swift: Build Debug MacbookDuo"
+        },
+        {
+            "type": "swift",
+            "request": "launch",
+            "args": [],
+            "cwd": "${workspaceFolder:Macbook-Duo-App}",
+            "name": "Release MacbookDuo",
+            "target": "MacbookDuo",
+            "configuration": "release",
+            "preLaunchTask": "swift: Build Release MacbookDuo"
+        }
+    ]
+}

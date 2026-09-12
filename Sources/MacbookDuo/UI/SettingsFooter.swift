@@ -69,7 +69,7 @@ struct SettingsFooter: View {
                 .help(L10n.text("Start Macbook Duo when you log in. It opens paused; following begins when you enable it."))
             dot
             if model.reducedMotion { Text(L10n.text("Reduce Motion on"));dot }
-            Text(L10n.text("On your Mac only")).foregroundStyle(GlassPalette.accentText(scheme))
+            Text(L10n.text("On your Macbook only")).foregroundStyle(GlassPalette.accentText(scheme))
         }
         .font(.system(size:10)).foregroundStyle(GlassPalette.secondaryText(scheme))
     }
