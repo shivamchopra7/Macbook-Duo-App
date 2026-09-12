@@ -16,7 +16,7 @@ public struct FoldVisualState: Equatable, Sendable {
     public static let clear = Self(progress: 0, defocus: 0, coverage: 0)
     public var isClear: Bool { progress == 0 && defocus == 0 && coverage == 0 && tilt == 0 }
 
-    public static func at(angle: Double, reference: Double) -> Self {
+    public static func at(angle: Double, reference: Double, curve: FoldCurve = .smooth) -> Self {
         guard angle.isFinite, reference.isFinite else { return .clear }
         let reference = min(140, max(5, reference))
         let delta = max(0, reference-angle)
@@ -24,7 +24,7 @@ public struct FoldVisualState: Equatable, Sendable {
         // A low resting angle must not compress the whole effect into one or
         // two sensor degrees. The OS still owns actual lid-close sleep.
         let span = max(20, reference-5)
-        let progress = ease(delta/span)
+        let progress = curve.apply(delta/span)
         // Barely visible for 1–3°, substantial at 15°, with room for deeper closure.
         let defocus = 0.16*ease(delta/15)*ease(delta/6)
             + 0.84*ease((delta-15)/max(10,span-15))
@@ -46,7 +46,16 @@ public struct FoldVisualState: Equatable, Sendable {
 /// A shared absolute-time return, with fast tracking while the lid is moving.
 /// Coverage hands the last, almost-clear pixels back to the real desktop.
 public struct FoldVisualAnimation {
-    public static let clearDuration: TimeInterval = 0.6
+    public static let clearDuration: TimeInterval = EffectOptions.default.clearDuration
+    public static let responseTime: TimeInterval = EffectOptions.default.responseTime
+    /// Length of the shared return-to-clear animation; `EffectOptions` supplies the user's choice.
+    public var clearDuration: TimeInterval = FoldVisualAnimation.clearDuration {
+        didSet { if !clearDuration.isFinite || clearDuration <= 0 { clearDuration = Self.clearDuration } }
+    }
+    /// Smoothing time constant while the lid moves. Tilt keeps its own faster response.
+    public var responseTime: TimeInterval = FoldVisualAnimation.responseTime {
+        didSet { if !responseTime.isFinite || responseTime <= 0 { responseTime = Self.responseTime } }
+    }
     public private(set) var value: FoldVisualState = .clear
     private var lastTime: TimeInterval?
     private var clearStart: TimeInterval?
@@ -54,7 +63,20 @@ public struct FoldVisualAnimation {
     private var tiltVelocity = 0.0
 
     public init() {}
-    public mutating func reset() { self = Self() }
+    public init(options: EffectOptions) {
+        clearDuration = options.clearDuration
+        responseTime = options.responseTime
+    }
+    /// Timing follows the user's options; the in-flight motion state is untouched.
+    public mutating func apply(_ options: EffectOptions) {
+        clearDuration = options.clearDuration
+        responseTime = options.responseTime
+    }
+    public mutating func reset() {
+        let clear = clearDuration, response = responseTime
+        self = Self()
+        clearDuration = clear; responseTime = response
+    }
     public mutating func prime(at now: TimeInterval) { lastTime = now }
 
     public mutating func sample(target: FoldVisualState, at now: TimeInterval) -> FoldVisualState {
@@ -65,7 +87,7 @@ public struct FoldVisualAnimation {
         lastTime = now
         if let start = clearStart {
             tiltVelocity = 0
-            let t = min(1,max(0,(now-start)/Self.clearDuration))
+            let t = min(1,max(0,(now-start)/clearDuration))
             let remaining = 1-FoldVisualState.ease(t)
             value = .init(progress:clearFrom.progress*remaining,defocus:clearFrom.defocus*remaining,
                 coverage:clearFrom.coverage*(1-FoldVisualState.ease((t-0.75)/0.25)),
@@ -81,7 +103,7 @@ public struct FoldVisualAnimation {
             if !value.isClear { clearFrom = value; clearStart = now; tiltVelocity = 0 }
             return value
         }
-        let mix = 1-exp(-dt/0.045)
+        let mix = 1-exp(-dt/responseTime)
         let tiltMix = 1-exp(-dt/0.015)
         // Seed a new plane while invisible. If movement interrupts a clear,
         // retarget the paired reference and tilt without jumping between planes.

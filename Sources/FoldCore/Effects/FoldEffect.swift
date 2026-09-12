@@ -5,6 +5,7 @@ import Foundation
 /// Neither may be renumbered: saved selections and the shader switch depend on both.
 public enum FoldEffect: String, CaseIterable, Sendable, Identifiable {
     case duo, ghost, roll, shutter, flex, iris
+    case fold, accordion, louver, card, curtain, ripple
 
     public static let fallback = FoldEffect.duo
 
@@ -20,6 +21,12 @@ public enum FoldEffect: String, CaseIterable, Sendable, Identifiable {
         case .shutter: return 2
         case .flex: return 3
         case .iris: return 4
+        case .fold: return 6
+        case .accordion: return 7
+        case .louver: return 8
+        case .card: return 9
+        case .curtain: return 10
+        case .ripple: return 11
         }
     }
 
@@ -42,6 +49,12 @@ public enum FoldEffect: String, CaseIterable, Sendable, Identifiable {
         case .shutter: return "Shutter"
         case .flex: return "Flex"
         case .iris: return "Iris"
+        case .fold: return "Fold"
+        case .accordion: return "Accordion"
+        case .louver: return "Louver"
+        case .card: return "Card"
+        case .curtain: return "Curtain"
+        case .ripple: return "Ripple"
         }
     }
 
@@ -53,6 +66,12 @@ public enum FoldEffect: String, CaseIterable, Sendable, Identifiable {
         case .shutter: return "square.stack.3d.down.right"
         case .flex: return "rectangle.compress.vertical"
         case .iris: return "camera.aperture"
+        case .fold: return "rectangle.split.1x2"
+        case .accordion: return "line.3.horizontal"
+        case .louver: return "rectangle.stack"
+        case .card: return "rectangle.portrait.rotate"
+        case .curtain: return "curtains.closed"
+        case .ripple: return "water.waves"
         }
     }
 
@@ -61,11 +80,28 @@ public enum FoldEffect: String, CaseIterable, Sendable, Identifiable {
         case .duo: return "The desktop swells around the hinge as the lid closes."
         case .ghost: return "The desktop holds its resting plane as the lid tilts and gently falls out of focus."
         case .roll: return "The desktop curls into a roll that travels down to the hinge."
-        case .shutter: return "Four rigid panels telescope behind each other into the hinge."
+        case .shutter: return "Rigid panels telescope behind each other into the hinge."
         case .flex: return "One bowing flexible display collapses toward the hinge."
         case .iris: return "Eight overlapping blades close an aperture above the hinge."
+        case .fold: return "The display creases across the middle and the top half folds down over the bottom."
+        case .accordion: return "Pleats zig-zag and gather toward the hinge like a paper fan."
+        case .louver: return "Horizontal slats tilt and overlap like closing window blinds."
+        case .card: return "The whole desktop tips back as one rigid card in perspective."
+        case .curtain: return "Drapes draw together from both sides and settle at the hinge."
+        case .ripple: return "Liquid rings spread from the hinge and the desktop drains into it."
         }
     }
+
+    /// Whether the effect divides the display into `EffectOptions.segments` parts.
+    public var usesSegments: Bool {
+        switch self {
+        case .shutter, .accordion, .louver, .curtain: return true
+        default: return false
+        }
+    }
+
+    /// Effects added to the original six, shown as "new" in the interface.
+    public var isExpansion: Bool { shaderIndex >= 6 }
 
     /// Duo can skip the pyramid with Softness off. Effects that minify
     /// the source still need it for prefiltering at zero Softness.

@@ -247,3 +247,34 @@ private func trackingAnimation() -> FoldVisualAnimation {
     differentPlane.referenceAngle = .nan
     #expect(animation.sample(target:differentPlane,at:2).isClear)
 }
+
+@Test func optionsChangeTimingWithoutDisturbingMotionState() {
+    var slow = FoldVisualAnimation(options: EffectOptions(responseTime: 0.12, clearDuration: 1.2))
+    var quick = FoldVisualAnimation(options: EffectOptions(responseTime: 0.02, clearDuration: 0.3))
+    let target = FoldVisualState.at(angle: 70, reference: 105)
+    slow.prime(at: 0); quick.prime(at: 0)
+    let slowStep = slow.sample(target: target, at: 0.03).progress
+    let quickStep = quick.sample(target: target, at: 0.03).progress
+    #expect(quickStep > slowStep, "A shorter response time tracks the lid faster.")
+    for tick in 1...300 { _ = slow.sample(target: target, at: 0.03+Double(tick)/100); _ = quick.sample(target: target, at: 0.03+Double(tick)/100) }
+    _ = slow.sample(target: .clear, at: 4); _ = quick.sample(target: .clear, at: 4)
+    #expect(!quick.sample(target: .clear, at: 4.29).isClear)
+    #expect(quick.sample(target: .clear, at: 4.31).isClear, "A 0.3 s clear finishes in 0.3 s.")
+    #expect(!slow.sample(target: .clear, at: 5.1).isClear, "A 1.2 s clear is still running at 1.1 s.")
+    #expect(slow.sample(target: .clear, at: 5.21).isClear)
+    var reset = slow; reset.reset()
+    #expect(reset.clearDuration == 1.2 && reset.responseTime == 0.12, "Reset keeps the user's timing.")
+    reset.apply(.default)
+    #expect(reset.clearDuration == FoldVisualAnimation.clearDuration && reset.responseTime == FoldVisualAnimation.responseTime)
+}
+
+@Test func curvesReshapeProgressButNotDefocusOrTilt() {
+    for curve in FoldCurve.allCases {
+        let state = FoldVisualState.at(angle: 80, reference: 105, curve: curve)
+        let smooth = FoldVisualState.at(angle: 80, reference: 105)
+        #expect(state.defocus == smooth.defocus && state.tilt == smooth.tilt && state.referenceAngle == smooth.referenceAngle)
+        #expect(state.progress == curve.apply(25/100))
+        #expect(FoldVisualState.at(angle: 105, reference: 105, curve: curve).isClear)
+        #expect(FoldVisualState.at(angle: 5, reference: 105, curve: curve).progress == 1)
+    }
+}
