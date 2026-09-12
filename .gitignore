@@ -1,7 +1,16 @@
-.DS_Store
+# Local builds and personal signing configuration
+.build/
 build/
-DerivedData/
-*.xcodeproj/xcuserdata/
-*.xcworkspace/xcuserdata/
+build-intel/
 .swiftpm/
+validation/
+validation-*/
+signing-identity.txt
+.DS_Store
+.claude/
 *.xcuserstate
+xcuserdata/
+.remember/
+dist/
+*.dmg
+*.zip
