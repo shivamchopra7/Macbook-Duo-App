@@ -16,6 +16,8 @@
 | Intel preview | [**Macbook-Duo-Intel.dmg**](https://github.com/shivamchopra7/Macbook-Duo-App/releases/latest/download/Macbook-Duo-Intel.dmg) |
 | Everything else (ZIPs, checksums, older versions) | [All releases](https://github.com/shivamchopra7/Macbook-Duo-App/releases) |
 
+**Mac App Store:** Macbook Duo is coming to the Mac App Store as a sandboxed build with no in-app updater; until then, use the direct download above.
+
 Version 1.0.0 · [Website](https://shivamchopra7.github.io/Macbook-Duo-App/) · [Changelog](CHANGELOG.md) · [Build from source](#build-from-source) · [Report an issue](https://github.com/shivamchopra7/Macbook-Duo-App/issues)
 
 <p align="center"><img src="docs/assets/window-effects.png" alt="The Macbook Duo settings window on the Effects section, with the live MacBook-shaped preview on the left and the twelve effects on the right" width="800"></p>
@@ -127,7 +129,8 @@ English, Simplified Chinese, Traditional Chinese and Japanese. Macbook Duo follo
 - Desktop frames stay in bounded memory on your Mac. They are never saved, uploaded or analyzed.
 - ScreenCaptureKit excludes Macbook Duo's own windows from capture, and audio capture is disabled.
 - No accounts, no analytics, no telemetry and no third-party runtime dependencies.
-- The only network activity is a user-initiated update check against the official GitHub release, over HTTPS.
+- The only network activity is a user-initiated update check against the official GitHub release, over HTTPS. The Mac App Store build has no network access at all.
+- The full policy is published at [shivamchopra7.github.io/Macbook-Duo-App/privacy.html](https://shivamchopra7.github.io/Macbook-Duo-App/privacy.html) and versioned in [docs/privacy.html](docs/privacy.html).
 - Public builds are ad-hoc signed and not notarized. SHA-256 checksums detect corrupt downloads; trust rests on the official repository and GitHub HTTPS.
 - Settled previews stop rendering, blur work is cached, and refresh is capped according to power and temperature, with up to 120 Hz requested on supported displays while plugged in.
 

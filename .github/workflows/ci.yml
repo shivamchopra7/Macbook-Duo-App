@@ -18,6 +18,15 @@ jobs:
       - name: Test
         run: swift test
 
+      - name: Build (App Store flavour, updater compiled out)
+        run: swift build -Xswiftc -DAPPSTORE
+
+      - name: Generate Xcode project
+        run: '[ -d "Macbook Duo.xcodeproj" ] || (brew install xcodegen && xcodegen generate)'
+
+      - name: Build Xcode project (App Store target, unsigned)
+        run: xcodebuild -project "Macbook Duo.xcodeproj" -scheme "Macbook Duo" -configuration Release CODE_SIGNING_ALLOWED=NO build
+
       - name: Package app
         run: ./build.sh
 
