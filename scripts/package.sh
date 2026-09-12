@@ -11,15 +11,16 @@ rm -f "$DIST"/Macbook-Duo*.dmg "$DIST"/Macbook-Duo*.zip "$DIST"/Macbook-Duo-SHA2
 
 package() {
   local app_dir="$1" suffix="$2"
+  # The updater downloads Macbook-Duo-mac.zip on Apple silicon and Macbook-Duo-Intel.zip on Intel,
+  # while the DMGs are Macbook-Duo.dmg and Macbook-Duo-Intel.dmg.
+  local zip_suffix="${suffix:--mac}"
   local app="$app_dir/Macbook Duo.app"
   [[ -d "$app" ]] || { printf 'Skipping %s: %s not built.\n' "$suffix" "$app" >&2; return 0; }
   local stage; stage="$(mktemp -d)"
   ditto "$app" "$stage/Macbook Duo.app"
   printf 'Drag "Macbook Duo.app" into Applications, then open it from there.\nFirst launch: System Settings → Privacy & Security → Open Anyway.\n' > "$stage/INSTALL.txt"
   # The updater validates archive entries: only INSTALL.txt and Macbook Duo.app/... are accepted.
-  (cd "$stage" && ditto -c -k --norsrc --noextattr --keepParent "Macbook Duo.app" "../$(basename "$stage").zip" >/dev/null)
-  (cd "$stage" && zip -q -r -X "$OLDPWD/$DIST/Macbook-Duo${suffix}.zip" "Macbook Duo.app" INSTALL.txt)
-  rm -f "$stage/../$(basename "$stage").zip"
+  (cd "$stage" && zip -q -r -X "$OLDPWD/$DIST/Macbook-Duo${zip_suffix}.zip" "Macbook Duo.app" INSTALL.txt)
   local dmg_root; dmg_root="$(mktemp -d)"
   ditto "$app" "$dmg_root/Macbook Duo.app"
   ln -s /Applications "$dmg_root/Applications"
