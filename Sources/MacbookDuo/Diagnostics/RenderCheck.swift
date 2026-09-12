@@ -212,7 +212,7 @@ import FoldCore
         }
         try require(renderer.blurBuildCount == beforeCachedBenchmark+1, "Static native frames rebuilt the blur.")
         let effectTimes = try benchmarkEffects(device,renderer,nativeInput,nativeTarget)
-        let report: [String: Any] = ["version":"0.1.14","gpu":device.name,"gradualOnset":gradualOnset,"clearTransitionChecks":clearChecks,"clearDurationSeconds":FoldVisualAnimation.clearDuration,"frameChecks":checkpoints,
+        let report: [String: Any] = ["version":"1.0.0","gpu":device.name,"gradualOnset":gradualOnset,"clearTransitionChecks":clearChecks,"clearDurationSeconds":FoldVisualAnimation.clearDuration,"frameChecks":checkpoints,
             "effectCatalog":checkedEffects.map { ["id":$0.persistedIdentifier,"shaderIndex":Int($0.shaderIndex),
                 "title":$0.title,"prefiltersSource":$0.needsPrefilteredSource] },
             "effectChecks":effects,"effectNativeGPUTimes":effectTimes,

@@ -1,42 +1,64 @@
-# Build and verify Macbook Duo
+# Developing Macbook Duo
+
+This guide covers building, signing, packaging, releasing and verifying Macbook Duo 1.0.0, the source layout, how to add an effect, and localization. For user-facing documentation see the [README](../README.md); for contribution ground rules see [CONTRIBUTING.md](../CONTRIBUTING.md).
 
 ## Build
 
-Use **Xcode 16 or newer / Swift 6** on a supported build host. The app itself targets **macOS 13 Ventura or newer** on Apple silicon and Intel; a compatible continuous lid-angle sensor is required for automatic following. A newer build SDK does not raise the app's deployment target.
+Use **Xcode 16 or newer / Swift 6** on a Mac. The app targets **macOS 13 Ventura or newer** on Apple silicon and Intel; a newer build SDK does not raise the deployment target. Automatic following needs a MacBook with a continuous lid-angle sensor, but the app builds, tests and runs its offscreen checks on any Mac.
 
 ```sh
 git clone https://github.com/shivamchopra7/Macbook-Duo-App.git
-cd MacbookDuo
+cd Macbook-Duo-App
 ./build.sh
 open "build/Macbook Duo.app"
 ```
 
-The default build uses ad-hoc signing. For a stable Screen Recording identity across rebuilds, provide your own Apple Development certificate:
+`build.sh` runs `swift build -c release`, strips debug symbols so local build paths do not ship in the executable, copies the localized resource bundle, icon and menu-bar mark into `build/Macbook Duo.app`, writes `Info.plist` (bundle identifier `com.shivamchopra.macbookduo`, version 1.0.0, build 100), signs the bundle and verifies the signature.
+
+## Signing
+
+The default build is ad-hoc signed. An ad-hoc signature changes with every executable, so macOS may ask for Screen Recording permission again after a rebuild. For a stable identity across builds, provide an Apple Development certificate:
 
 ```sh
 MACBOOKDUO_SIGNING_IDENTITY="Apple Development: Your Name (TEAMID)" ./build.sh
 ```
 
-The default app remains a native ARM64 build for M-series Macs. Build the separately packaged Intel app explicitly:
+You can also store the identity in a local `signing-identity.txt`, which Git ignores. Keep using the same identity for updates. No certificate, private key or signing identity is included in this repository, and public downloads are ad-hoc signed and not notarized. Check the final DMG and ZIP contents before uploading a release.
+
+## Intel build
+
+The default output is a native ARM64 app. Build the separately packaged Intel app explicitly:
 
 ```sh
 ./build.sh
 MACBOOKDUO_ARCH=x86_64 MACBOOKDUO_BUILD_DIR=.build-intel ./build.sh
 ```
 
-The commands write to `build/Macbook Duo.app` and `build-intel/Macbook Duo.app` respectively, so one build cannot overwrite the other. Set `MACBOOKDUO_OUTPUT_DIR` only when a different destination is needed. Do not combine the slices for distribution. Keep the M-series downloads named `Macbook-Duo.dmg` and `Macbook-Duo-mac.zip`; use `Macbook-Duo-Intel.dmg` and `Macbook-Duo-Intel.zip` for Intel. Both are native builds and neither requires Rosetta.
+The commands write to `build/Macbook Duo.app` and `build-intel/Macbook Duo.app`, so one build cannot overwrite the other. Set `MACBOOKDUO_OUTPUT_DIR` only when you need a different destination. Do not combine the slices for distribution; both are native builds and neither needs Rosetta. The Intel build is a preview: it compiles and packages, but physical Intel verification is still pending.
 
-You can also store that identity in a local `signing-identity.txt`, which is ignored by Git. Keep using the same identity for updates. An ad-hoc signature changes with the executable, so macOS may require granting access again after a rebuild. No certificate, private key, signing identity file, or personal validation log is included in this repository.
+## Packaging and releases
 
-The app packaging step strips debug symbols before signing so local build-folder paths are not included in the distributed executable. Keep debug symbols in your local build directory, and use ad-hoc signing for public development downloads if you do not intend to publish your certificate identity. Check the final DMG and ZIP contents as well as source files before uploading a release.
+```sh
+scripts/package.sh
+```
 
-## Privacy and implementation
+`package.sh` packages whatever has been built into `dist/`: `Macbook-Duo.dmg` and `Macbook-Duo-mac.zip` for Apple silicon, `Macbook-Duo-Intel.dmg` and `Macbook-Duo-Intel.zip` when the Intel build exists, and `Macbook-Duo-SHA256SUMS.txt` covering the ZIPs. The ZIPs contain only `Macbook Duo.app` and `INSTALL.txt`, because the in-app updater rejects any other entry. Set `MACBOOKDUO_DIST_DIR` to package elsewhere.
 
-ScreenCaptureKit excludes this app from its own capture. Audio capture is disabled. Desktop frames remain in bounded memory; they are not saved, uploaded or analyzed. The live effect uses no network service, account, analytics or third-party runtime dependency. User-initiated update checks and downloads contact GitHub; they never include desktop frames.
+```sh
+scripts/release.sh 1.0.0
+```
 
-The HID reader runs off the main thread. A Metal fragment shader and reusable blur pyramid render the effect. Reduce Motion uses a simple fade. Capture stops when the effect clears, and sensor/capture failures restore the desktop.
+`release.sh <version>` builds both architectures, runs `package.sh`, then creates the GitHub release `v<version>` with `gh release create`, attaching the assets under the exact names the updater expects and using `CHANGELOG.md` as the notes. Keep those asset names stable: `AppUpdater` selects `Macbook-Duo-mac.zip` on ARM64 and `Macbook-Duo-Intel.zip` on x86_64 and validates both against `Macbook-Duo-SHA256SUMS.txt`. Bump `CFBundleShortVersionString` and `CFBundleVersion` in `build.sh`, the `version` field in `RenderCheck.swift`, and the changelog before tagging.
 
-macOS owns sleep and the secure login screen. Animation cannot be guaranteed while the display is asleep, during login or with protected content. Capture may take a moment to warm up; the desktop and live preview remain clear until a fresh frame is ready.
+## Icon
+
+The app icon and the menu-bar template mark are rendered from code so the brand assets are reproducible:
+
+```sh
+swift scripts/make-icon.swift
+```
+
+This writes `Resources/MacbookDuo.icns`, `Resources/MacbookDuoIcon.png` (1024 px) and `Resources/MacbookDuoMark.png` (176 px template) and is the only way the brand assets should change. Pass a directory argument to write elsewhere.
 
 ## Verify
 
@@ -46,55 +68,75 @@ swift build
 .build/debug/MacbookDuo --render-check validation
 ```
 
-The render check uses generated artwork only; it does not capture the desktop. It verifies all six effects: pixel identity when open/reopened, black closure, opacity, blur, practical geometry, distinct intermediate frames, smooth onset, Reduce Motion, cache freshness and GPU timing. Add `--animation` to export generated closing/reopening frames for every effect. GPU measurements exclude capture and display composition. Physical lid sweeps, sustained energy use and platform lifecycle transitions still need testing on more hardware.
+The render check uses generated artwork only and never captures the desktop. For every effect it verifies pixel identity when open and reopened, black closure, opacity, blur, practical geometry, distinct intermediate frames, smooth onset, Reduce Motion, cache freshness, low-resting-angle behaviour and GPU timing, then runs the effect's own detail check and writes `render-check.json` plus reference PNGs into the output directory.
 
-## Version 0.1.14
+| Flag | Effect |
+|---|---|
+| `--render-check <dir>` | Output directory for the report and images. |
+| `--effects duo,fold` | Limit the per-effect loops to the listed identifiers, so one shader can be validated alone. |
+| `--animation` | Export 180 closing and reopening frames per effect into `<dir>/animation/<effect>/`. |
+| `--no-timing` | Record GPU times without enforcing the 6 ms budget, for parallel development runs. |
+| `--strict-timing` | Enforce the budget on the best p95 as well as the best-of-three median. |
 
-The normal packaged executable remains ARM64-only. A separate x86_64 preview build is produced without changing the renderer, UI or M-series runtime. The updater selects `Macbook-Duo-mac.zip` on ARM64 and `Macbook-Duo-Intel.zip` on Intel, while using the shared checksum manifest. The continuous sensor is undocumented and model-dependent: the intended Intel target is the 2019 16-inch MacBook Pro. Intel machines with only an open/closed clamshell switch correctly remain in the sensor-unavailable state. A physical Intel Mac is still required to verify HID reports, ScreenCaptureKit, Metal rendering and Screen Recording permission end to end.
+GPU measurements exclude capture and display composition; do not infer a frame-rate or battery-life guarantee from them.
 
-## Version 0.1.13
+The remaining diagnostics exercise the real app and the updater:
 
-Ghost transforms a fixed keyboard-space viewer into the resting screen plane using the absolute reference angle. Projection references below 90° use an upright virtual plane to avoid placing the viewer behind the panel. The reference travels with the animated tilt and remains fixed throughout a clear transition; interrupted clears retarget both together. An exact critically damped tilt response smooths whole-degree HID reports while keeping the rendered panel within one degree of motion. The Metal uniform remains 48 bytes. Blur grows from zero at the hinge and uses a lower maximum radius.
+```sh
+# Full-screen overlay with a synthetic frame on the built-in display; Esc stops it.
+"build/Macbook Duo.app/Contents/MacOS/MacbookDuo" --overlay-check validation-overlay
 
-World-space ray tests cover multiple resting angles and viewing distances. This is still an assumed viewpoint, not head tracking; subjective physical feel needs confirmation on the actual Mac.
+# Ask GitHub for a newer stable release (network, user-initiated).
+.build/debug/MacbookDuo --update-check
 
-The app follows macOS language selection for English, Simplified Chinese, Traditional Chinese and Japanese. `SMAppService.mainApp` provides opt-in launch at login; it does not enable the live effect or request Screen Recording access. The optional menu-bar icon remains enabled by default. Lid HID polling follows the same power-, temperature- and display-aware 30/60/120 Hz cap as motion rendering.
+# Checksum, bounded extraction, bundle identity, version, macOS, architecture and signature of a package.
+.build/debug/MacbookDuo --update-package-check dist/Macbook-Duo-mac.zip dist/Macbook-Duo-SHA256SUMS.txt 1.0.0 validation-update
 
-## Version 0.1.12
+# LaunchServices, ready handshake, replacement and failed-launch rollback with a local fixture.
+.build/debug/MacbookDuo --update-installer-fixture validation-installer
 
-This release gathers the locally tested 0.1.7–0.1.11 changes and adds an in-app updater and Ghost perspective compensation. Both the executable and bundle target macOS 13; the Metal shaders use the Metal 3.0 baseline. Physical Ventura testing remains pending.
+# The helper handoff for an archive, manifest and version.
+.build/debug/MacbookDuo --update-handoff-check dist/Macbook-Duo-mac.zip dist/Macbook-Duo-SHA256SUMS.txt 1.0.0
+```
 
-Ghost intersects a stationary viewer’s ray through the tilted panel with the last resting desktop plane. Physical tilt is carried separately from eased fold progress and cleared on the same 0.6-second animation clock as blur and coverage. The Perspective slider uses a bounded viewing distance of 1.6–2.6 screen heights, so low settings retain a convincing stationary desktop. Counter-rotation tracks faster than optical softening to reduce the feeling that content follows the lid. A small geometric filter also limits minification shimmer when Softness is zero. The illusion assumes a stationary viewer; the app does not track head position. Generated tests check that landmarks remain at their reference positions under the simulated viewing geometry, blur builds gradually, and clearing restores exact source pixels.
+`--enable` starts following one second after launch, which is handy when scripting a physical lid sweep. Physical lid sweeps, sustained energy use and platform lifecycle transitions still need testing on more hardware.
 
-Small movements stay gentle even at low resting angles. The response uses a minimum 20-degree geometry span and a minimum 10-degree late-blur span. At very low angles the virtual fold may not finish before macOS sleeps; sleep behavior is unchanged. Flex’s hinge shadow and Iris’s rim defocus grow gradually.
+## Source layout
 
-Stopped effects release their blur pyramid, imported capture texture and drawables. Immutable Metal pipelines are shared; queues and mutable textures remain per renderer. Capture callbacks update a locked, bounded frame store directly, rejecting frames from stopped or replaced streams. Repeated imports, main-thread callbacks and identical window/sensor updates are skipped. Freshness, stillness, native capture resolution and existing power caps remain intact.
+```
+Package.swift             SwiftPM manifest: FoldCore library, MacbookDuo app, two test targets
+build.sh                  Builds, strips, bundles and signs "Macbook Duo.app"
+scripts/                  package.sh (DMG, ZIP, checksums), release.sh (GitHub release), make-icon.swift (brand assets)
+Resources/                App icon (.icns, .png) and the menu-bar template mark
+Sources/FoldCore/         Platform-independent core with no AppKit or Metal dependency
+  Effects/                FoldEffect catalog (ids, shader indices, titles, summaries) and EffectOptions with FoldCurve
+  Motion/                 Fold math, the visual animation clock, lid motion reference and stillness detection
+  Updates/                Release lookup, version parsing, archive validation and the update handoff contract
+Sources/MacbookDuo/       The menu-bar app
+  App/                    main.swift entry point and diagnostic flags, AppDelegate, brand images, L10n helper
+  Model/                  AppModel state, overlay lifecycle, input handling, system integration, appearance
+  Capture/                ScreenCaptureKit desktop capture and the bounded frame store
+  Sensor/                 Lid-angle HID reader, off the main thread
+  Rendering/              Metal renderer, pipelines, uniforms and generated preview artwork
+  Rendering/Shaders/      FoldShader assembly, ShaderCommon header and dispatch, one Shader<Name>.swift per effect
+  UI/                     Settings window, controls and live preview in the Liquid Glass design language
+  Updates/                In-app updater: download, installation, relaunch and diagnostics
+  Diagnostics/            RenderCheck and one RenderCheck+<Name>.swift detail check per effect
+  Resources/              en, zh-Hans, zh-Hant and ja .lproj string tables
+Tests/FoldCoreTests/      Unit tests for effects, options, motion, pacing and updates
+Tests/LocalizationTests/  Key coverage and format-placeholder checks across all languages
+docs/                     GitHub Pages site (index.html, style.css, assets/) and this guide
+```
 
-The performance work was checked with generated images, resource-retirement/rebuild checks, frame freshness and concurrent capture-stop tests. Shader timings exclude screen capture and composition. Physical lid feel, sustained energy use and controlled end-to-end CPU/RAM comparisons still need measurement; do not infer a battery-life or 120 FPS guarantee from GPU timings.
+Every file stays under 400 lines; split a file rather than growing it past that.
 
-### Updates
+## Adding an effect
 
-**Check for Updates** is user initiated. It reads the latest stable release from `shivamchopra7/Macbook-Duo-App` on GitHub. ARM64 installation uses `Macbook-Duo-mac.zip`; x86_64 installation uses `Macbook-Duo-Intel.zip`; both use `Macbook-Duo-SHA256SUMS.txt`, with download, archive and bundle validation before replacement. Keep these stable asset names in future releases. A writable installation folder is required; the updater does not request administrator access or bypass Gatekeeper. User preferences are preserved. Ad-hoc builds can require **Privacy & Security → Open Anyway** approval and reapproving Screen Recording. A helper startup acknowledgment prevents quitting into a failed installer. Relaunch acknowledgment matches the approved bundle identity, version and executable hash, including isolated macOS launch paths. The recovery dialog keeps the verified candidate and previous app safe while offering Open Privacy & Security, Try Opening Again, or Restore Previous. No security prompt is bypassed.
-
-Update checks and downloads use HTTPS to GitHub. SHA-256 detects corrupt or mismatched downloads; an ad-hoc code signature does not prove publisher identity. Trust still depends on the official repository and GitHub HTTPS. There is no background update polling, telemetry or screen upload.
-
-## Version 0.1.6 background fix
-
-Capture discovery includes offscreen windows and retains the process identity used to exclude Macbook Duo. Desktop changes clear old frames and resume capture without changing the enabled state. Settings rise above the effect only when the user is actively using that window, and return to normal when focus leaves. The old 45-second auto-pause was removed; Esc, the pause shortcut, and stillness clearing remain available.
-
-The optimized build and 19 tests pass. The old build was observed auto-disabling at 45 seconds; the update remained enabled for 214 seconds until deliberately quit for a relaunch. Live logs confirmed desktop changes with following still enabled, fresh capture and presentation while inactive, and the settings window at its normal level. Renderer and shader files are unchanged from the measurements below.
-
-## Version 0.1.5 renderer validation
-
-The optimized arm64 build and 19 Swift tests passed on an Apple M4 MacBook Pro. All five GPU render checks passed at 3024 × 1964; per-effect GPU time at the 95th percentile ranged from 1.94 to 2.30 ms. These are offscreen shader measurements, not a 120 FPS or battery-life claim. This is an early, unnotarized release; a full physical lid sweep and sustained battery/latency measurements remain unverified.
-
-## Contributing
-
-Issues and focused pull requests are welcome. Include macOS version, Mac model, whether its lid sensor is detected, reproduction steps and relevant test results. Do not attach private desktop recordings or signing credentials. Run the checks above for renderer or motion changes. Keep the app dependency-free and respect Reduce Motion and existing power limits.
-
-## Credits
-
-Macbook Duo combines its own renderer and controls with a credited adaptation of the resting-plane projection. Public demonstrations and hardware research helped guide it; see [ATTRIBUTION.md](../ATTRIBUTION.md). Macbook Duo is independent and is not affiliated with Apple, Bendy or the reference projects.
+1. **Catalog.** Add a case to `FoldEffect` in `Sources/FoldCore/Effects/FoldEffect.swift` with the next unused `shaderIndex` (12 for the thirteenth effect), a title, an SF Symbol and a one-sentence summary. Set `usesSegments` if the effect divides the display. Never renumber existing cases or indices; saved preferences and the shader switch depend on them.
+2. **Shader.** Create `Sources/MacbookDuo/Rendering/Shaders/Shader<Name>.swift` with a Metal function `fold<Name>(float2 uv, texture2d<float> desktop, texture2d<float> pyramid, sampler s, constant Uniforms& u, float p)` that maps each output pixel back into the desktop image, reads `u.intensity` and `u.segments` where relevant, and returns opaque black at `p == 1`. Add the function to the `FoldShader.source` array in `FoldShader.swift` before `ShaderCommon.dispatch`, then extend the index range and the `if` chain in `ShaderCommon.dispatch` so the new index reaches it.
+3. **Render check.** Add `Sources/MacbookDuo/Diagnostics/RenderCheck+<Name>.swift` with a `check<Name>(_ device:, _ renderer:, _ plate:, _ W:, _ H:)` function that asserts the effect's own geometry and optics, and register it in the `detail` list in `RenderCheck+Effects.swift`.
+4. **Strings.** Add the title and summary to `Localizable.strings` in all four `.lproj` folders; `swift test` fails on a missing key.
+5. **Tests and docs.** Extend `FoldEffectTests`, run `swift test` and `--render-check validation --effects <id>`, then add `docs/assets/<id>.gif`, `<id>.mp4` and `<id>.jpg`, a card in `docs/index.html` and a row in the README table.
 
 ## Localization
 
@@ -109,3 +151,17 @@ open -n "build/Macbook Duo.app" --args -AppleLanguages '("ja")'
 ```
 
 Repeat for `en`, `zh-Hans`, and `zh-Hant`; check the settings, effect and appearance menus, tooltips, and status messages. Also test an unsupported language such as `fr` for English fallback. Do not enable desktop capture just to verify translations. Check a copy of the packaged app outside the checkout with the build resource bundle temporarily unavailable to verify that it is self-contained.
+
+## Privacy and implementation
+
+ScreenCaptureKit excludes this app from its own capture. Audio capture is disabled. Desktop frames remain in bounded memory; they are not saved, uploaded or analyzed. The live effect uses no network service, account, analytics or third-party runtime dependency. User-initiated update checks and downloads contact GitHub; they never include desktop frames.
+
+The HID reader runs off the main thread. A Metal fragment shader and reusable blur pyramid render the effect. Reduce Motion uses a simple fade. Capture stops when the effect clears, and sensor/capture failures restore the desktop.
+
+macOS owns sleep and the secure login screen. Animation cannot be guaranteed while the display is asleep, during login or with protected content. Capture may take a moment to warm up; the desktop and live preview remain clear until a fresh frame is ready.
+
+Update checks and downloads use HTTPS to GitHub. SHA-256 detects corrupt or mismatched downloads; an ad-hoc code signature does not prove publisher identity. Trust still depends on the official repository and GitHub HTTPS. A writable installation folder is required; the updater does not request administrator access or bypass Gatekeeper, and a recovery dialog keeps the verified candidate and the previous app safe if a relaunch is blocked.
+
+## Contributing
+
+Issues and focused pull requests are welcome. Include macOS version, Mac model, whether its lid sensor is detected, reproduction steps and relevant test results. Do not attach private desktop recordings or signing credentials. Run the checks above for renderer or motion changes. Keep the app dependency-free and respect Reduce Motion and existing power limits. See [CONTRIBUTING.md](../CONTRIBUTING.md) and, for third-party notices, [ATTRIBUTION.md](../ATTRIBUTION.md).

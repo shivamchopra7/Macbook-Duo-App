@@ -2,9 +2,13 @@
 
 Thanks to Sam Henri Gold for publicly documenting and demonstrating the MacBook lid-angle sensor in [LidAngleSensor](https://github.com/samhenrigold/LidAngleSensor), published under Apache License 2.0.
 
-Macbook Duo's reader was written for this project. Its device identifiers (Sensor page 0x20, Orientation usage 0x8A), feature-report ID 1, and two-byte little-endian degree value were verified against that project and against this M4 MacBook Pro's hardware. No audio or other assets from that project are included.
+Macbook Duo builds on the MIT-licensed Mac Duo codebase; the license text is in [LICENSE](LICENSE). The lid-angle sensor reader, the effects and the controls were developed in that lineage, and Macbook Duo continues it under the same license with six additional effects, per-effect options and a redesigned settings window.
 
-The original five effects and controls were developed for Macbook Duo. Ghost’s later projection study and adaptation are credited below. Bendy and the public demonstrations by Adrian Abelarde and Seb Vidal are visual and architectural references, not dependencies. This project is not affiliated with those developers or Apple.
+The sensor reader's device identifiers (Sensor page 0x20, Orientation usage 0x8A), feature-report ID 1, and two-byte little-endian degree value were verified against the LidAngleSensor project and against Apple-silicon MacBook hardware. No audio or other assets from that project are included.
+
+Bendy and the public demonstrations by Adrian Abelarde and Seb Vidal are visual and architectural references, not dependencies. This project is not affiliated with those developers or Apple.
+
+The study notes below are carried over unchanged from that lineage. The version numbers in their headings refer to the earlier project's releases, and the notices and license text they contain are retained verbatim.
 
 ## Effect study for 0.1.2
 

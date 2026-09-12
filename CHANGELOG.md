@@ -1,38 +1,18 @@
 # Changelog
 
-## 0.1.14 · 11 September 2026
+## 1.0.0 · 12 September 2026
 
-- **Separate native Intel preview.** The normal Macbook Duo build and downloads remain ARM64-only for M-series Macs. Independently packaged x86_64 downloads are available for Intel models that expose the continuous lid-angle HID sensor, notably the 2019 16-inch MacBook Pro. Older models with only an open/closed clamshell switch remain unsupported.
-- **Architecture-aware updates.** M-series Macs keep using `Macbook-Duo-mac.zip`; Intel builds select `Macbook-Duo-Intel.zip`. Neither architecture needs Rosetta to run Macbook Duo.
+- **Macbook Duo.** Rebranded as Macbook Duo by Shivam Chopra, with the bundle identifier `com.shivamchopra.macbookduo` and a new app icon and menu-bar mark rendered from `scripts/make-icon.swift`.
+- **Six new effects.** Fold, Accordion, Louver, Card, Curtain and Ripple join Duo, Ghost, Roll, Shutter, Flex and Iris, for twelve in total. Duo remains the default.
+- **Per-effect options.** Intensity exaggerates each effect's geometry (50% reproduces the original tuning); Segments sets the panel, pleat, slat or drape count for Shutter, Accordion, Louver and Curtain (2–8); Curve chooses Smooth, Gentle, Linear or Brisk progress; Response tunes motion smoothing from 20 to 120 ms; Clear duration sets the return-to-clear animation from 0.3 to 1.2 s.
+- **Existing controls kept.** Perspective, Softness, Shadow, Clears at, Clear when the lid is still, Follow my lid and Preview angle carry over unchanged, and **Reset to defaults** restores the original tuning in one click.
+- **Redesigned settings window.** A Liquid Glass design language with four sections (Effects, Motion, Look, About), a live MacBook-shaped preview, and light, dark or system appearance.
+- **Codebase reorganized by feature.** App, Model, Capture, Sensor, Rendering with one shader file per effect, UI, Updates and Diagnostics in the app; Effects, Motion and Updates in FoldCore. Files stay short, the test suite has grown, and every effect has its own GPU render check.
+- **Same privacy model.** Desktop frames stay in memory, there are no analytics, and updates are fetched only on request from the official GitHub release. Builds remain ad-hoc signed and not notarized.
+- **Four languages.** English, Simplified Chinese, Traditional Chinese and Japanese, following the macOS language preference with English fallback.
+- **Requirements.** macOS 13 Ventura or newer on Apple silicon, with a native Intel preview build. A MacBook with a continuous lid-angle sensor is required: MacBook Air with M2 or newer, or 14-/16-inch MacBook Pro with M1 Pro/Max or newer. The M1 MacBook Air and 13-inch M1/M2 MacBook Pro are unsupported.
+- **Release assets.** `Macbook-Duo.dmg` and `Macbook-Duo-mac.zip` for Apple silicon, `Macbook-Duo-Intel.dmg` and `Macbook-Duo-Intel.zip` for Intel, and `Macbook-Duo-SHA256SUMS.txt`, all produced by `scripts/package.sh` and published by `scripts/release.sh`.
 
-The Apple-silicon build was verified on an M4 Mac. Physical Intel hardware verification remains pending, so the Intel download is a preview.
+## Earlier
 
-## 0.1.13 · 11 September 2026
-
-- **Four interface languages.** Macbook Duo now follows macOS in English, Simplified Chinese, Traditional Chinese or Japanese, with English fallback. Settings, menus, status messages, update dialogs and the Screen Recording description are localized.
-- **Open at login.** A new opt-in system Login Item starts Macbook Duo paused. The menu-bar icon remains on by default and can now be hidden; reopening Macbook Duo brings its settings back.
-- **More responsive lid tracking.** Sensor polling now follows the existing power-, temperature- and display-aware motion refresh cap.
-- **A steadier Ghost.** Ghost keeps its assumed viewing position fixed relative to the keyboard at different starting angles. Whole-degree sensor steps are smoothed without adding a degree of lag. Shallow angles use a stable fallback, the reference plane stays paired through clearing or resumed movement, and lighter progressive blur keeps content near the hinge clearer.
-
-Public builds remain ad-hoc signed and not notarized. First launch or an update may require **System Settings → Privacy & Security → Open Anyway**, and Screen Recording permission may need approval again.
-
-## 0.1.12 · 11 September 2026
-
-- **Ghost joins the effects.** A new second option that keeps the desktop at an apparent resting plane while the lid tilts. Perspective compensation and gradual blur make the display feel like moving glass. Duo remains the default; all six effects are available.
-- **macOS 13 Ventura support.** Both the app and executable now target macOS 13 or newer. Compatible MacBook lid hardware is still required.
-- **Check for Updates.** Check the official GitHub release from the app or menu bar, then download, verify, install and relaunch. No background polling or account needed.
-- **Gentler movement.** Small bends introduce less blur, with stronger defocus after about 15°. After resting, the next movement starts from that angle.
-- **Smoother clearing.** After the selected 1–5 second pause, the desktop and preview animate back to clear together. Low resting angles, Flex shadows and Iris blur also respond more gradually.
-- **Less redundant work.** Retire unused effect buffers, reuse captured frame imports and Metal pipelines, and reduce repeated main-thread work while retaining native capture resolution and existing power limits.
-
-This release includes the changes developed in local builds 0.1.7–0.1.11. Physical Ventura testing and controlled battery/CPU comparisons are still pending; no specific performance gain or frame rate is promised.
-
-Public builds are ad-hoc signed and not notarized. First launch may require **System Settings → Privacy & Security → Open Anyway**; Screen Recording permission may need to be granted again after updating. See [installation instructions](README.md#install).
-
-## 0.1.6 · 10 September 2026
-
-- Keep following the lid when settings close or desktops change.
-- Avoid bringing an inactive settings window to the front.
-- Remove the old 45-second automatic pause.
-
-For earlier releases, see [GitHub Releases](https://github.com/shivamchopra7/Macbook-Duo-App/releases).
+1.0.0 is the first Macbook Duo release. The codebase descends from the MIT-licensed Mac Duo project; see [LICENSE](LICENSE) and [ATTRIBUTION.md](ATTRIBUTION.md) for the license text and third-party notices.
