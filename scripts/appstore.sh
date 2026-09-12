@@ -12,6 +12,12 @@
 # set (an App Store Connect API key must be installed under
 # ~/.appstoreconnect/private_keys or ~/private_keys). Without them the script
 # prints the manual Transporter.app steps instead.
+#
+# Provisioning: set MACBOOKDUO_PROVISIONING_UPDATES=1 the first time on a new
+# Mac so Xcode can register the App ID and download the App Store profile.
+# It is off by default because Xcode's automatic "repair" has been seen
+# rewriting App/MacbookDuo.entitlements and dropping the device.usb entitlement
+# the lid sensor needs; the guards below fail the build if that ever happens.
 set -euo pipefail
 cd "$(dirname "$0")/.."
 
@@ -23,6 +29,10 @@ ARCHIVE="$BUILD_DIR/MacbookDuo.xcarchive"
 EXPORT_DIR="$BUILD_DIR/export"
 PACKAGE="$EXPORT_DIR/Macbook Duo.pkg"
 EXPORT_OPTIONS="App/ExportOptions.plist"
+ENTITLEMENTS_FILE="App/MacbookDuo.entitlements"
+REQUIRED_ENTITLEMENTS=(com.apple.security.app-sandbox com.apple.security.device.usb)
+PROVISIONING_FLAG=()
+[[ "${MACBOOKDUO_PROVISIONING_UPDATES:-0}" == "1" ]] && PROVISIONING_FLAG=(-allowProvisioningUpdates)
 
 usage() {
   printf 'Usage: %s [validate|export|upload]\n' "$0" >&2
@@ -43,12 +53,31 @@ generate_project() {
   fi
 }
 
+# Every required entitlement must be in the given signed app, and the source
+# entitlements file must be exactly what is committed.
+check_entitlements() {
+  local app="$1" label="$2" key
+  local signed; signed="$(codesign -d --entitlements - "$app" 2>/dev/null || true)"
+  for key in "${REQUIRED_ENTITLEMENTS[@]}"; do
+    if ! grep -q "$key" <<<"$signed"; then
+      echo "ERROR: $label is missing the $key entitlement; the lid sensor would not work. Not continuing." >&2
+      exit 1
+    fi
+  done
+  if git rev-parse --is-inside-work-tree >/dev/null 2>&1 && ! git diff --quiet -- "$ENTITLEMENTS_FILE"; then
+    echo "ERROR: $ENTITLEMENTS_FILE was modified during the build (Xcode's automatic signing repair). Restore it with: git checkout -- $ENTITLEMENTS_FILE" >&2
+    exit 1
+  fi
+  echo "==> $label carries: ${REQUIRED_ENTITLEMENTS[*]}"
+}
+
 archive_app() {
   echo "==> Archiving $SCHEME (Release) to $ARCHIVE"
   rm -rf "$ARCHIVE"
   xcodebuild -project "$PROJECT" -scheme "$SCHEME" -configuration Release \
     -destination "generic/platform=macOS" -archivePath "$ARCHIVE" \
-    archive -allowProvisioningUpdates
+    archive ${PROVISIONING_FLAG[@]+"${PROVISIONING_FLAG[@]}"}
+  check_entitlements "$ARCHIVE/Products/Applications/Macbook Duo.app" "Archived app"
 }
 
 export_package() {
@@ -56,12 +85,16 @@ export_package() {
   rm -rf "$EXPORT_DIR"
   xcodebuild -exportArchive -archivePath "$ARCHIVE" \
     -exportOptionsPlist "$EXPORT_OPTIONS" -exportPath "$EXPORT_DIR" \
-    -allowProvisioningUpdates
+    ${PROVISIONING_FLAG[@]+"${PROVISIONING_FLAG[@]}"}
   if [[ ! -f "$PACKAGE" ]]; then
     echo "Export finished but $PACKAGE was not produced. Contents of $EXPORT_DIR:" >&2
     ls -la "$EXPORT_DIR" >&2
     exit 1
   fi
+  local scratch; scratch="$(mktemp -d)"
+  pkgutil --expand-full "$PACKAGE" "$scratch/pkg" >/dev/null
+  check_entitlements "$(find "$scratch/pkg" -name 'Macbook Duo.app' | head -1)" "Exported package app"
+  rm -rf "$scratch"
   echo "==> Package ready: $PACKAGE"
 }
 
