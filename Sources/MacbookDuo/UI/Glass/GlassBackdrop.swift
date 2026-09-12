@@ -1,33 +1,26 @@
 import SwiftUI
-import AppKit
 
-/// The layered brand gradient behind every glass surface. It drifts slowly
-/// while the window is on screen and freezes when the window is occluded or
-/// Reduce Motion is on, so an idle settings window costs nothing.
+/// The layered brand gradient behind every glass surface. It is rendered
+/// once and rasterized: an animated backdrop would force every glass
+/// surface above it to re-sample the blur on each tick, which made an idle
+/// window cost 10–20% CPU on macOS 26.
 struct GlassBackdrop: View {
-    let reducedMotion: Bool
-    @State private var windowVisible = true
     @Environment(\.colorScheme) private var scheme
 
-    private static let period: TimeInterval = 18
+    /// A fixed point in the old drift cycle that spreads the pools evenly.
+    private static let phase = 0.35
 
     var body: some View {
-        TimelineView(.animation(minimumInterval:1/24,paused:reducedMotion || !windowVisible)) { context in
-            let phase = reducedMotion ? 0.35 : context.date.timeIntervalSinceReferenceDate.truncatingRemainder(dividingBy:Self.period)/Self.period
-            ZStack {
-                GlassPalette.ground(scheme)
-                if #available(macOS 15,*) {
-                    MeshBackdrop(phase:phase,scheme:scheme)
-                } else {
-                    LayeredBackdrop(phase:phase,scheme:scheme)
-                }
+        ZStack {
+            GlassPalette.ground(scheme)
+            if #available(macOS 15,*) {
+                MeshBackdrop(phase:Self.phase,scheme:scheme)
+            } else {
+                LayeredBackdrop(phase:Self.phase,scheme:scheme)
             }
         }
+        .drawingGroup()
         .ignoresSafeArea()
-        .onReceive(NotificationCenter.default.publisher(for:NSWindow.didChangeOcclusionStateNotification)) { note in
-            guard let window = note.object as? NSWindow, window.title == "Macbook Duo" else { return }
-            windowVisible = window.occlusionState.contains(.visible)
-        }
         .accessibilityHidden(true)
     }
 }

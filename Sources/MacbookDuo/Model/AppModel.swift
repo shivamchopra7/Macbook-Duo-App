@@ -136,6 +136,7 @@ import ServiceManagement
     var screenID: CGDirectDisplayID?
     var notifications: [NSObjectProtocol] = []
     var syntheticCheckPath: URL?
+    var sensorPollRate = 0
     var presentedFrames = 0
     var showWindow: (() -> Void)?
     var overlayVisibilityChanged: ((Bool) -> Void)?

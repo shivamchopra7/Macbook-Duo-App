@@ -41,7 +41,7 @@ struct SettingsRootView: View {
             .frame(width:width,height:height,alignment:.top)
             .scaleEffect(scale,anchor:.topLeading)
         }
-        .background(GlassBackdrop(reducedMotion:model.reducedMotion))
+        .background(GlassBackdrop())
         .tint(GlassPalette.accent)
         .ignoresSafeArea()
     }

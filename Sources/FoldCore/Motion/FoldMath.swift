@@ -44,4 +44,13 @@ public enum FoldFramePacing {
         let cap = thermalPressure ? 30 : (externalPower && !lowPower && moving ? 120 : 60)
         return max(1,min(maximum,cap))
     }
+
+    /// How often to read the lid sensor. Each read is a kernel round trip, so
+    /// a paused app reads at 30 Hz and a resting lid at 60 Hz; only a moving
+    /// lid with the effect enabled polls at the full render rate.
+    public static func sensorRate(renderRate: Int, enabled: Bool, still: Bool) -> Int {
+        let rate = max(1, renderRate)
+        if !enabled { return min(30, rate) }
+        return still ? min(60, rate) : rate
+    }
 }

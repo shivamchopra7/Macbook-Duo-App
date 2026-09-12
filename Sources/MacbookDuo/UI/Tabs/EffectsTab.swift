@@ -98,9 +98,17 @@ private struct TileButtonStyle: ButtonStyle {
     }
 }
 
+/// Unselected tiles use a flat translucent slab: twelve live glass lenses
+/// over the backdrop were the most expensive part of the window.
 private struct TileGlass: ViewModifier {
     let active: Bool
+    @Environment(\.colorScheme) private var scheme
     func body(content: Content) -> some View {
-        if active { content.glassSurface(cornerRadius:11,interactive:true,shadowed:false) } else { content }
+        if active {
+            let shape = RoundedRectangle(cornerRadius:11,style:.continuous)
+            content
+                .background(shape.fill(GlassPalette.glassFill(scheme)))
+                .overlay(shape.strokeBorder(Color.white.opacity(scheme == .dark ? 0.10 : 0.55),lineWidth:1))
+        } else { content }
     }
 }

@@ -30,8 +30,15 @@ struct MacBookPreview: View {
                 }
         }
         .frame(width:width)
-        .shadow(color:GlassPalette.electricBlue.opacity(scheme == .dark ? 0.35 : 0.22),radius:28,x:0,y:14)
-        .shadow(color:Color.black.opacity(scheme == .dark ? 0.5 : 0.18),radius:10,x:0,y:6)
+        .background {
+            // A static slab carries the glow, so Core Animation never rebuilds a
+            // shadow mask from the Metal layer on every preview frame.
+            UnevenRoundedRectangle(topLeadingRadius:18,topTrailingRadius:18)
+                .fill(Color.black)
+                .padding(.horizontal,-5)
+                .shadow(color:GlassPalette.electricBlue.opacity(scheme == .dark ? 0.35 : 0.22),radius:28,x:0,y:14)
+                .shadow(color:Color.black.opacity(scheme == .dark ? 0.5 : 0.18),radius:10,x:0,y:6)
+        }
         .accessibilityLabel("Macbook Duo")
     }
 }

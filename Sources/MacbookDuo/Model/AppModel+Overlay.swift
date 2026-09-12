@@ -164,9 +164,13 @@ extension AppModel {
                 thermalPressure:info.thermalState == .serious || info.thermalState == .critical,moving:true)
             if fps != rate {
                 fps = rate
-                sensor.setPollingRate(rate)
                 logger.notice("Motion refresh cap: \(rate) Hz; capture stays at most 60 Hz.")
             }
+        }
+        let pollRate = FoldFramePacing.sensorRate(renderRate:fps,enabled:enabled,still:lidIsStill)
+        if sensorPollRate != pollRate {
+            sensorPollRate = pollRate
+            sensor.setPollingRate(pollRate)
         }
         let rate = demoRunning || !lidIsStill ? fps : min(60,fps)
         if metalView?.preferredFramesPerSecond != rate { metalView?.preferredFramesPerSecond = rate }

@@ -30,3 +30,13 @@ import Testing
     let shared = twoViews.sample(target:1,at:1.0/60)
     #expect(abs(single-shared) < 1e-9)
 }
+
+@Test func sensorPollingFollowsTheAppStateNotJustTheDisplay() {
+    #expect(FoldFramePacing.sensorRate(renderRate:120,enabled:false,still:false) == 30)
+    #expect(FoldFramePacing.sensorRate(renderRate:120,enabled:false,still:true) == 30)
+    #expect(FoldFramePacing.sensorRate(renderRate:120,enabled:true,still:true) == 60)
+    #expect(FoldFramePacing.sensorRate(renderRate:120,enabled:true,still:false) == 120)
+    #expect(FoldFramePacing.sensorRate(renderRate:60,enabled:true,still:false) == 60)
+    #expect(FoldFramePacing.sensorRate(renderRate:30,enabled:true,still:true) == 30, "never above the render cap")
+    #expect(FoldFramePacing.sensorRate(renderRate:0,enabled:true,still:false) == 1)
+}
