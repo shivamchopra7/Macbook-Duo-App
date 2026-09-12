@@ -45,17 +45,25 @@ struct SettingsHeader: View {
             .ignoresSafeArea()
     }
 
+    /// "Lid 102°" while reading, "No lid sensor" once discovery has given up,
+    /// and "Looking for sensor" only while it is genuinely still looking.
+    private var lidText: String {
+        if let angle = model.lidAngle { return L10n.format("Lid %.0f°",angle) }
+        return L10n.text(model.sensorUnsupported ? "No lid sensor" : "Looking for sensor")
+    }
+
     private var lidPill: some View {
         GlassPill {
             HStack(spacing:6) {
                 Circle().fill(model.sensorAvailable ? GlassPalette.cyan : Color.orange)
                     .frame(width:6,height:6)
                     .shadow(color:(model.sensorAvailable ? GlassPalette.cyan : Color.orange).opacity(0.8),radius:3)
-                Text(model.lidAngle.map { L10n.format("Lid %.0f°",$0) } ?? L10n.text("Looking for sensor"))
+                Text(lidText)
                     .font(.system(size:11.5,weight:.medium,design:.monospaced))
             }
         }
-        .accessibilityLabel(model.lidAngle.map { L10n.format("Lid %.0f°",$0) } ?? L10n.text("Looking for sensor"))
+        .help(model.sensorUnsupported ? L10n.text("Needs a MacBook with a lid-angle sensor. Use Replay to see the effects.") : lidText)
+        .accessibilityLabel(lidText)
     }
 
     private var appearanceMenu: some View {

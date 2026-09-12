@@ -199,3 +199,5 @@
 "Version %@" = "版本 %@";
 "Open source on GitHub" = "在 GitHub 上開源";
 "Needs a MacBook with a lid-angle sensor. Use Replay to see the effects." = "需要配備蓋子角度感應器的 MacBook。點按「重播」即可預覽效果。";
+"No lid sensor" = "無蓋子感應器";
+"This Mac has no lid-angle sensor. Replay and Preview angle still show every effect." = "此 Mac 沒有蓋子角度感應器。「重播」與「預覽角度」仍可展示全部效果。";

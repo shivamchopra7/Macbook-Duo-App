@@ -11,7 +11,11 @@ final class LidSensor {
     private var timer: DispatchSourceTimer?
     private var failures = 0
     private var pollHz = 60
+    private var discovery = SensorDiscovery()
+    private var stopped = true
     var onReading: ((Double?) -> Void)?
+    /// Called once discovery has given up: this Mac has no lid-angle sensor.
+    var onUnsupported: (() -> Void)?
 
     func setPollingRate(_ rate: Int) {
         let rate = max(1,rate)
@@ -24,20 +28,33 @@ final class LidSensor {
 
     func start() {
         queue.async { [weak self] in
-            guard let self, self.timer == nil else { return }
+            guard let self else { return }
+            self.stopped = false
+            self.discovery.reset()
+            self.attemptDiscovery()
+        }
+    }
+
+    /// Discovery can come up empty right after launch or a wake even on a Mac
+    /// that has the sensor, so an empty result is retried a few times before
+    /// the hardware is reported as unsupported.
+    private func attemptDiscovery() {
+        queue.async { [weak self] in
+            guard let self, !self.stopped, self.timer == nil else { return }
             let manager = IOHIDManagerCreate(kCFAllocatorDefault, 0)
             IOHIDManagerSetDeviceMatching(manager, [kIOHIDDeviceUsagePageKey: 0x20,
                                                    kIOHIDDeviceUsageKey: 0x8A] as CFDictionary)
             guard IOHIDManagerOpen(manager, 0) == kIOReturnSuccess else {
-                self.deliver(nil); return
+                self.discoveryFailed(); return
             }
             self.manager = manager
             let devices = IOHIDManagerCopyDevices(manager) as? Set<IOHIDDevice> ?? []
             guard let device = devices.first, IOHIDDeviceOpen(device, 0) == kIOReturnSuccess else {
-                self.cleanUp(); self.deliver(nil); return
+                self.cleanUp(); self.discoveryFailed(); return
             }
             self.device = device
             self.failures = 0
+            self.discovery.reset()
             let timer = DispatchSource.makeTimerSource(queue: self.queue)
             timer.schedule(deadline:.now(),repeating:1.0/Double(self.pollHz),leeway:.milliseconds(2))
             timer.setEventHandler { [weak self] in self?.read() }
@@ -46,7 +63,17 @@ final class LidSensor {
         }
     }
 
-    func stop() { queue.async { [weak self] in self?.cleanUp() } }
+    func stop() { queue.async { [weak self] in self?.stopped = true; self?.cleanUp() } }
+
+    private func discoveryFailed() {
+        deliver(nil)
+        switch discovery.failed() {
+        case .retry(let delay):
+            queue.asyncAfter(deadline:.now()+delay) { [weak self] in self?.attemptDiscovery() }
+        case .unsupported:
+            DispatchQueue.main.async { [weak self] in self?.onUnsupported?() }
+        }
+    }
 
     private func read() {
         guard let device else { return }

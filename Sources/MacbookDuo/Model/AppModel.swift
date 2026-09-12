@@ -100,6 +100,18 @@ import ServiceManagement
     @Published var demoRunning = false
     @Published var previewPlaying = false
     @Published var sensorAvailable = false
+    /// True once discovery has given up: this Mac has no lid-angle sensor.
+    @Published var sensorUnsupported = false
+
+    /// Developer aid for previewing the no-sensor interface on a Mac that has
+    /// one. Compiled out of the App Store build, so it cannot ship.
+    private var simulatesMissingSensor: Bool {
+        #if APPSTORE
+        false
+        #else
+        CommandLine.arguments.contains("--simulate-no-sensor")
+        #endif
+    }
     @Published var overlayVisible = false
     @Published var fps = 60
     @Published var reducedMotion = NSWorkspace.shared.accessibilityDisplayShouldReduceMotion
@@ -172,6 +184,7 @@ import ServiceManagement
             let angleChanged = self.lidAngle != angle
             if angleChanged { self.lidAngle = angle }
             if self.sensorAvailable != (angle != nil) { self.sensorAvailable = angle != nil }
+            if angle != nil, self.sensorUnsupported { self.sensorUnsupported = false }
             self.sensorAt = ProcessInfo.processInfo.systemUptime
             let settled = self.stillness.observe(angle:angle,at:self.sensorAt,delay:self.stillnessDelay)
             self.motionReference.observe(angle:angle,isStill:settled,clearWhenStill:self.clearWhenStill)
@@ -189,11 +202,21 @@ import ServiceManagement
             // still handles deadlines and the missing-report safety check.
             if angleChanged || stillnessChanged || self.waitingForSensor { self.update() }
         }
+        sensor.onUnsupported = { [weak self] in
+            guard let self, !self.sensorUnsupported else { return }
+            self.sensorUnsupported = true
+            self.status = L10n.text("This Mac has no lid-angle sensor. Replay and Preview angle still show every effect.")
+        }
         capture.onFirstFrame = { [weak self] in self?.update() }
         capture.onUnavailable = { [weak self] in self?.hideOverlay() }
         capture.onFailure = { [weak self] reason in self?.pause(L10n.format("Capture stopped: %@",reason)) }
         registerHotKey()
-        sensor.start()
+        if simulatesMissingSensor {
+            sensorUnsupported = true
+            status = L10n.text("This Mac has no lid-angle sensor. Replay and Preview angle still show every effect.")
+        } else {
+            sensor.start()
+        }
         timer = Timer(timeInterval:0.1,repeats:true) { [weak self] _ in
             MainActor.assumeIsolated { self?.update() }
         }
@@ -272,7 +295,11 @@ import ServiceManagement
     func enable(startDesktopTest: Bool = false) {
         guard !checkingPermission else { return }
         guard device != nil else { status = L10n.text("This Mac does not have a supported Metal GPU.");return }
-        guard sensorAvailable else { status = L10n.text("No working lid angle sensor was found. The preview still works.");return }
+        guard sensorAvailable else {
+            status = L10n.text(sensorUnsupported ? "This Mac has no lid-angle sensor. Replay and Preview angle still show every effect."
+                                                 : "No working lid angle sensor was found. The preview still works.")
+            return
+        }
         checkingPermission = true
         status = L10n.text("Checking screen access…")
         enableTask = Task { [weak self] in
