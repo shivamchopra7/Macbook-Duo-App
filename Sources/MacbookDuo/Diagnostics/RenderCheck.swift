@@ -239,7 +239,16 @@ import FoldCore
         print(String(data:json,encoding:.utf8)!)
 
         if args.contains("--animation") || args.contains("--ghost-animation") {
-            let animatedTarget = try target(device,960,624)
+            // --animation-size WxH renders the frames larger than the 960×624 website
+            // media, for the App Store previews; the aspect stays that of the artwork.
+            var animationWidth = 960, animationHeight = 624
+            if let index = args.firstIndex(of:"--animation-size"), index+1 < args.count {
+                let parts = args[index+1].lowercased().split(separator:"x").compactMap { Int($0) }
+                try require(parts.count == 2 && parts[0] >= 160 && parts[1] >= 104 && parts[0] <= 4096 && parts[1] <= 4096,
+                            "--animation-size expects WIDTHxHEIGHT between 160x104 and 4096x4096.")
+                animationWidth = parts[0]; animationHeight = parts[1]
+            }
+            let animatedTarget = try target(device,animationWidth,animationHeight)
             for effect in checkedEffects where !args.contains("--ghost-animation") || effect == .ghost {
                 let directory = output.appendingPathComponent("animation/\(effect.rawValue)")
                 try FileManager.default.createDirectory(at:directory,withIntermediateDirectories:true)

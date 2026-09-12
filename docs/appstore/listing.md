@@ -1,6 +1,6 @@
 # App Store Connect listing for Lid Fold
 
-Copy for the Mac App Store record of Lid Fold 1.0.0 (build 100), bundle identifier `com.shivamchopra.macbookduo`. Each field below is ready to paste; the fenced blocks are the exact text, and the character limits are App Store Connect's. Keep this file in step with the README and CHANGELOG when the app changes.
+Copy for the Mac App Store record of Lid Fold 1.0.0 (build 102), bundle identifier `com.shivamchopra.macbookduo`, Apple ID 6811408285. Each field below is ready to paste; the fenced blocks are the exact text, and the character limits are App Store Connect's. Keep this file in step with the README and CHANGELOG when the app changes.
 
 **Why "Lid Fold".** App Review Guideline 5.2.5 does not allow Apple's product names in an App Store app name, so the store build of Macbook Duo is called Lid Fold: the listing, the bundle (`Lid Fold.app`), the window title, the menu bar and every string in the app say Lid Fold. The direct download on GitHub keeps the Macbook Duo name; both are built from the same source and the bundle identifier is the same. Hardware names in the description ("MacBook Air with M2") describe compatibility, which the guideline permits.
 
@@ -26,7 +26,7 @@ Copy for the Mac App Store record of Lid Fold 1.0.0 (build 100), bundle identifi
 
 ## Version information
 
-**Version:** `1.0.0` **Build:** `100`
+**Version:** `1.0.0` **Build:** `102`
 
 ### Promotional text (170 characters max)
 
@@ -142,9 +142,26 @@ NETWORK AND UPDATES. The App Store build contains no networking code and never c
 The app is open source and its repository, Macbook-Duo-App, is published under a different working name; the App Store name Lid Fold is used throughout the app: https://github.com/shivamchopra7/Macbook-Duo-App
 ```
 
+## App previews
+
+App Store Connect takes up to three Mac app previews at 1920×1080 (H.264, 30 fps, 15–30 seconds, no more than 500 MB). Two are produced by `scripts/appstore-previews.sh` into `docs/appstore/previews/`, each about 23 seconds: a title card, six three-second clips of an effect closing and reopening with its name and a one-line caption, and an end card. Every frame is the app's own Metal effect rendered on its built-in preview artwork, so no real desktop appears. Upload them in this order and pick a mid-close frame as each poster.
+
+| Order | File | Shows |
+|---|---|---|
+| 1 | `01-lid-fold.mp4` | Title card "Lid Fold — Your desktop follows your lid", then Fold, Roll, Curtain, Blackhole, Iris and Duo. |
+| 2 | `02-more-effects.mp4` | Title card "Six more ways to close", then Accordion, Louver, Card, Shutter, Flex and Ghost. |
+
+To rebuild them, render the frames with the store flavour so the artwork says Lid Fold, then run the script:
+
+```sh
+swift build -Xswiftc -DAPPSTORE --scratch-path .build-appstore
+.build-appstore/debug/MacbookDuo --render-check /tmp/lidfold-render --animation --animation-size 1920x1248 --no-timing
+scripts/appstore-previews.sh /tmp/lidfold-render
+```
+
 ## Screenshots
 
-App Store Connect accepts Mac screenshots at 1280×800, 1440×900, 2560×1600 or 2880×1800 pixels (16:10). Upload one size; the 2880×1800 set is produced by `scripts/appstore-screenshots.sh` into `docs/appstore/screenshots/` and is what the store scales for every display. Regenerate the set from the store build before uploading so every page says Lid Fold and the About page carries no update button: `scripts/appstore.sh export` then `scripts/appstore-screenshots.sh` (it picks up `build-appstore/LidFold.xcarchive/Products/Applications/Lid Fold.app` on its own).
+App Store Connect accepts up to ten Mac screenshots at 1280×800, 1440×900, 2560×1600 or 2880×1800 pixels (16:10). Upload one size; the 2880×1800 set in `docs/appstore/screenshots/` is what the store scales for every display. The first five are the settings window, produced by `scripts/appstore-screenshots.sh`; regenerate them from the store build before uploading so every page says Lid Fold and the About page carries the review button instead of an update button: `scripts/appstore.sh export` then `scripts/appstore-screenshots.sh` (it picks up `build-appstore/LidFold.xcarchive/Products/Applications/Lid Fold.app` on its own). The last five show one effect each, half closed, and come from `scripts/appstore-previews.sh` together with the app previews.
 
 | Order | File | Shows |
 |---|---|---|
@@ -153,8 +170,13 @@ App Store Connect accepts Mac screenshots at 1280×800, 1440×900, 2560×1600 or
 | 3 | `03-look.png` | The Look page in dark appearance: Perspective, Softness and Shadow sliders, the Light / Dark / System appearance picker, and the Menu bar icon and Open at login switches. Caption: "Perspective, softness, shadow and appearance". |
 | 4 | `04-about.png` | The About page in dark appearance: the app icon, version, credit and the Open source on GitHub button. Caption: "Open source. No accounts, no analytics, no tracking." |
 | 5 | `05-effects-light.png` | The Effects page again in light appearance, showing the same window and preview with the light glass treatment. Caption: "Light, dark or system appearance". |
+| 6 | `06-fold.png` | The Fold effect half closed on the preview artwork. Caption: "Fold: Creases across the middle and folds over". |
+| 7 | `07-blackhole.png` | The Blackhole effect half closed. Caption: "Blackhole: Liquid rings pull the desktop into the hinge". |
+| 8 | `08-curtain.png` | The Curtain effect half closed. Caption: "Curtain: Drapes draw together from both sides". |
+| 9 | `09-accordion.png` | The Accordion effect half closed. Caption: "Accordion: Pleats gather like a paper fan". |
+| 10 | `10-louver.png` | The Louver effect half closed. Caption: "Louver: Slats tilt and overlap like blinds". |
 
-Each screenshot is the real settings window (940×550 points captured at 2x) placed on the brand-blue gradient used by the website, with a one-line white caption at the top. The preview inside the window is generated artwork; no real desktop appears in any screenshot. An app preview video is optional; the website's `docs/assets/duo.mp4` can be re-rendered at 1920×1080 if one is wanted later.
+Screenshots 1–5 are the real settings window (940×550 points captured at 2x) placed on the brand-blue gradient used by the website, with a one-line white caption at the top; 6–10 are the effect itself rendered at 1920×1248 and placed on the same gradient. The desktop in every image is generated artwork; no real desktop appears in any screenshot or preview.
 
 ## Review information
 

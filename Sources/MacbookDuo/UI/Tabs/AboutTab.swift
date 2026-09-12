@@ -10,7 +10,7 @@ struct AboutTab: View {
     /// the placeholder the review link would open the store on no product, so
     /// the button is left out of the build entirely.
     static let placeholderAppStoreID = "0000000000"
-    static let appStoreID = placeholderAppStoreID
+    static let appStoreID = "6811408285"
     private static let reviewPage = URL(string:"macappstore://apps.apple.com/app/id\(appStoreID)?action=write-review")!
 
     private var version: String {

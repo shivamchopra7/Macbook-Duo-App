@@ -172,7 +172,7 @@ print_next_steps() {
 Next steps:
   1. Create the app record in App Store Connect (https://appstoreconnect.apple.com)
      with bundle ID com.shivamchopra.macbookduo, name "$STORE_NAME",
-     category Utilities, version 1.0.0 (build 100).
+     category Utilities, version 1.0.0 (the build number is CURRENT_PROJECT_VERSION in project.yml).
   2. If you have not uploaded yet: scripts/appstore.sh upload, or use
      Transporter.app with "$PACKAGE".
   3. In App Store Connect, wait for the build to finish processing, then attach

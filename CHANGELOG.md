@@ -22,7 +22,7 @@ The Mac App Store submission of 1.0.0 is built from the same sources by the Xcod
 - **Sandboxed build.** App Sandbox and Hardened Runtime, signed with an Apple Distribution certificate. Besides `com.apple.security.app-sandbox`, the only entitlement is `com.apple.security.device.usb`, which the built-in lid-angle sensor needs to stay readable inside the sandbox.
 - **No self-updater.** The in-app updater, its menu items, buttons and `--update-*` diagnostic flags are compiled out; updates arrive through the App Store, as App Review Guideline 2.4.5 requires. The pure release-parsing code in FoldCore is unchanged.
 - **Privacy manifest.** `App/PrivacyInfo.xcprivacy` declares the two required-reason APIs the app uses (system boot time for the animation clock, user defaults for preferences), no tracking and no collected data.
-- **Listing assets.** App Store Connect copy in `docs/appstore/listing.md`, five 2880×1800 screenshots produced by `scripts/appstore-screenshots.sh`, the published privacy policy at `docs/privacy.html`, and CI coverage of both build flavours.
+- **Listing assets.** App Store Connect copy in `docs/appstore/listing.md`, ten 2880×1800 screenshots (five of the settings window from `scripts/appstore-screenshots.sh`, five effects from `scripts/appstore-previews.sh`), two 1920×1080 app previews from the same script, the published privacy policy at `docs/privacy.html`, and CI coverage of both build flavours. The render check's `--animation-size WxH` flag renders the animation frames the previews are cut from.
 
 ## Earlier
 

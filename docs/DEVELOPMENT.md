@@ -67,7 +67,7 @@ The Xcode project is generated from `project.yml` at the repository root with [x
 
 **Privacy manifest.** `App/PrivacyInfo.xcprivacy` declares the two required-reason APIs the app uses, `ProcessInfo.systemUptime` (`NSPrivacyAccessedAPICategorySystemBootTime`, reason `35F9.1`) and `UserDefaults` (`NSPrivacyAccessedAPICategoryUserDefaults`, reason `CA92.1`), with `NSPrivacyTracking` false and no collected data types. Add an entry whenever a new required-reason API is introduced; App Store Connect rejects uploads that use one without declaring it.
 
-**Team and signing.** Signing is automatic under the team `ZB6623U832` (ILLUSIONART AI PRIVATE LIMITED), set as `DEVELOPMENT_TEAM` in `project.yml`, which is where to change it for another account before regenerating the project; the same setting is visible under *Signing & Capabilities* in Xcode. An *Apple Distribution* certificate for the team must be in the login keychain for archiving, and the bundle identifier must match the App Store Connect record. Keep the version and build number in the Xcode project in step with `build.sh` and the changelog; App Store Connect needs a strictly higher build number for every upload.
+**Team and signing.** Signing is automatic under the team `ZB6623U832` (ILLUSIONART AI PRIVATE LIMITED), set as `DEVELOPMENT_TEAM` in `project.yml`, which is where to change it for another account before regenerating the project; the same setting is visible under *Signing & Capabilities* in Xcode. An *Apple Distribution* certificate for the team must be in the login keychain for archiving, and the bundle identifier must match the App Store Connect record. Keep the marketing version in the Xcode project in step with `build.sh` and the changelog. The store build number (`CURRENT_PROJECT_VERSION` in `project.yml`) runs ahead of the direct download's: App Store Connect needs a strictly higher build number for every upload, so bump it before each archive.
 
 **Archive and upload.** In Xcode open `Macbook Duo.xcodeproj`, select the `Macbook Duo` scheme with the *My Mac* destination and choose *Product → Archive*. In the Organizer choose *Distribute App → App Store Connect → Upload* (or *Export* to validate first). The same flow is scripted:
 
@@ -81,7 +81,7 @@ scripts/appstore.sh upload     # archive and upload the build
 
 1. Create the app record: platform macOS, name **Lid Fold**, primary language English, bundle identifier `com.shivamchopra.macbookduo`, any SKU.
 2. Fill the listing from [docs/appstore/listing.md](appstore/listing.md): subtitle, promotional text, description, keywords, support and marketing URLs, categories (Utilities, Entertainment), copyright and the age-rating answers.
-3. Generate the screenshots with `scripts/appstore-screenshots.sh` (it needs the packaged app, `ffmpeg` and Screen Recording access for the terminal) and upload the five 2880×1800 PNGs from `docs/appstore/screenshots/`. Regenerate them from the store build (the script finds `Lid Fold.app` under `build-appstore/` on its own, or set `MACBOOKDUO_APP`) so every page says Lid Fold and the About page shows no update button.
+3. Generate the window screenshots with `scripts/appstore-screenshots.sh` (it needs the packaged app, `ffmpeg` and Screen Recording access for the terminal), then the two app previews and the five effect screenshots with `scripts/appstore-previews.sh` (it needs the render check's animation frames at `--animation-size 1920x1248`, rendered by the store flavour; the usage comment in the script has the exact commands). Upload the ten 2880×1800 PNGs from `docs/appstore/screenshots/` and the two 1920×1080 MP4s from `docs/appstore/previews/`. Regenerate them from the store build (the script finds `Lid Fold.app` under `build-appstore/` on its own, or set `MACBOOKDUO_APP`) so every page says Lid Fold and the About page shows no update button.
 4. Answer App Privacy with **Data Not Collected** and enter the privacy policy URL `https://macbookduo.illusionart.ai/privacy.html`.
 5. Select the uploaded build, paste the *Notes for App Review* section from the listing, answer the export-compliance question, and submit for review.
 
@@ -148,7 +148,7 @@ The remaining diagnostics exercise the real app and the updater:
 Package.swift             SwiftPM manifest: FoldCore library, MacbookDuo app, two test targets
 build.sh                  Builds, strips, bundles and signs "Macbook Duo.app"
 scripts/                  package.sh (DMG, ZIP, checksums), release.sh (GitHub release), make-icon.swift (brand assets),
-                          appstore.sh (validate, export, upload) and appstore-screenshots.sh (store screenshots)
+                          appstore.sh (validate, export, upload), appstore-screenshots.sh (window screenshots) and appstore-previews.sh (app previews, effect screenshots)
 Resources/                App icon (.icns, .png) and the menu-bar template mark
 Sources/FoldCore/         Platform-independent core with no AppKit or Metal dependency
   Effects/                FoldEffect catalog (ids, shader indices, titles, summaries) and EffectOptions with FoldCurve
