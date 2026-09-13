@@ -1,10 +1,10 @@
 @charset "UTF-8";
 /* Macbook Duo — an Apple-style Liquid Glass treatment. System font, a silver-white
-   ground, and glass slabs that blur what is behind them, carry a specular edge
+   ground that stays light whatever the system appearance, and glass slabs that blur what is behind them, carry a specular edge
    and react to the pointer. Brand blue stays, so the site matches the app.
    No dependencies; transforms and opacity only in motion. */
 :root{
-  color-scheme:light dark;
+  color-scheme:light;
   --bg:#f5f5f7;--bg-2:#ffffff;--ink:#1d1d1f;--muted:#6e6e73;--line:rgba(0,0,0,.08);
   --accent:#2F6BFF;--accent-2:#37C8F5;--accent-ink:#ffffff;
   --demo:#0b1020;
@@ -218,25 +218,8 @@ footer a:hover{color:var(--accent)}
   }
 }
 
-@media(prefers-color-scheme:dark){
-  :root{
-    --bg:#000000;--bg-2:#0b0b0f;--ink:#f5f5f7;--muted:#a1a1a6;--line:rgba(255,255,255,.09);
-    --accent:#6f98ff;--accent-2:#37C8F5;--accent-ink:#ffffff;
-    --demo:#05070f;
-    --glass:rgba(28,28,34,.55);--glass-strong:rgba(28,28,34,.78);
-    --glass-edge:rgba(255,255,255,.14);--glass-edge-2:rgba(0,0,0,.45);
-    --glass-shadow:0 30px 70px -22px rgba(0,0,0,.75);
-    --glass-hover:0 40px 90px -26px rgba(47,107,255,.35);
-    --specular:rgba(255,255,255,.22);--sheen:rgba(255,255,255,.14);
-    --glow-a:rgba(47,107,255,.34);--glow-b:rgba(55,200,245,.16);--glow-c:rgba(255,120,80,.12);
-    --ok:#4cd77f;--maybe:#f5b04b;--no:#ff7b6b;
-  }
-  .primary{box-shadow:inset 0 1px 0 rgba(255,255,255,.35),inset 0 -1px 0 rgba(0,0,0,.3),0 14px 30px -10px rgba(111,152,255,.5)}
-  .band{background:#07070a}
-  .lid-back{background:linear-gradient(180deg,#5c5f68,#2d3038);box-shadow:inset 0 1px 0 rgba(255,255,255,.18)}
-  .deck{background:linear-gradient(180deg,#63666f 0%,#3a3d45 60%,#26282f 100%);box-shadow:0 22px 50px -22px rgba(0,0,0,.8),inset 0 1px 0 rgba(255,255,255,.22)}
-  .notch{background:#1c1e24}
-}
+/* The site is always light: the effects band is the one deliberately dark
+   section. */
 
 @media(max-width:900px){
   .option-grid{grid-template-columns:repeat(2,1fr)}
