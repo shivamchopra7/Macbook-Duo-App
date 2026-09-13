@@ -54,20 +54,20 @@
         <p class="eyebrow">SCROLL TO CLOSE THE LID</p>
         <h2 id="close-title">
           <span class="story-line on" data-at="0">The iPhone Duo experience, on a MacBook.</span>
-          <span class="story-line" data-at="0.28">Tilt. Shutter starts to fold.</span>
-          <span class="story-line" data-at="0.62">Closing. Panels slide into the hinge.</span>
+          <span class="story-line" data-at="0.28">Tilt. The iris starts to close.</span>
+          <span class="story-line" data-at="0.62">Closing. Eight blades draw in.</span>
           <span class="story-line" data-at="0.94">Shut. Scroll back up to open it.</span>
         </h2>
         <p class="story-angle glass"><span class="dot"></span>LID <b class="angle">112°</b></p>
       </div>
       <div class="laptop" style="--p:0" aria-hidden="true">
         <div class="lid">
-          <div class="screen-face"><img class="frame" src="assets/shutter-frames/f-000.jpg" alt="" width="1280" height="832" decoding="async"></div>
+          <div class="screen-face"><img class="frame" src="assets/lid-frames/f-000.jpg" alt="" width="1280" height="832" decoding="async"></div>
           <div class="lid-back"></div>
         </div>
         <div class="deck"><i class="notch"></i></div>
       </div>
-      <p class="story-hint">Shutter, one of twelve effects. These frames are the app's own Metal output on its preview artwork; the real thing follows your hand.</p>
+      <p class="story-hint">Iris, one of twelve effects. These frames are the app's own Metal output on its preview artwork; the real thing follows your hand.</p>
     </div>
   </section>
 
@@ -257,17 +257,17 @@ reducedMotion.addEventListener('change',event=>{if(event.matches){showAll();for(
 document.addEventListener('visibilitychange',()=>{if(document.hidden)for(const video of videos)video.pause();});
 
 // Scroll to close the lid. The section is several screens tall with a sticky
-// stage; progress through it tilts the lid shut and scrubs the Shutter frames
-// (the closing half of the effect, f-000 to f-090). Frames are fetched once
+// stage; progress through it tilts the lid shut and scrubs the Iris frames
+// (the effect closing until the blades meet, f-000 to f-076). Frames are fetched once
 // the section is within a screen and a half, and each scroll event does one
 // update per animation frame. Reduce Motion leaves the lid open on frame 0.
 const story=document.querySelector('.close-story');
 if(story&&!reducedMotion.matches){
   const laptop=story.querySelector('.laptop'),frameImage=story.querySelector('.frame'),
         lines=[...story.querySelectorAll('.story-line')],angle=story.querySelector('.angle');
-  const FRAMES=91,OPEN_ANGLE=112,frames=[];
+  const FRAMES=77,OPEN_ANGLE=112,frames=[];
   let loaded=false,ticking=false,shown=-1;
-  const source=index=>`assets/shutter-frames/f-${String(index).padStart(3,'0')}.jpg`;
+  const source=index=>`assets/lid-frames/f-${String(index).padStart(3,'0')}.jpg`;
   function preload(){
     if(loaded)return;
     loaded=true;

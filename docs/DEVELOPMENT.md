@@ -148,7 +148,7 @@ The remaining diagnostics exercise the real app and the updater:
 Package.swift             SwiftPM manifest: FoldCore library, MacbookDuo app, two test targets
 build.sh                  Builds, strips, bundles and signs "Macbook Duo.app"
 scripts/                  package.sh (DMG, ZIP, checksums), release.sh (GitHub release), make-icon.swift (brand assets),
-                          appstore.sh (validate, export, upload), appstore-screenshots.sh (window screenshots), appstore-previews.sh (app previews, effect screenshots) and make-scroll-frames.sh (the website's scroll-to-close Shutter frames)
+                          appstore.sh (validate, export, upload), appstore-screenshots.sh (window screenshots), appstore-previews.sh (app previews, effect screenshots) and make-scroll-frames.sh (the website's scroll-to-close Iris frames)
 Resources/                App icon (.icns, .png) and the menu-bar template mark
 Sources/FoldCore/         Platform-independent core with no AppKit or Metal dependency
   Effects/                FoldEffect catalog (ids, shader indices, titles, summaries) and EffectOptions with FoldCurve

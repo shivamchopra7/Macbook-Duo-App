@@ -102,11 +102,11 @@ video{display:block;width:100%;aspect-ratio:960/624;object-fit:cover}
 .caption{font-size:12px;color:var(--muted);margin-top:20px;line-height:1.6}
 
 /* Scroll to close the lid. A tall section with a sticky, screen-high stage;
-   index.html sets --p (0 open, 1 shut) on the laptop and swaps the Shutter
+   index.html sets --p (0 open, 1 shut) on the laptop and swaps the Iris
    frame. The lid is a real 3D tilt around the hinge, so the closing reads as
    a laptop closing, not a video playing. */
 .close-story{height:340vh;position:relative}
-.stage{position:sticky;top:0;height:100vh;display:grid;grid-template-rows:auto auto auto;align-content:center;justify-items:center;gap:26px;padding:96px 36px 24px;overflow:hidden}
+.stage{position:sticky;top:0;height:100vh;display:grid;grid-template-rows:auto auto auto;align-content:center;justify-items:center;gap:26px;padding:0px 36px 24px;overflow:hidden}
 .stage-copy{text-align:center;width:100%;max-width:960px}
 .stage-copy .eyebrow{margin-bottom:14px}
 .stage-copy h2{position:relative;height:1.3em;font-size:clamp(26px,3.8vw,46px);font-weight:700;letter-spacing:-.035em;line-height:1.15;margin:0}
@@ -115,7 +115,9 @@ video{display:block;width:100%;aspect-ratio:960/624;object-fit:cover}
 .story-angle{display:inline-flex;align-items:center;gap:8px;margin:18px 0 0;padding:9px 14px;border-radius:var(--pill);font:600 12px/1 ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.02em;color:var(--ink);background:var(--glass-strong)}
 .story-angle b{font-weight:650;color:var(--accent);min-width:3.2ch;text-align:left}
 .laptop{width:min(78vw,860px,calc((100vh - 380px)*1.538));perspective:2400px;perspective-origin:50% 0%;align-self:center;padding-bottom:6px;transform:translateY(calc(var(--p,0)*-38%));will-change:transform}
-.lid{position:relative;aspect-ratio:1280/832;transform-origin:50% 100%;transform:rotateX(calc(var(--p,0)*-94deg));transform-style:preserve-3d;will-change:transform}
+.lid{position:relative;aspect-ratio:1280/832;transform-origin:50% 100%;transform:rotateX(calc(var(--p,0)*-80deg));transform-style:preserve-3d;will-change:transform}
+/* The tilt ends at 80°, a thin sliver seen from above, so the lid never flips
+   over to show its back. The frames end at the same point (f-076). */
 .screen-face{position:absolute;inset:0;border-radius:20px 20px 5px 5px;padding:2.2% 2.2% 1.4%;background:#0b0f1e;box-shadow:0 34px 90px -34px rgba(0,0,0,.65),inset 0 1px 0 rgba(255,255,255,.12);-webkit-backface-visibility:hidden;backface-visibility:hidden;overflow:hidden}
 .screen-face img{display:block;width:100%;height:100%;object-fit:cover;border-radius:12px 12px 3px 3px;background:#000}
 .lid-back{position:absolute;inset:0;border-radius:20px 20px 5px 5px;background:linear-gradient(180deg,#e2e3e8,#b7bac3);box-shadow:inset 0 1px 0 rgba(255,255,255,.7);transform:rotateY(180deg);-webkit-backface-visibility:hidden;backface-visibility:hidden}
@@ -261,7 +263,7 @@ footer a:hover{color:var(--accent)}
   .chip{top:-14px;right:14px;padding:7px 11px;font-size:11px}
   .features,.options,.compat,.install,.compare{padding-top:84px}
   .close-story{height:260vh}
-  .stage{padding:84px 16px 18px;gap:18px}
+  .stage{padding:0px 16px 18px;gap:18px}
   .stage-copy h2{height:2.4em;font-size:24px}
   .story-line{white-space:normal}
   .laptop{width:min(94vw,calc((100vh - 330px)*1.538))}
