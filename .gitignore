@@ -1,5 +1,6 @@
 # Local builds and personal signing configuration
 .build/
+.build-intel/
 build/
 build-intel/
 .swiftpm/
