@@ -1,12 +1,18 @@
 # Changelog
 
+## 1.0.1 · 14 September 2026
+
+- **Unsupported MacBooks are named.** Sensor discovery now retries a few times after launch or wake instead of giving up on the first empty result, then reports unsupported hardware. On a MacBook without a lid-angle sensor (M1 MacBook Air, 13-inch M1/M2 MacBook Pro) the lid pill reads "MacBook unsupported", the status line explains that Replay and Preview angle still show every effect, and Enable and Test desktop disable themselves instead of waiting on "Looking for sensor" forever. Localized in all four languages.
+- **Preview wallpaper.** The live MacBook-shaped preview in the settings window draws a bundled wallpaper (`PreviewWallpaper.jpg`) behind the title, caption and dock, with the painted gradient kept as a fallback.
+- **Release assets.** Same names as 1.0.0: `Macbook-Duo.dmg`, `Macbook-Duo-mac.zip`, `Macbook-Duo-Intel.dmg`, `Macbook-Duo-Intel.zip` and `Macbook-Duo-SHA256SUMS.txt`. **Check for Updates…** in 1.0.0 offers this release.
+
 ## 1.0.0 · 12 September 2026
 
 - **Macbook Duo.** Rebranded as Macbook Duo by Shivam Chopra, with the bundle identifier `com.shivamchopra.macbookduo` and a new app icon and menu-bar mark rendered from `scripts/make-icon.swift`.
 - **Six new effects.** Fold, Accordion, Louver, Card, Curtain and Blackhole join Duo, Ghost, Roll, Shutter, Flex and Iris, for twelve in total. Duo remains the default.
 - **Per-effect options.** Intensity exaggerates each effect's geometry (50% reproduces the original tuning); Segments sets the panel, pleat, slat or drape count for Shutter, Accordion, Louver and Curtain (2–8); Curve chooses Smooth, Gentle, Linear or Brisk progress; Response tunes motion smoothing from 20 to 120 ms; Clear duration sets the return-to-clear animation from 0.3 to 1.2 s.
 - **Existing controls kept.** Perspective, Softness, Shadow, Clears at, Clear when the lid is still, Follow my lid and Preview angle carry over unchanged, and **Reset to defaults** restores the original tuning in one click.
-- **Redesigned settings window.** A Liquid Glass design language with four sections (Effects, Motion, Look, About), a live MacBook-shaped preview showing a bundled wallpaper (`PreviewWallpaper.jpg`, with the painted gradient as fallback), and light, dark or system appearance.
+- **Redesigned settings window.** A Liquid Glass design language with four sections (Effects, Motion, Look, About), a live MacBook-shaped preview, and light, dark or system appearance.
 - **Codebase reorganized by feature.** App, Model, Capture, Sensor, Rendering with one shader file per effect, UI, Updates and Diagnostics in the app; Effects, Motion and Updates in FoldCore. Files stay short, the test suite has grown, and every effect has its own GPU render check.
 - **Same privacy model.** Desktop frames stay in memory, there are no analytics, and updates are fetched only on request from the official GitHub release. Builds remain ad-hoc signed and not notarized.
 - **Four languages.** English, Simplified Chinese, Traditional Chinese and Japanese, following the macOS language preference with English fallback.

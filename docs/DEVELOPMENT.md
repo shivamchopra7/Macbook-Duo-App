@@ -1,6 +1,6 @@
 # Developing Macbook Duo
 
-This guide covers building, signing, packaging, releasing and verifying Macbook Duo 1.0.0, the source layout, how to add an effect, and localization. For user-facing documentation see the [README](../README.md); for contribution ground rules see [CONTRIBUTING.md](../CONTRIBUTING.md).
+This guide covers building, signing, packaging, releasing and verifying Macbook Duo 1.0.1, the source layout, how to add an effect, and localization. For user-facing documentation see the [README](../README.md); for contribution ground rules see [CONTRIBUTING.md](../CONTRIBUTING.md).
 
 ## Build
 
@@ -13,7 +13,7 @@ cd Macbook-Duo-App
 open "build/Macbook Duo.app"
 ```
 
-`build.sh` runs `swift build -c release`, strips debug symbols so local build paths do not ship in the executable, copies the localized resource bundle, icon and menu-bar mark into `build/Macbook Duo.app`, writes `Info.plist` (bundle identifier `com.shivamchopra.macbookduo`, version 1.0.0, build 100), signs the bundle and verifies the signature.
+`build.sh` runs `swift build -c release`, strips debug symbols so local build paths do not ship in the executable, copies the localized resource bundle, icon and menu-bar mark into `build/Macbook Duo.app`, writes `Info.plist` (bundle identifier `com.shivamchopra.macbookduo`, version 1.0.1, build 101), signs the bundle and verifies the signature.
 
 ## Signing
 
@@ -45,7 +45,7 @@ scripts/package.sh
 `package.sh` packages whatever has been built into `dist/`: `Macbook-Duo.dmg` and `Macbook-Duo-mac.zip` for Apple silicon, `Macbook-Duo-Intel.dmg` and `Macbook-Duo-Intel.zip` when the Intel build exists, and `Macbook-Duo-SHA256SUMS.txt` covering the ZIPs. The ZIPs contain only `Macbook Duo.app` and `INSTALL.txt`, because the in-app updater rejects any other entry. Set `MACBOOKDUO_DIST_DIR` to package elsewhere.
 
 ```sh
-scripts/release.sh 1.0.0
+scripts/release.sh 1.0.1
 ```
 
 `release.sh <version>` builds both architectures, runs `package.sh`, then creates the GitHub release `v<version>` with `gh release create`, attaching the assets under the exact names the updater expects and using `CHANGELOG.md` as the notes. Keep those asset names stable: `AppUpdater` selects `Macbook-Duo-mac.zip` on ARM64 and `Macbook-Duo-Intel.zip` on x86_64 and validates both against `Macbook-Duo-SHA256SUMS.txt`. Bump `CFBundleShortVersionString` and `CFBundleVersion` in `build.sh`, the `version` field in `RenderCheck.swift`, and the changelog before tagging.
@@ -131,13 +131,13 @@ The remaining diagnostics exercise the real app and the updater:
 .build/debug/MacbookDuo --update-check
 
 # Checksum, bounded extraction, bundle identity, version, macOS, architecture and signature of a package.
-.build/debug/MacbookDuo --update-package-check dist/Macbook-Duo-mac.zip dist/Macbook-Duo-SHA256SUMS.txt 1.0.0 validation-update
+.build/debug/MacbookDuo --update-package-check dist/Macbook-Duo-mac.zip dist/Macbook-Duo-SHA256SUMS.txt 1.0.1 validation-update
 
 # LaunchServices, ready handshake, replacement and failed-launch rollback with a local fixture.
 .build/debug/MacbookDuo --update-installer-fixture validation-installer
 
 # The helper handoff for an archive, manifest and version.
-.build/debug/MacbookDuo --update-handoff-check dist/Macbook-Duo-mac.zip dist/Macbook-Duo-SHA256SUMS.txt 1.0.0
+.build/debug/MacbookDuo --update-handoff-check dist/Macbook-Duo-mac.zip dist/Macbook-Duo-SHA256SUMS.txt 1.0.1
 ```
 
 `--enable` starts following one second after launch, which is handy when scripting a physical lid sweep. Physical lid sweeps, sustained energy use and platform lifecycle transitions still need testing on more hardware.
