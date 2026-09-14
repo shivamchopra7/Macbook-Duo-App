@@ -1,10 +1,11 @@
 import AppKit
 
 @MainActor enum AppBrand {
-    /// The name the Mac App Store build shows. Apple's own product names may
-    /// not appear in an App Store app name (App Review Guideline 5.2.5), so
-    /// the store listing, bundle and interface all say "Lid Fold".
-    nonisolated static let storeName = "Lid Fold"
+    /// The name the Mac App Store build shows: the store listing, bundle and
+    /// interface all say "Macbook Fold", while the direct download keeps
+    /// "Macbook Duo". (App Review Guideline 5.2.5 frowns on Apple product
+    /// names in app names; the earlier store name, Lid Fold, avoided that.)
+    nonisolated static let storeName = "Macbook Fold"
     /// The name the direct download from GitHub shows.
     nonisolated static let directDownloadName = "Macbook Duo"
     /// The name of this build, chosen at compile time by the APPSTORE condition.

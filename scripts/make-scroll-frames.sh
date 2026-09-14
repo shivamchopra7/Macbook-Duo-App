@@ -23,7 +23,7 @@ SRC="$FRAMES/animation/$EFFECT"
 OUT="docs/assets/lid-frames"
 LAST=76
 WIDTH=1280
-QUALITY=4   # ffmpeg mjpeg scale, 2 (best) to 31; 4 is about 25 KB a frame here
+QUALITY=6   # ffmpeg mjpeg scale, 2 (best) to 31; 6 keeps the wallpaper frames near 45 KB
 
 fail() { printf 'make-scroll-frames: %s\n' "$*" >&2; exit 1; }
 command -v ffmpeg >/dev/null || fail "ffmpeg is required (brew install ffmpeg)"

@@ -4,9 +4,8 @@
 # exists for App Store archives, so it defines the APPSTORE compilation
 # condition that strips the self-updater out of the app.
 #
-# On the store the app is called "Lid Fold": App Review Guideline 5.2.5 keeps
-# Apple's product names out of App Store app names, so PRODUCT_NAME below sets
-# the bundle name, display name and package name to Lid Fold while the source,
+# On the store the app is called "Macbook Fold": PRODUCT_NAME below sets the
+# bundle name, display name and package name to Macbook Fold while the source,
 # module, bundle identifier and this project keep the Macbook Duo name.
 name: Macbook Duo
 
@@ -65,13 +64,13 @@ targets:
       base:
         GENERATE_INFOPLIST_FILE: NO
         INFOPLIST_FILE: App/Info.plist
-        PRODUCT_NAME: Lid Fold
+        PRODUCT_NAME: Macbook Fold
         PRODUCT_MODULE_NAME: MacbookDuo
         EXECUTABLE_NAME: MacbookDuo
         PRODUCT_BUNDLE_IDENTIFIER: com.shivamchopra.macbookduo
         MARKETING_VERSION: 1.0.0
-        # App Store Connect already holds build 101 of 1.0.0; every upload needs a higher number.
-        CURRENT_PROJECT_VERSION: 102
+        # App Store Connect already holds builds 101 and 102 of 1.0.0; every upload needs a higher number.
+        CURRENT_PROJECT_VERSION: 103
         SWIFT_VERSION: "5.0"
         SWIFT_ACTIVE_COMPILATION_CONDITIONS: APPSTORE
         ENABLE_HARDENED_RUNTIME: YES

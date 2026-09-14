@@ -2,7 +2,7 @@
 # Build the Mac App Store app previews and the effect screenshots from the
 # render check's exported animation frames:
 #
-#   docs/appstore/previews/01-lid-fold.mp4       Fold, Roll, Curtain, Blackhole, Iris, Duo
+#   docs/appstore/previews/01-macbook-fold.mp4       Fold, Roll, Curtain, Blackhole, Iris, Duo
 #   docs/appstore/previews/02-more-effects.mp4   Accordion, Louver, Card, Shutter, Flex, Ghost
 #   docs/appstore/screenshots/06-fold.png … 10-louver.png   one effect each, mid-close
 #
@@ -19,7 +19,7 @@
 # least 1920 pixels wide:
 #   .build-appstore/debug/MacbookDuo --render-check <dir> --animation \
 #       --animation-size 1920x1248 --no-timing
-# (the store flavour, so the artwork says Lid Fold). Without an argument the
+# (the store flavour, so the artwork says Macbook Fold). Without an argument the
 # script looks for validation/render. Requires ffmpeg (brew install ffmpeg).
 set -euo pipefail
 cd "$(dirname "$0")/.."
@@ -239,7 +239,7 @@ main() {
   background "$TMP/bg.png" "$WIDTH" "$HEIGHT"
   background "$TMP/shot-bg.png" "$SHOT_WIDTH" "$SHOT_HEIGHT"
   mkdir -p "$PREVIEW_DIR" "$SHOT_DIR"
-  preview "$PREVIEW_DIR/01-lid-fold.mp4" "Lid Fold" "Your desktop follows your lid" "${PREVIEW_ONE[@]}"
+  preview "$PREVIEW_DIR/01-macbook-fold.mp4" "Macbook Fold" "Your desktop follows your lid" "${PREVIEW_ONE[@]}"
   preview "$PREVIEW_DIR/02-more-effects.mp4" "Six more ways to close" "Every effect tracks the lid angle in real time" "${PREVIEW_TWO[@]}"
   local shot stem id
   for shot in "${SHOTS[@]}"; do

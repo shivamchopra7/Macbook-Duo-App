@@ -15,6 +15,7 @@
 		162717120542ECBCA8C9727D /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4810065C7417010B38BA4CC1 /* main.swift */; };
 		1A4D0EA81EAAE3AEE296FF83 /* EffectOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F65DF8FE7EE9D3E509B2B907 /* EffectOptions.swift */; };
 		1A99191D72A9FFF03AD415C4 /* ShaderAccordion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 100D9EE1E1CAF96E0FF12287 /* ShaderAccordion.swift */; };
+		1B77854916D64177E6018986 /* AppResources.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC3DC474B72ABA0389AC509D /* AppResources.swift */; };
 		1E988B773C5F284A82226DD0 /* SettingsFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB55FE87FFF404423602E40B /* SettingsFooter.swift */; };
 		20B99774106D0A33AF0157B7 /* ShaderIris.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0BBC79C86F47337D37A688A /* ShaderIris.swift */; };
 		23B0E9CC743E7F4AC7A02E21 /* RenderCheck+Accordion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C45E7ED3DF5CCB300DE4892 /* RenderCheck+Accordion.swift */; };
@@ -75,6 +76,7 @@
 		AB1B12247101C040022F308F /* FoldVisualAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 379D538FCADEA80AB1C3DD4B /* FoldVisualAnimation.swift */; };
 		AD21847E966464FB4313F265 /* ShaderFlex.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7B3C5F06F06CC94D12AC2E4 /* ShaderFlex.swift */; };
 		AE2D53D6C45CF2967C2DA2FF /* SensorDiscovery.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3EA8E993577750BDE69EEB2 /* SensorDiscovery.swift */; };
+		AFBCEEC5AEEDDC33556F232B /* PreviewWallpaper.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9E7DB483A93E362E431E0B7D /* PreviewWallpaper.jpg */; };
 		B3221550C79E0EED3378909F /* RenderCheck+Resources.swift in Sources */ = {isa = PBXBuildFile; fileRef = 703AEEB894A9166F8CE7FE91 /* RenderCheck+Resources.swift */; };
 		B579699D2C7346C7C62B05CE /* AppModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB575A9D839A411069F4AA5C /* AppModel.swift */; };
 		B8E964CAB83639AC35B6718C /* LidMotionReference.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E8EE0A16977CA6B2653920C /* LidMotionReference.swift */; };
@@ -171,6 +173,7 @@
 		964B6F2DF58806D5BD00ED04 /* MacbookDuo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MacbookDuo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		99FA8341B193BDE80BEB1CEA /* ShaderCurtain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShaderCurtain.swift; sourceTree = "<group>"; };
 		9CE1EB8A2C14466890A01401 /* MacbookDuoMark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MacbookDuoMark.png; sourceTree = "<group>"; };
+		9E7DB483A93E362E431E0B7D /* PreviewWallpaper.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = PreviewWallpaper.jpg; sourceTree = "<group>"; };
 		A0DFA7A008EC9CC00C3B2552 /* UpdateReplacement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateReplacement.swift; sourceTree = "<group>"; };
 		A5FB9D433933EDEEF316B979 /* AppUpdater.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppUpdater.swift; sourceTree = "<group>"; };
 		AB575A9D839A411069F4AA5C /* AppModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppModel.swift; sourceTree = "<group>"; };
@@ -199,6 +202,7 @@
 		D8DDEC6ABDFAE152ED3B4FEA /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		DB1ED385A69C899B56F1C081 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DB55FE87FFF404423602E40B /* SettingsFooter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsFooter.swift; sourceTree = "<group>"; };
+		DC3DC474B72ABA0389AC509D /* AppResources.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppResources.swift; sourceTree = "<group>"; };
 		DDE4DA8A7FD6FCD286BF84C8 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		E01ECE4F29C5C0F4B5FD1BF8 /* UpdateJob.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateJob.swift; sourceTree = "<group>"; };
 		E0CC01BAC05B36CF72894A32 /* AppAppearance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppAppearance.swift; sourceTree = "<group>"; };
@@ -457,6 +461,7 @@
 		C3E18955FED624A630DF9941 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				9E7DB483A93E362E431E0B7D /* PreviewWallpaper.jpg */,
 				24E2594B6E23675B3E8EF058 /* InfoPlist.strings */,
 				76A81CA33498738E7DD9F76F /* Localizable.strings */,
 			);
@@ -469,6 +474,7 @@
 				F3D33E6E765E5A6CE11E9E9A /* AppBrand.swift */,
 				0C911B76B7AC5939796BBB5A /* AppDelegate.swift */,
 				CAD12B43FE9114FCC7E36BBD /* AppError.swift */,
+				DC3DC474B72ABA0389AC509D /* AppResources.swift */,
 				8A43ADA3C8BC1756155BFB64 /* Localization.swift */,
 				4810065C7417010B38BA4CC1 /* main.swift */,
 			);
@@ -607,6 +613,7 @@
 				5D51AEBA7C16340718049577 /* InfoPlist.strings in Resources */,
 				6E162D51C68A528FBB2E49AA /* Localizable.strings in Resources */,
 				DFF9C97A80FD94B44B306994 /* MacbookDuoMark.png in Resources */,
+				AFBCEEC5AEEDDC33556F232B /* PreviewWallpaper.jpg in Resources */,
 				976CB532772F2AD4B6DCCBFC /* PrivacyInfo.xcprivacy in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -646,6 +653,7 @@
 				E5F55AFF4132BD5B3B56E74E /* AppModel+Overlay.swift in Sources */,
 				9573E15D3DD354B58551DDAC /* AppModel+System.swift in Sources */,
 				B579699D2C7346C7C62B05CE /* AppModel.swift in Sources */,
+				1B77854916D64177E6018986 /* AppResources.swift in Sources */,
 				F0F1785DB6EEA75DA0BE7FE1 /* AppUpdater+AppStore.swift in Sources */,
 				4B3391F04A9BADA02E57051C /* AppUpdater.swift in Sources */,
 				C458DB994EA06C4D42006611 /* DesktopCapture.swift in Sources */,
@@ -774,7 +782,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 102;
+				CURRENT_PROJECT_VERSION = 103;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = ZB6623U832;
 				ENABLE_APP_SANDBOX = YES;
@@ -793,7 +801,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.shivamchopra.macbookduo;
 				PRODUCT_MODULE_NAME = MacbookDuo;
-				PRODUCT_NAME = "Lid Fold";
+				PRODUCT_NAME = "Macbook Fold";
 				SDKROOT = macosx;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = APPSTORE;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
@@ -962,7 +970,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 102;
+				CURRENT_PROJECT_VERSION = 103;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = ZB6623U832;
 				ENABLE_APP_SANDBOX = YES;
@@ -981,7 +989,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.shivamchopra.macbookduo;
 				PRODUCT_MODULE_NAME = MacbookDuo;
-				PRODUCT_NAME = "Lid Fold";
+				PRODUCT_NAME = "Macbook Fold";
 				SDKROOT = macosx;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = APPSTORE;
 				SWIFT_VERSION = 5.0;

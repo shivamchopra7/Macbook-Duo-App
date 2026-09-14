@@ -10,7 +10,7 @@
 # Every shot launches the app on one settings page, captures its window with
 # screencapture, quits the app, then composites the capture onto a 2880×1800
 # brand-blue gradient with a one-line caption at the top. The app comes from
-# MACBOOKDUO_APP when that variable is set, otherwise from any "Lid Fold.app"
+# MACBOOKDUO_APP when that variable is set, otherwise from any "Macbook Fold.app"
 # (the store build's name) under build-appstore/, and as a last resort from
 # build/Macbook Duo.app. The window is found by the name in the app's
 # Info.plist, so either build works.
@@ -34,7 +34,7 @@ GRADIENT_START=0x2F6BFF    # Brand blue, top left.
 GRADIENT_END=0x0B1020      # Brand navy, bottom right.
 LAUNCH_WAIT="${MACBOOKDUO_SCREENSHOT_WAIT:-5}"
 PROCESS_NAME="MacbookDuo"
-STORE_APP_NAME="Lid Fold"
+STORE_APP_NAME="Macbook Fold"
 WINDOW_OWNER_PREFIX=""     # Set from the app's CFBundleDisplayName in main.
 # Per-launch defaults overrides (NSArgumentDomain), so the shots show the default
 # effect and tuning whatever this Mac's saved preferences are. Nothing is written back.
@@ -77,7 +77,7 @@ find_font() {
 # The bundle of an already running Macbook Duo, so it can be reopened afterwards.
 running_bundle() {
   local pid="" exe=""
-  pid="$(pgrep -x "$PROCESS_NAME" | head -n 1 || true)"
+  pid="$(pgrep -f "$APP_PATTERN" | head -n 1 || true)"
   if [[ -n "$pid" ]]; then exe="$(ps -o comm= -p "$pid" 2>/dev/null || true)"; fi
   if [[ "$exe" == *"/Contents/MacOS/$PROCESS_NAME" ]]; then printf '%s\n' "${exe%/Contents/MacOS/$PROCESS_NAME}"; fi
   return 0
@@ -147,10 +147,13 @@ do {
 EOF
 }
 
+# Only the packaged app is stopped (its executable lives under Contents/MacOS),
+# never a render check running from a SwiftPM build directory.
+APP_PATTERN="/Contents/MacOS/$PROCESS_NAME\$"
 stop_app() {
-  pkill -x "$PROCESS_NAME" 2>/dev/null || true
+  pkill -f "$APP_PATTERN" 2>/dev/null || true
   local tries=0
-  while pgrep -x "$PROCESS_NAME" >/dev/null && (( tries < 20 )); do
+  while pgrep -f "$APP_PATTERN" >/dev/null && (( tries < 20 )); do
     sleep 0.25
     tries=$((tries + 1))
   done

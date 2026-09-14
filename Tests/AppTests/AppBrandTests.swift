@@ -2,21 +2,18 @@ import Foundation
 import XCTest
 @testable import MacbookDuo
 
-/// The Mac App Store listing may not carry an Apple trademark in its name
-/// (App Review Guideline 5.2.5), so the store build presents itself as
-/// "Lid Fold" everywhere the user can read the name, while the direct
-/// download keeps "Macbook Duo".
+/// The Mac App Store build presents itself as "Macbook Fold" everywhere the
+/// user can read the name, while the direct download keeps "Macbook Duo".
 final class AppBrandTests: XCTestCase {
     @MainActor func testEachDistributionHasItsOwnName() {
-        XCTAssertEqual(AppBrand.storeName, "Lid Fold")
+        XCTAssertEqual(AppBrand.storeName, "Macbook Fold")
         XCTAssertEqual(AppBrand.directDownloadName, "Macbook Duo")
         XCTAssertEqual(AppBrand.name, AppUpdater.isAppStoreBuild ? AppBrand.storeName : AppBrand.directDownloadName)
     }
 
-    func testStoreNameCarriesNoAppleTrademark() {
-        for trademark in ["macbook", "mac ", "apple", "ios", "macos"] {
-            XCTAssertFalse(AppBrand.storeName.lowercased().contains(trademark), trademark)
-        }
+    func testTheTwoNamesDiffer() {
+        XCTAssertNotEqual(AppBrand.storeName, AppBrand.directDownloadName)
+        XCTAssertFalse(AppBrand.storeName.isEmpty)
     }
 
     func testBrandedTextIsBuiltFromTheCurrentName() {

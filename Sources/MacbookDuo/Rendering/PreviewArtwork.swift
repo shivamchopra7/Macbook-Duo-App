@@ -34,24 +34,19 @@ extension FoldRenderer {
             throw AppError.message(L10n.text("Preview image could not be created."))
         }
         context.scaleBy(x: CGFloat(width)/1440, y: CGFloat(height)/936)
-        let colors = [NSColor(red: 0.07, green: 0.13, blue: 0.18, alpha: 1).cgColor,
-                      NSColor(red: 0.18, green: 0.47, blue: 0.48, alpha: 1).cgColor,
-                      NSColor(red: 0.89, green: 0.68, blue: 0.48, alpha: 1).cgColor] as CFArray
-        let gradient = CGGradient(colorsSpace: colorSpace, colors: colors, locations: [0,0.6,1])!
-        context.drawLinearGradient(gradient, start: CGPoint(x: 720,y: 936), end: CGPoint(x: 720,y: 0), options: [])
-        for i in 0..<6 {
-            let path = CGMutablePath()
-            let y = Double(i)*60
-            path.move(to: CGPoint(x:0,y:y))
-            path.addCurve(to: CGPoint(x:1440,y:y+190), control1: CGPoint(x:480,y:y+430), control2: CGPoint(x:1000,y:y-180))
-            path.addLine(to: CGPoint(x:1440,y:0));path.addLine(to:.zero);path.closeSubpath()
-            context.setFillColor(NSColor(red:0.06,green:0.19+Double(i)*0.012,blue:0.24+Double(i)*0.012,alpha:0.30).cgColor)
-            context.addPath(path);context.fillPath()
+        if let wallpaper = AppResources.previewWallpaper {
+            drawWallpaper(wallpaper, in: context, colorSpace: colorSpace)
+        } else {
+            drawPaintedBackdrop(in: context, colorSpace: colorSpace)
         }
         NSGraphicsContext.saveGraphicsState()
         NSGraphicsContext.current = NSGraphicsContext(cgContext: context, flipped: false)
-        let title: [NSAttributedString.Key:Any] = [.font:NSFont.systemFont(ofSize:116,weight:.light), .foregroundColor:NSColor.white.withAlphaComponent(0.9)]
-        let caption: [NSAttributedString.Key:Any] = [.font:NSFont.systemFont(ofSize:23,weight:.medium), .foregroundColor:NSColor.white.withAlphaComponent(0.8)]
+        let shadow = NSShadow()
+        shadow.shadowColor = NSColor.black.withAlphaComponent(0.55)
+        shadow.shadowBlurRadius = 18
+        shadow.shadowOffset = NSSize(width: 0, height: -4)
+        let title: [NSAttributedString.Key:Any] = [.font:NSFont.systemFont(ofSize:116,weight:.light), .foregroundColor:NSColor.white.withAlphaComponent(0.94), .shadow:shadow]
+        let caption: [NSAttributedString.Key:Any] = [.font:NSFont.systemFont(ofSize:23,weight:.medium), .foregroundColor:NSColor.white.withAlphaComponent(0.85), .shadow:shadow]
         let previewTitle = AppBrand.name as NSString
         let titleWidth = previewTitle.size(withAttributes:title).width
         previewTitle.draw(at:CGPoint(x:(1440-titleWidth)/2,y:530),withAttributes:title)
@@ -67,5 +62,38 @@ extension FoldRenderer {
         NSGraphicsContext.restoreGraphicsState()
         guard let image = context.makeImage() else { throw AppError.message(L10n.text("Preview image is unavailable.")) }
         return try MTKTextureLoader(device:device).newTexture(cgImage:image,options:[.SRGB:false,.origin:MTKTextureLoader.Origin.topLeft])
+    }
+
+    /// The bundled wallpaper, scaled to fill the 1440×936 artwork and cropped
+    /// to centre, with a soft darkening along the bottom so the dock and the
+    /// caption stay readable over it.
+    private func drawWallpaper(_ wallpaper: CGImage, in context: CGContext, colorSpace: CGColorSpace) {
+        let canvas = CGSize(width: 1440, height: 936)
+        let scale = max(canvas.width/CGFloat(wallpaper.width), canvas.height/CGFloat(wallpaper.height))
+        let size = CGSize(width: CGFloat(wallpaper.width)*scale, height: CGFloat(wallpaper.height)*scale)
+        context.interpolationQuality = .high
+        context.draw(wallpaper, in: CGRect(x: (canvas.width-size.width)/2, y: (canvas.height-size.height)/2, width: size.width, height: size.height))
+        let shade = [NSColor.black.withAlphaComponent(0.45).cgColor, NSColor.black.withAlphaComponent(0).cgColor] as CFArray
+        let gradient = CGGradient(colorsSpace: colorSpace, colors: shade, locations: [0,1])!
+        context.drawLinearGradient(gradient, start: CGPoint(x: 720, y: 0), end: CGPoint(x: 720, y: 260), options: [])
+    }
+
+    /// The original painted backdrop: a teal-to-sand gradient with rolling
+    /// waves. Used only when the wallpaper file is missing.
+    private func drawPaintedBackdrop(in context: CGContext, colorSpace: CGColorSpace) {
+        let colors = [NSColor(red: 0.07, green: 0.13, blue: 0.18, alpha: 1).cgColor,
+                      NSColor(red: 0.18, green: 0.47, blue: 0.48, alpha: 1).cgColor,
+                      NSColor(red: 0.89, green: 0.68, blue: 0.48, alpha: 1).cgColor] as CFArray
+        let gradient = CGGradient(colorsSpace: colorSpace, colors: colors, locations: [0,0.6,1])!
+        context.drawLinearGradient(gradient, start: CGPoint(x: 720,y: 936), end: CGPoint(x: 720,y: 0), options: [])
+        for i in 0..<6 {
+            let path = CGMutablePath()
+            let y = Double(i)*60
+            path.move(to: CGPoint(x:0,y:y))
+            path.addCurve(to: CGPoint(x:1440,y:y+190), control1: CGPoint(x:480,y:y+430), control2: CGPoint(x:1000,y:y-180))
+            path.addLine(to: CGPoint(x:1440,y:0));path.addLine(to:.zero);path.closeSubpath()
+            context.setFillColor(NSColor(red:0.06,green:0.19+Double(i)*0.012,blue:0.24+Double(i)*0.012,alpha:0.30).cgColor)
+            context.addPath(path);context.fillPath()
+        }
     }
 }

@@ -32,7 +32,7 @@ final class LocalizationTests: XCTestCase {
         }
     }
 
-    /// The store build is named "Lid Fold" and the direct download "Macbook
+    /// The store build is named "Macbook Fold" and the direct download "Macbook
     /// Duo", so text the store build shows must take the name as an argument
     /// instead of spelling "Macbook Duo" out. Only the self-updater, which is
     /// compiled out of the store build, may still name Macbook Duo directly.

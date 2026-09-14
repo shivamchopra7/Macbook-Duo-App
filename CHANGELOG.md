@@ -6,7 +6,7 @@
 - **Six new effects.** Fold, Accordion, Louver, Card, Curtain and Blackhole join Duo, Ghost, Roll, Shutter, Flex and Iris, for twelve in total. Duo remains the default.
 - **Per-effect options.** Intensity exaggerates each effect's geometry (50% reproduces the original tuning); Segments sets the panel, pleat, slat or drape count for Shutter, Accordion, Louver and Curtain (2–8); Curve chooses Smooth, Gentle, Linear or Brisk progress; Response tunes motion smoothing from 20 to 120 ms; Clear duration sets the return-to-clear animation from 0.3 to 1.2 s.
 - **Existing controls kept.** Perspective, Softness, Shadow, Clears at, Clear when the lid is still, Follow my lid and Preview angle carry over unchanged, and **Reset to defaults** restores the original tuning in one click.
-- **Redesigned settings window.** A Liquid Glass design language with four sections (Effects, Motion, Look, About), a live MacBook-shaped preview, and light, dark or system appearance.
+- **Redesigned settings window.** A Liquid Glass design language with four sections (Effects, Motion, Look, About), a live MacBook-shaped preview showing a bundled wallpaper (`PreviewWallpaper.jpg`, with the painted gradient as fallback), and light, dark or system appearance.
 - **Codebase reorganized by feature.** App, Model, Capture, Sensor, Rendering with one shader file per effect, UI, Updates and Diagnostics in the app; Effects, Motion and Updates in FoldCore. Files stay short, the test suite has grown, and every effect has its own GPU render check.
 - **Same privacy model.** Desktop frames stay in memory, there are no analytics, and updates are fetched only on request from the official GitHub release. Builds remain ad-hoc signed and not notarized.
 - **Four languages.** English, Simplified Chinese, Traditional Chinese and Japanese, following the macOS language preference with English fallback.
@@ -17,7 +17,7 @@
 
 The Mac App Store submission of 1.0.0 is built from the same sources by the Xcode project `Macbook Duo.xcodeproj` (scheme `Macbook Duo`) with the `APPSTORE` compilation condition. It behaves like the direct download except where noted here.
 
-- **Sold as Lid Fold.** App Review Guideline 5.2.5 keeps Apple's product names out of App Store app names, so the store build is named Lid Fold: the listing, `Lid Fold.app`, the window title, the menu bar and every string in the app use that name (`AppBrand.name`, chosen at compile time). The bundle identifier `com.shivamchopra.macbookduo`, the source and the direct download keep the Macbook Duo name.
+- **Sold as Macbook Fold.** The store build is named Macbook Fold: the listing, `Macbook Fold.app`, the window title, the menu bar and every string in the app use that name (`AppBrand.name`, chosen at compile time). The bundle identifier `com.shivamchopra.macbookduo`, the source and the direct download keep the Macbook Duo name.
 
 - **Sandboxed build.** App Sandbox and Hardened Runtime, signed with an Apple Distribution certificate. Besides `com.apple.security.app-sandbox`, the only entitlement is `com.apple.security.device.usb`, which the built-in lid-angle sensor needs to stay readable inside the sandbox.
 - **No self-updater.** The in-app updater, its menu items, buttons and `--update-*` diagnostic flags are compiled out; updates arrive through the App Store, as App Review Guideline 2.4.5 requires. The pure release-parsing code in FoldCore is unchanged.
