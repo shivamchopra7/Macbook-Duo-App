@@ -10,14 +10,19 @@ struct GlassSurface: ViewModifier {
     var shadowed = true
 
     func body(content: Content) -> some View {
+        #if compiler(>=6.2)
         if #available(macOS 26,*) {
             content.modifier(SystemGlass(cornerRadius:cornerRadius,tint:tint,interactive:interactive))
         } else {
             content.modifier(FallbackGlass(cornerRadius:cornerRadius,tint:tint,shadowed:shadowed))
         }
+        #else
+        content.modifier(FallbackGlass(cornerRadius:cornerRadius,tint:tint,shadowed:shadowed))
+        #endif
     }
 }
 
+#if compiler(>=6.2)
 @available(macOS 26,*)
 private struct SystemGlass: ViewModifier {
     let cornerRadius: CGFloat
@@ -30,6 +35,7 @@ private struct SystemGlass: ViewModifier {
         return content.glassEffect(glass,in:RoundedRectangle(cornerRadius:cornerRadius,style:.continuous))
     }
 }
+#endif
 
 private struct FallbackGlass: ViewModifier {
     let cornerRadius: CGFloat
