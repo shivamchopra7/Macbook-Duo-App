@@ -18,12 +18,12 @@ import FoldCore
             defer { isBusy = false;buttonTitle = L10n.text("Check for updates") }
             do {
                 guard let update = try await Self.findUpdate() else {
-                    show(L10n.text("You’re up to date"),message:L10n.format("DuoDisplay %@ is the latest stable release.",Bundle.main.object(forInfoDictionaryKey:"CFBundleShortVersionString") as? String ?? ""))
+                    show(L10n.text("You’re up to date"),message:L10n.format("Foldbook %@ is the latest stable release.",Bundle.main.object(forInfoDictionaryKey:"CFBundleShortVersionString") as? String ?? ""))
                     return
                 }
                 let alert = NSAlert()
-                alert.messageText = L10n.format("DuoDisplay %@ is available",update.tag)
-                alert.informativeText = L10n.text("Download, verify, and install the update, then reopen DuoDisplay. Your settings will be kept. macOS may ask you to allow the updated app or Screen Recording again.")
+                alert.messageText = L10n.format("Foldbook %@ is available",update.tag)
+                alert.informativeText = L10n.text("Download, verify, and install the update, then reopen Foldbook. Your settings will be kept. macOS may ask you to allow the updated app or Screen Recording again.")
                 alert.addButton(withTitle:L10n.text("Install & Relaunch"))
                 alert.addButton(withTitle:L10n.text("Later"))
                 alert.addButton(withTitle:L10n.text("View release"))
@@ -46,7 +46,7 @@ import FoldCore
                 }
             } catch {
                 let alert = NSAlert()
-                alert.messageText = L10n.text("DuoDisplay could not update")
+                alert.messageText = L10n.text("Foldbook could not update")
                 alert.informativeText = L10n.text(error.localizedDescription)
                 alert.addButton(withTitle:L10n.text("OK"));alert.addButton(withTitle:L10n.text("Open downloads"))
                 NSApp.activate(ignoringOtherApps:true)

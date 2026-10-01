@@ -46,7 +46,7 @@
 "System" = "システム";
 "Light" = "ライト";
 "Dark" = "ダーク";
-"Duo" = "Duo";
+"Hinge" = "ヒンジ";
 "Roll" = "ロール";
 "Shutter" = "シャッター";
 "Flex" = "フレックス";
@@ -104,30 +104,30 @@
 "Rate on the App Store" = "App Store で評価する";
 "Updates come from the App Store" = "アップデートは App Store から提供されます";
 "You’re up to date" = "最新バージョンです";
-"DuoDisplay %@ is the latest stable release." = "DuoDisplay %@ は最新の安定版です。";
-"DuoDisplay %@ is available" = "DuoDisplay %@ が利用できます";
-"Download, verify, and install the update, then reopen DuoDisplay. Your settings will be kept. macOS may ask you to allow the updated app or Screen Recording again." = "アップデートをダウンロード、検証、インストールし、DuoDisplay を開き直します。設定は保持されます。macOS が更新後のアプリや画面収録の許可を再度求める場合があります。";
+"Foldbook %@ is the latest stable release." = "Foldbook %@ は最新の安定版です。";
+"Foldbook %@ is available" = "Foldbook %@ が利用できます";
+"Download, verify, and install the update, then reopen Foldbook. Your settings will be kept. macOS may ask you to allow the updated app or Screen Recording again." = "アップデートをダウンロード、検証、インストールし、Foldbook を開き直します。設定は保持されます。macOS が更新後のアプリや画面収録の許可を再度求める場合があります。";
 "Install & Relaunch" = "インストールして再起動";
 "Later" = "あとで";
 "View release" = "リリースを表示";
 "Updating…" = "更新中…";
-"DuoDisplay could not update" = "DuoDisplay を更新できませんでした";
+"Foldbook could not update" = "Foldbook を更新できませんでした";
 "OK" = "OK";
 "Open downloads" = "ダウンロードページを開く";
 "macOS could not open the update" = "macOS が更新後のアプリを開けませんでした";
-"Your previous DuoDisplay is safely backed up. If macOS blocked this downloaded app, go to System Settings → Privacy & Security → Open Anyway, approve DuoDisplay there, then try opening it again. You can restore the previous version at any time.\n\n%@" = "以前の DuoDisplay は安全にバックアップされています。macOS がこのアプリをブロックした場合は、「システム設定 → プライバシーとセキュリティ → このまま開く」で DuoDisplay を許可してから、もう一度開いてください。いつでも以前のバージョンに戻せます。\n\n%@";
+"Your previous Foldbook is safely backed up. If macOS blocked this downloaded app, go to System Settings → Privacy & Security → Open Anyway, approve Foldbook there, then try opening it again. You can restore the previous version at any time.\n\n%@" = "以前の Foldbook は安全にバックアップされています。macOS がこのアプリをブロックした場合は、「システム設定 → プライバシーとセキュリティ → このまま開く」で Foldbook を許可してから、もう一度開いてください。いつでも以前のバージョンに戻せます。\n\n%@";
 "Restore Previous" = "以前のバージョンに戻す";
 "Open Privacy & Security" = "プライバシーとセキュリティを開く";
 "Try Opening Again" = "もう一度開く";
-"The previous DuoDisplay was restored" = "以前の DuoDisplay に戻しました";
+"The previous Foldbook was restored" = "以前の Foldbook に戻しました";
 "The update could not finish opening. You can keep using this version or install the latest release from GitHub." = "更新後のアプリを起動できませんでした。このバージョンを使い続けるか、GitHub から最新版をインストールできます。";
-"DuoDisplay kept your previous app safe" = "DuoDisplay は以前のアプリを安全に保持しました";
+"Foldbook kept your previous app safe" = "Foldbook は以前のアプリを安全に保持しました";
 "A file permission or disk error prevented the update from finishing. Your previous app is at:\n%@\nMove it back to Applications with Finder." = "ファイルの権限またはディスクのエラーで更新を完了できませんでした。以前のアプリの場所：\n%@\nFinder で「アプリケーション」に戻してください。";
 "The installer download was incomplete. Please try again." = "インストーラーのダウンロードが不完全です。再試行してください。";
 "GitHub redirected the download to an unexpected location." = "GitHub がダウンロードを想定外の場所に転送しました。";
 "GitHub could not provide the update. Check your connection and try again later." = "GitHub から更新を取得できません。接続を確認して、あとで再試行してください。";
 "The update download exceeded its size limit." = "更新のダウンロードがサイズ制限を超えました。";
-"Move DuoDisplay to Applications and open it there before updating. If Applications needs an administrator password, install the downloaded update with Finder." = "DuoDisplay を「アプリケーション」に移動し、そこから開いて更新してください。管理者パスワードが必要な場合は、Finder でダウンロードした更新をインストールしてください。";
+"Move Foldbook to Applications and open it there before updating. If Applications needs an administrator password, install the downloaded update with Finder." = "Foldbook を「アプリケーション」に移動し、そこから開いて更新してください。管理者パスワードが必要な場合は、Finder でダウンロードした更新をインストールしてください。";
 "macOS could not mark the downloaded app for its normal security check. Please install it with Finder." = "ダウンロードしたアプリを macOS の通常のセキュリティ確認用にマークできませんでした。Finder でインストールしてください。";
 "The downloaded app failed validation or could not be installed. Nothing was replaced." = "ダウンロードしたアプリの検証またはインストールに失敗しました。何も置き換えていません。";
 "The installer contains no app." = "インストーラーにアプリが含まれていません。";
@@ -145,10 +145,10 @@
 "The updated app did not finish opening. Your previous version is safely backed up." = "更新後のアプリを起動できませんでした。以前のバージョンは安全にバックアップされています。";
 "The installed app could not prepare its signed updater bundle." = "インストール済みアプリが署名付き更新ヘルパーを準備できませんでした。";
 "The installed app contains an unsupported helper resource." = "インストール済みアプリに未対応のヘルパーリソースが含まれています。";
-"The update helper could not start safely. DuoDisplay is still running; please try again or install with Finder." = "更新ヘルパーを安全に起動できませんでした。DuoDisplay は実行中です。再試行するか、Finder でインストールしてください。";
+"The update helper could not start safely. Foldbook is still running; please try again or install with Finder." = "更新ヘルパーを安全に起動できませんでした。Foldbook は実行中です。再試行するか、Finder でインストールしてください。";
 "This app has an unknown version. Download the latest installer from GitHub." = "このアプリのバージョンは不明です。GitHub から最新のインストーラーをダウンロードしてください。";
-"GitHub did not return a stable DuoDisplay release." = "GitHub から DuoDisplay の安定版を取得できませんでした。";
-"The release is missing a valid DuoDisplay installer or checksum. Open the release on GitHub instead." = "このリリースには有効なインストーラーまたはチェックサムがありません。GitHub のリリースページを開いてください。";
+"GitHub did not return a stable Foldbook release." = "GitHub から Foldbook の安定版を取得できませんでした。";
+"The release is missing a valid Foldbook installer or checksum. Open the release on GitHub instead." = "このリリースには有効なインストーラーまたはチェックサムがありません。GitHub のリリースページを開いてください。";
 "The release checksum could not be read." = "リリースのチェックサムを読み取れませんでした。";
 "The download failed its SHA-256 integrity check. Nothing was installed." = "ダウンロードの SHA-256 整合性確認に失敗しました。何もインストールしていません。";
 "The update staging directory is not empty or is linked elsewhere." = "更新の一時ディレクトリが空でないか、別の場所にリンクしています。";
@@ -158,7 +158,7 @@
 "The installer archive is unsafe or unsupported. Nothing was installed." = "インストーラーのアーカイブが安全でないか、未対応です。何もインストールしていません。";
 "The installation location changed. Please download the update manually." = "インストール先が変更されました。更新を手動でダウンロードしてください。";
 
-// DuoDisplay 1.0: expansion effects, curves and options.
+// Foldbook 1.0: expansion effects, curves and options.
 "Fold" = "フォールド";
 "Accordion" = "アコーディオン";
 "Louver" = "ルーバー";

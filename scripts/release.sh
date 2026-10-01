@@ -7,6 +7,6 @@ VERSION="${1:?usage: scripts/release.sh <version>}"
 ./build.sh
 MACBOOKDUO_ARCH=x86_64 MACBOOKDUO_BUILD_DIR=.build-intel ./build.sh || printf 'Intel build skipped.\n' >&2
 scripts/package.sh
-ASSETS=(dist/DuoDisplay.dmg dist/DuoDisplay-mac.zip dist/DuoDisplay-SHA256SUMS.txt)
-[[ -f dist/DuoDisplay-Intel.dmg ]] && ASSETS+=(dist/DuoDisplay-Intel.dmg dist/DuoDisplay-Intel.zip)
-gh release create "v$VERSION" "${ASSETS[@]}" --title "DuoDisplay $VERSION" --notes-file CHANGELOG.md --latest
+ASSETS=(dist/Foldbook.dmg dist/Foldbook-mac.zip dist/Foldbook-SHA256SUMS.txt)
+[[ -f dist/Foldbook-Intel.dmg ]] && ASSETS+=(dist/Foldbook-Intel.dmg dist/Foldbook-Intel.zip)
+gh release create "v$VERSION" "${ASSETS[@]}" --title "Foldbook $VERSION" --notes-file CHANGELOG.md --latest

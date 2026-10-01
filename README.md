@@ -1,8 +1,8 @@
-<img src="Resources/MacbookDuoIcon.png" alt="DuoDisplay icon" width="96" align="right">
+<img src="Resources/MacbookDuoIcon.png" alt="Foldbook icon" width="96" align="right">
 
-# DuoDisplay
+# Foldbook
 
-**Your desktop follows your lid.** Apple just built a $1,999 phone that folds. Your MacBook has folded since day one; it simply never made a thing of it. DuoDisplay makes a thing of it: a native Swift + Metal menu-bar app that folds, rolls, swirls or drains your desktop away as you close the lid, with twelve effects to choose from. Open the lid and everything snaps back into focus.
+**Your desktop follows your lid.** Apple just built a $1,999 phone that folds. Your MacBook has folded since day one; it simply never made a thing of it. Foldbook makes a thing of it: a native Swift + Metal menu-bar app that folds, rolls, swirls or drains your desktop away as you close the lid, with twelve effects to choose from. Open the lid and everything snaps back into focus.
 
 Works on MacBook. Only MacBook. (See [Compatibility](#compatibility) before you get excited on an iMac.)
 
@@ -14,19 +14,19 @@ Works on MacBook. Only MacBook. (See [Compatibility](#compatibility) before you 
 
 | Build | Link |
 |---|---|
-| Apple silicon (recommended) | [**DuoDisplay.dmg**](https://github.com/shivamchopra7/Macbook-Duo-App/releases/latest/download/DuoDisplay.dmg) |
-| Intel preview | [**DuoDisplay-Intel.dmg**](https://github.com/shivamchopra7/Macbook-Duo-App/releases/latest/download/DuoDisplay-Intel.dmg) |
+| Apple silicon (recommended) | [**Foldbook.dmg**](https://github.com/shivamchopra7/Macbook-Duo-App/releases/latest/download/Foldbook.dmg) |
+| Intel preview | [**Foldbook-Intel.dmg**](https://github.com/shivamchopra7/Macbook-Duo-App/releases/latest/download/Foldbook-Intel.dmg) |
 | Everything else (ZIPs, checksums, older versions) | [All releases](https://github.com/shivamchopra7/Macbook-Duo-App/releases) |
 
-**Mac App Store:** the same app is coming to the Mac App Store as **DuoDisplay**, a sandboxed build with no in-app updater; until it is live, use the direct download above.
+**Mac App Store:** the same app is coming to the Mac App Store as **Foldbook**, a sandboxed build with no in-app updater; until it is live, use the direct download above.
 
 Version 1.0.0 · [Website](https://macbookduo.illusionart.ai/) · [Changelog](CHANGELOG.md) · [Build from source](#build-from-source) · [Report an issue](https://github.com/shivamchopra7/Macbook-Duo-App/issues)
 
-<p align="center"><img src="docs/assets/window-effects.png" alt="The DuoDisplay settings window on the Effects section, with the live MacBook-shaped preview on the left and the twelve effects on the right" width="800"></p>
+<p align="center"><img src="docs/assets/window-effects.png" alt="The Foldbook settings window on the Effects section, with the live MacBook-shaped preview on the left and the twelve effects on the right" width="800"></p>
 
 ## What it does
 
-DuoDisplay reads the lid-angle sensor built into recent MacBooks, captures the desktop with ScreenCaptureKit and renders a Metal effect on a full-screen overlay. As the lid tilts, the desktop bends, folds, rolls or drains away in real time; open it again and everything returns to pixel-exact focus. Hold the lid still at any angle and the screen clears after a short pause, so you can keep working at 70° like a person with a plan.
+Foldbook reads the lid-angle sensor built into recent MacBooks, captures the desktop with ScreenCaptureKit and renders a Metal effect on a full-screen overlay. As the lid tilts, the desktop bends, folds, rolls or drains away in real time; open it again and everything returns to pixel-exact focus. Hold the lid still at any angle and the screen clears after a short pause, so you can keep working at 70° like a person with a plan.
 
 - Twelve effects, each with its own feel and its own tuning.
 - A settings window in a Liquid Glass design language with four sections: **Effects**, **Motion**, **Look** and **About**, plus a live MacBook-shaped preview.
@@ -35,11 +35,11 @@ DuoDisplay reads the lid-angle sensor built into recent MacBooks, captures the d
 - Press **Esc** or **⌃⌥⌘F** anywhere to pause.
 - Native Swift + Metal with no third-party runtime dependencies, accounts or analytics.
 
-## DuoDisplay vs iPhone Duo
+## Foldbook vs iPhone Duo
 
 In September 2026 Apple unveiled the [iPhone Duo](https://www.apple.com/iphone-duo/): a book-style foldable with a 7.6-inch inner display, a titanium hinge with more than a hundred parts, and a nano-texture layer so you can feel the crease but not see it. Close it and the inner screen fades while your apps hop to the outer display. Lovely. We would like to point out that your MacBook has had a hinge, a lid and a fade-to-black this whole time, and that only one of these Duos does something interesting on the way down.
 
-| | iPhone Duo | DuoDisplay |
+| | iPhone Duo | Foldbook |
 |---|---|---|
 | Folds | Yes. Like a book, 7.6 inches wide open. | Yes. Like a laptop, up to 16 inches wide open. |
 | When you close it | The inner screen fades and your apps hop to the outer display. | Your desktop folds, rolls, swirls, shutters, drapes or drains into a black hole. Twelve options. A plain fade is not one of them; we have standards. |
@@ -51,7 +51,7 @@ In September 2026 Apple unveiled the [iPhone Duo](https://www.apple.com/iphone-d
 | Cameras | Two 48-megapixel cameras, plus one hiding under the screen. | None. Your desktop is captured into memory for the effect and never leaves the Mac. |
 | Works on the iPhone Duo | Yes, obviously. | No. MacBook only. We tried to be clear about this. |
 
-iPhone Duo details are from Apple's September 2026 announcement. iPhone Duo is Apple's product; DuoDisplay is independent software, neither affiliated with nor endorsed by Apple. We just really like hinges.
+iPhone Duo details are from Apple's September 2026 announcement. iPhone Duo is Apple's product; Foldbook is independent software, neither affiliated with nor endorsed by Apple. We just really like hinges.
 
 ## Twelve effects
 
@@ -92,7 +92,7 @@ Previews show the app's bundled wallpaper, not a real desktop. Your real desktop
 
 Every control lives in the settings window. **Reset to defaults** restores the original tuning in one click.
 
-<p align="center"><img src="docs/assets/window-motion.png" alt="The DuoDisplay settings window on the Motion section, showing the lid-tracking and timing controls" width="800"></p>
+<p align="center"><img src="docs/assets/window-motion.png" alt="The Foldbook settings window on the Motion section, showing the lid-tracking and timing controls" width="800"></p>
 
 | Control | Range | Default | Notes |
 |---|---|---|---|
@@ -114,25 +114,25 @@ Every control lives in the settings window. **Reset to defaults** restores the o
 
 ## Install
 
-1. Download [**DuoDisplay.dmg**](https://github.com/shivamchopra7/Macbook-Duo-App/releases/latest/download/DuoDisplay.dmg) for Apple silicon (or [**DuoDisplay-Intel.dmg**](https://github.com/shivamchopra7/Macbook-Duo-App/releases/latest/download/DuoDisplay-Intel.dmg) for Intel), open it and drag **DuoDisplay** into **Applications**.
-2. Open **DuoDisplay** from Applications. The app is ad-hoc signed and **not notarized**, so macOS may first show "cannot be opened" or "Apple could not verify".
-3. Go to **System Settings → Privacy & Security**, scroll to **Security**, click **Open Anyway** next to DuoDisplay, then confirm **Open**. See [Apple's instructions](https://support.apple.com/102445).
+1. Download [**Foldbook.dmg**](https://github.com/shivamchopra7/Macbook-Duo-App/releases/latest/download/Foldbook.dmg) for Apple silicon (or [**Foldbook-Intel.dmg**](https://github.com/shivamchopra7/Macbook-Duo-App/releases/latest/download/Foldbook-Intel.dmg) for Intel), open it and drag **Foldbook** into **Applications**.
+2. Open **Foldbook** from Applications. The app is ad-hoc signed and **not notarized**, so macOS may first show "cannot be opened" or "Apple could not verify".
+3. Go to **System Settings → Privacy & Security**, scroll to **Security**, click **Open Anyway** next to Foldbook, then confirm **Open**. See [Apple's instructions](https://support.apple.com/102445).
 4. Press **Replay** to watch the effect on the built-in preview. Replay works without any permission.
-5. Click **Enable DuoDisplay** and allow **Screen Recording** when prompted. Reopen the app if macOS asks. Desktop frames stay in memory; nothing is recorded or uploaded.
+5. Click **Enable Foldbook** and allow **Screen Recording** when prompted. Reopen the app if macOS asks. Desktop frames stay in memory; nothing is recorded or uploaded.
 
-For manual control, turn off **Follow my lid** and drag **Preview angle**. Keep **Clear when the lid is still** on for everyday use at any angle. Prefer a ZIP? Unzip it, move **DuoDisplay.app** into Applications and follow steps 2–5.
+For manual control, turn off **Follow my lid** and drag **Preview angle**. Keep **Clear when the lid is still** on for everyday use at any angle. Prefer a ZIP? Unzip it, move **Foldbook.app** into Applications and follow steps 2–5.
 
 ## Updating
 
 This applies to the direct download. The Mac App Store build updates through the App Store and contains no in-app updater.
 
-Choose **Check for Updates…** from the settings window or the menu bar, then **Install & Relaunch**. DuoDisplay reads the latest stable release from the official GitHub repository, picks the native Apple-silicon or Intel ZIP, verifies its SHA-256 checksum and bundle before replacing itself, and preserves your preferences. Checks run only when you ask; there is no background polling.
+Choose **Check for Updates…** from the settings window or the menu bar, then **Install & Relaunch**. Foldbook reads the latest stable release from the official GitHub repository, picks the native Apple-silicon or Intel ZIP, verifies its SHA-256 checksum and bundle before replacing itself, and preserves your preferences. Checks run only when you ask; there is no background polling.
 
-macOS may require **Privacy & Security → Open Anyway** for the updated app, and Screen Recording may need to be approved again because ad-hoc signatures change with each build. The recovery dialog lets you retry or restore the previous app. Install into a writable Applications folder. For a manual update, quit DuoDisplay before replacing the app. If Screen Recording appears enabled but capture fails, remove the old DuoDisplay entry from Screen Recording settings, add the current app from Applications and reopen it.
+macOS may require **Privacy & Security → Open Anyway** for the updated app, and Screen Recording may need to be approved again because ad-hoc signatures change with each build. The recovery dialog lets you retry or restore the previous app. Install into a writable Applications folder. For a manual update, quit Foldbook before replacing the app. If Screen Recording appears enabled but capture fails, remove the old Foldbook entry from Screen Recording settings, add the current app from Applications and reopen it.
 
 ## Compatibility
 
-DuoDisplay works on **MacBook only**. It requires **macOS 13 Ventura or newer** and a MacBook with a **continuous lid-angle sensor**: no sensor, no angle; no angle, no show. The app checks for the sensor at launch and says so plainly ("MacBook unsupported") instead of looking for it forever. Replay still shows every effect on the built-in preview, so unsupported Macs can at least window-shop.
+Foldbook works on **MacBook only**. It requires **macOS 13 Ventura or newer** and a MacBook with a **continuous lid-angle sensor**: no sensor, no angle; no angle, no show. The app checks for the sensor at launch and says so plainly ("MacBook unsupported") instead of looking for it forever. Replay still shows every effect on the built-in preview, so unsupported Macs can at least window-shop.
 
 | Status | Models |
 |---|---|
@@ -145,12 +145,12 @@ The Apple-silicon build is native ARM64 and needs no Rosetta. External displays 
 
 ## Languages
 
-English, Simplified Chinese, Traditional Chinese and Japanese. DuoDisplay follows your macOS language preferences, with English as the fallback. To choose a language just for DuoDisplay, add it under **System Settings → General → Language & Region → Applications**, then quit and reopen the app.
+English, Simplified Chinese, Traditional Chinese and Japanese. Foldbook follows your macOS language preferences, with English as the fallback. To choose a language just for Foldbook, add it under **System Settings → General → Language & Region → Applications**, then quit and reopen the app.
 
 ## Privacy
 
 - Desktop frames stay in bounded memory on your Mac. They are never saved, uploaded or analyzed.
-- ScreenCaptureKit excludes DuoDisplay's own windows from capture, and audio capture is disabled.
+- ScreenCaptureKit excludes Foldbook's own windows from capture, and audio capture is disabled.
 - No accounts, no analytics, no telemetry and no third-party runtime dependencies.
 - The only network activity is a user-initiated update check against the official GitHub release, over HTTPS. The Mac App Store build has no network access at all.
 - The full policy is published at [macbookduo.illusionart.ai/privacy.html](https://macbookduo.illusionart.ai/privacy.html) and versioned in [docs/privacy.html](docs/privacy.html).
@@ -165,7 +165,7 @@ Requires Xcode 16 or newer (Swift 6) on macOS.
 git clone https://github.com/shivamchopra7/Macbook-Duo-App.git
 cd Macbook-Duo-App
 ./build.sh
-open "build/DuoDisplay.app"
+open "build/Foldbook.app"
 ```
 
 Run the unit tests and the offscreen GPU render check (generated artwork only; no desktop capture):
@@ -176,7 +176,7 @@ swift build
 .build/debug/MacbookDuo --render-check validation
 ```
 
-Two flavours are built from this source. `./build.sh` produces the direct download, with the in-app updater. The Mac App Store build comes from `DuoDisplay.xcodeproj` (scheme **DuoDisplay**), which compiles the updater out, turns on App Sandbox and Hardened Runtime, and is packaged by `scripts/appstore.sh`.
+Two flavours are built from this source. `./build.sh` produces the direct download, with the in-app updater. The Mac App Store build comes from `Foldbook.xcodeproj` (scheme **Foldbook**), which compiles the updater out, turns on App Sandbox and Hardened Runtime, and is packaged by `scripts/appstore.sh`.
 
 `scripts/verify.sh` runs all of that plus the live overlay sandbox, release packaging and the updater's self-checks in one go. Add `--effects duo,fold` to check a subset, `--animation` to export closing and reopening frames for each effect, `--no-timing` to record GPU times without gating, or `--strict-timing` to enforce the absolute 6 ms budget on median and p95 (run it on a quiet machine; by default each effect is gated at 2.5× the Duo median measured in the same run, which stays meaningful on a busy desktop). See [docs/DEVELOPMENT.md](docs/DEVELOPMENT.md) for signing, the Intel build, packaging, releases and adding a new effect.
 
@@ -186,6 +186,6 @@ Issues, hardware reports and focused pull requests are welcome. Please read [CON
 
 ## License & credits
 
-DuoDisplay is released under the [MIT License](LICENSE). Third-party notices, the sensor research it relies on and the effect studies that shaped it are listed in [ATTRIBUTION.md](ATTRIBUTION.md).
+Foldbook is released under the [MIT License](LICENSE). Third-party notices, the sensor research it relies on and the effect studies that shaped it are listed in [ATTRIBUTION.md](ATTRIBUTION.md).
 
 Made by Shivam Chopra. Independent software, not affiliated with or endorsed by Apple. iPhone, iPhone Duo, MacBook and macOS are trademarks of Apple Inc.

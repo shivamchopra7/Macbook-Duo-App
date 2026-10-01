@@ -39,7 +39,7 @@ final class LocalizationTests: XCTestCase {
                            "Preview is ready. Enable %@ to use your desktop.",
                            "%@ needs an active, unmirrored built-in display.",
                            "Cannot safely exclude %@ from capture. Please reopen the app."]
-        let updaterKeys = try strings("en").keys.filter { $0.contains("DuoDisplay") }
+        let updaterKeys = try strings("en").keys.filter { $0.contains("Foldbook") }
         for key in updaterKeys {
             XCTAssertTrue(key.contains("update") || key.contains("Update") || key.contains("release") || key.contains("is available") ||
                           key.contains("previous") || key.contains("Applications and open it") || key.contains("kept your"),
@@ -51,7 +51,7 @@ final class LocalizationTests: XCTestCase {
                 XCTAssertTrue(try XCTUnwrap(translated[key], "\(language): \(key)").contains("%@"), "\(language): \(key)")
             }
             let usage = try XCTUnwrap(strings(language,table:"InfoPlist")["NSScreenCaptureUsageDescription"])
-            XCTAssertFalse(usage.contains("DuoDisplay"), "\(language): the permission prompt already shows the app name")
+            XCTAssertFalse(usage.contains("Foldbook"), "\(language): the permission prompt already shows the app name")
         }
     }
 

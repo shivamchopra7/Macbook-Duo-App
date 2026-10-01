@@ -1,17 +1,17 @@
-# App Store Connect listing for DuoDisplay
+# App Store Connect listing for Foldbook
 
-Copy for the Mac App Store record of DuoDisplay 1.0.0 (build 103), bundle identifier `com.shivamchopra.macbookduo`, Apple ID 6811408285. Each field below is ready to paste; the fenced blocks are the exact text, and the character limits are App Store Connect's. Keep this file in step with the README and CHANGELOG when the app changes.
+Copy for the Mac App Store record of Foldbook 1.0.0 (build 104), bundle identifier `com.shivamchopra.macbookduo`, Apple ID 6811408285. Each field below is ready to paste; the fenced blocks are the exact text, and the character limits are App Store Connect's. Keep this file in step with the README and CHANGELOG when the app changes.
 
-**The store name.** The app is called DuoDisplay: the listing, the bundle (`DuoDisplay.app`), the window title, the menu bar and every string in the app say DuoDisplay. The bundle identifier remains `com.shivamchopra.macbookduo` to maintain upgrade lineage.
+**The store name.** The app is called Foldbook: the listing, the bundle (`Foldbook.app`), the window title, the menu bar and every string in the app say Foldbook. The bundle identifier remains `com.shivamchopra.macbookduo` to maintain upgrade lineage.
 
 ## App information
 
 | Field | Value |
 |---|---|
-| Name | `DuoDisplay` |
+| Name | `Foldbook` |
 | Subtitle (30 characters max) | `Your desktop follows your lid` (29) |
 | Bundle ID | `com.shivamchopra.macbookduo` |
-| SKU | `duodisplay-mac` (any unique string) |
+| SKU | `foldbook-mac` (any unique string) |
 | Primary language | English (U.S.) |
 | Primary category | Utilities (`public.app-category.utilities`) |
 | Secondary category | Entertainment |
@@ -26,7 +26,7 @@ Copy for the Mac App Store record of DuoDisplay 1.0.0 (build 103), bundle identi
 
 ## Version information
 
-**Version:** `1.0.0` **Build:** `103`
+**Version:** `1.0.0` **Build:** `104`
 
 ### Promotional text (170 characters max)
 
@@ -37,10 +37,10 @@ Close the lid and watch your desktop fold, roll, swirl or drain away. Twelve Met
 ### Description (4000 characters max, no emoji)
 
 ```
-DuoDisplay animates your desktop as you close your MacBook. It reads the lid-angle sensor built into recent MacBooks and, as the lid tilts, the desktop bends, folds, rolls or drains away in real time. Open the lid again and everything returns to pixel-exact focus. Hold the lid still at any angle and the screen clears after a short pause, so the effect never gets in the way of your work.
+Foldbook animates your desktop as you close your MacBook. It reads the lid-angle sensor built into recent MacBooks and, as the lid tilts, the desktop bends, folds, rolls or drains away in real time. Open the lid again and everything returns to pixel-exact focus. Hold the lid still at any angle and the screen clears after a short pause, so the effect never gets in the way of your work.
 
 TWELVE EFFECTS
-Duo (the default): the desktop swells around the hinge as the lid closes.
+Hinge (the default): the desktop swells around the hinge as the lid closes.
 Ghost: the desktop holds its resting plane as the lid tilts and gently falls out of focus.
 Roll: the desktop curls into a roll that travels down to the hinge.
 Shutter: rigid panels telescope behind each other into the hinge.
@@ -57,15 +57,15 @@ MAKE IT YOURS
 Every control lives in one settings window with a live MacBook-shaped preview. Intensity exaggerates each effect's geometry. Segments sets the panel, pleat, slat or drape count for Shutter, Accordion, Louver and Curtain. Curve chooses how the effect advances between open and closed: Smooth, Gentle, Linear or Brisk. Response and Clear duration tune the timing, and Perspective, Softness and Shadow shape the look. Clears at sets the lid angle at which the desktop is fully clear, and Clear when the lid is still decides how long a resting lid waits before the effect fades. Reset to defaults restores the original tuning in one click. Turn off Follow my lid to drive the preview by hand, or press Replay to watch any effect without touching the lid.
 
 DESIGNED FOR THE MENU BAR
-DuoDisplay lives in the menu bar and stays out of your way. Choose light, dark or system appearance, opt in to Open at login (it starts paused), hide the menu-bar icon if you prefer, and press Esc or Control-Option-Command-F anywhere to pause. It is written in Swift and Metal with no third-party frameworks, and it respects Reduce Motion as well as power and thermal limits.
+Foldbook lives in the menu bar and stays out of your way. Choose light, dark or system appearance, opt in to Open at login (it starts paused), hide the menu-bar icon if you prefer, and press Esc or Control-Option-Command-F anywhere to pause. It is written in Swift and Metal with no third-party frameworks, and it respects Reduce Motion as well as power and thermal limits.
 
 PRIVATE BY DESIGN
-DuoDisplay asks for Screen Recording permission for one reason: to render a live copy of your desktop inside the effect. Frames are captured only while the effect runs, stay in memory and are never written to disk or sent anywhere. There are no accounts, no analytics, no tracking and no network access of any kind. Your preferences are stored locally on your Mac.
+Foldbook asks for Screen Recording permission for one reason: to render a live copy of your desktop inside the effect. Frames are captured only while the effect runs, stay in memory and are never written to disk or sent anywhere. There are no accounts, no analytics, no tracking and no network access of any kind. Your preferences are stored locally on your Mac.
 
 REQUIREMENTS
-DuoDisplay needs macOS 13 Ventura or newer and a MacBook with a continuous lid-angle sensor. Supported: MacBook Air with M2 or newer, and the 14-inch and 16-inch MacBook Pro with M1 Pro, M1 Max or newer. Not supported: the M1 MacBook Air and the 13-inch MacBook Pro with M1 or M2, which report only whether the lid is open or closed. On those Macs the app still installs and shows every effect with the Replay button, but it cannot follow the lid. External displays are not animated.
+Foldbook needs macOS 13 Ventura or newer and a MacBook with a continuous lid-angle sensor. Supported: MacBook Air with M2 or newer, and the 14-inch and 16-inch MacBook Pro with M1 Pro, M1 Max or newer. Not supported: the M1 MacBook Air and the 13-inch MacBook Pro with M1 or M2, which report only whether the lid is open or closed. On those Macs the app still installs and shows every effect with the Replay button, but it cannot follow the lid. External displays are not animated.
 
-DuoDisplay speaks English, Simplified Chinese, Traditional Chinese and Japanese, and it is open source under the MIT License.
+Foldbook speaks English, Simplified Chinese, Traditional Chinese and Japanese, and it is open source under the MIT License.
 ```
 
 ### Keywords (100 characters max, comma-separated, no spaces after commas, no repeats of the name)
@@ -77,7 +77,7 @@ lid,hinge,fold,desktop,animation,effect,metal,menu bar,screen,wallpaper,motion,l
 ### What's New in This Version
 
 ```
-First Mac App Store release. Twelve lid-following effects (Duo, Ghost, Roll, Shutter, Flex, Iris, Fold, Accordion, Louver, Card, Curtain and Blackhole), per-effect tuning, a live MacBook-shaped preview, light, dark or system appearance, and four languages. Sandboxed, private, and free of accounts, analytics and network access.
+First Mac App Store release. Twelve lid-following effects (Hinge, Ghost, Roll, Shutter, Flex, Iris, Fold, Accordion, Louver, Card, Curtain and Blackhole), per-effect tuning, a live MacBook-shaped preview, light, dark or system appearance, and four languages. Sandboxed, private, and free of accounts, analytics and network access.
 ```
 
 ## Age rating (4+)
@@ -129,13 +129,13 @@ The App Store build performs no encryption and opens no network connections. The
 Paste into the *Notes* field of the App Review Information section. No sign-in is required, so leave the demo account empty.
 
 ```
-DuoDisplay is a menu-bar accessory app (LSUIElement is set), so it has no Dock icon; its settings window opens on launch and can be reopened from the menu-bar icon or by opening the app again.
+Foldbook is a menu-bar accessory app (LSUIElement is set), so it has no Dock icon; its settings window opens on launch and can be reopened from the menu-bar icon or by opening the app again.
 
-SCREEN RECORDING. The app asks for Screen Recording permission for a single purpose: it uses ScreenCaptureKit to obtain a live copy of the built-in display and renders that copy, transformed by a Metal shader, on a full-screen overlay while the lid moves. Frames are captured only while the effect is on screen, stay in memory on the GPU and in a small bounded buffer, and are never written to disk or transmitted. The app's own windows are excluded from the capture and no audio is captured. The permission is requested only when the user clicks "Enable DuoDisplay" or "Test desktop"; the preview and the Replay button work without it.
+SCREEN RECORDING. The app asks for Screen Recording permission for a single purpose: it uses ScreenCaptureKit to obtain a live copy of the built-in display and renders that copy, transformed by a Metal shader, on a full-screen overlay while the lid moves. Frames are captured only while the effect is on screen, stay in memory on the GPU and in a small bounded buffer, and are never written to disk or transmitted. The app's own windows are excluded from the capture and no audio is captured. The permission is requested only when the user clicks "Enable Foldbook" or "Test desktop"; the preview and the Replay button work without it.
 
 LID-ANGLE SENSOR. The effect is driven by the continuous lid-angle sensor built into MacBook Air (M2 or newer) and the 14-inch and 16-inch MacBook Pro (M1 Pro/Max or newer). The sensor is a built-in HID device read through IOKit, and reading it inside the App Sandbox requires the standard com.apple.security.device.usb entitlement; without it IOHIDManagerOpen fails. That entitlement is the only addition to the sandbox. The angle is a single number used for the animation and is not stored or transmitted.
 
-REVIEWING ON A MAC WITHOUT THE SENSOR. Every effect can be evaluated without moving a lid. On the Effects page, pick any effect and press "Replay" to watch it close and reopen in the built-in preview (no permission needed). "Enable DuoDisplay" and "Test desktop" require a MacBook with the built-in lid-angle sensor and are disabled on other Macs, so on review hardware without that sensor please evaluate the app through Replay and Preview angle, which exercise the same Metal effects. On the Motion page, turn off "Follow my lid" and drag "Preview angle" to hold the effect at any position. Press Esc or Control-Option-Command-F at any time to stop the effect.
+REVIEWING ON A MAC WITHOUT THE SENSOR. Every effect can be evaluated without moving a lid. On the Effects page, pick any effect and press "Replay" to watch it close and reopen in the built-in preview (no permission needed). "Enable Foldbook" and "Test desktop" require a MacBook with the built-in lid-angle sensor and are disabled on other Macs, so on review hardware without that sensor please evaluate the app through Replay and Preview angle, which exercise the same Metal effects. On the Motion page, turn off "Follow my lid" and drag "Preview angle" to hold the effect at any position. Press Esc or Control-Option-Command-F at any time to stop the effect.
 
 NETWORK AND UPDATES. The App Store build contains no networking code and never connects to any server; there is no self-updater, no analytics and no third-party SDK. Updates arrive only through the App Store. The privacy manifest declares the two required-reason APIs the app uses (system boot time for the animation clock and user defaults for preferences).
 
@@ -148,24 +148,24 @@ App Store Connect takes up to three Mac app previews at 1920×1080 (H.264, 30 fp
 
 | Order | File | Shows |
 |---|---|---|
-| 1 | `01-duodisplay.mp4` | Title card "DuoDisplay — Your desktop follows your lid", then Fold, Roll, Curtain, Blackhole, Iris and Duo. |
+| 1 | `01-foldbook.mp4` | Title card "Foldbook — Your desktop follows your lid", then Fold, Roll, Curtain, Blackhole, Iris and Hinge. |
 | 2 | `02-more-effects.mp4` | Title card "Six more ways to close", then Accordion, Louver, Card, Shutter, Flex and Ghost. |
 
-To rebuild them, render the frames with the store flavour so the artwork says DuoDisplay, then run the script:
+To rebuild them, render the frames with the store flavour so the artwork says Foldbook, then run the script:
 
 ```sh
 swift build -Xswiftc -DAPPSTORE --scratch-path .build-appstore
-.build-appstore/debug/MacbookDuo --render-check /tmp/duodisplay-render --animation --animation-size 1920x1248 --no-timing
-scripts/appstore-previews.sh /tmp/duodisplay-render
+.build-appstore/debug/MacbookDuo --render-check /tmp/foldbook-render --animation --animation-size 1920x1248 --no-timing
+scripts/appstore-previews.sh /tmp/foldbook-render
 ```
 
 ## Screenshots
 
-App Store Connect accepts up to ten Mac screenshots at 1280×800, 1440×900, 2560×1600 or 2880×1800 pixels (16:10). Upload one size; the 2880×1800 set in `docs/appstore/screenshots/` is what the store scales for every display. The first five are the settings window, produced by `scripts/appstore-screenshots.sh`; regenerate them from the store build before uploading so every page says DuoDisplay and the About page carries the review button instead of an update button: `scripts/appstore.sh export` then `scripts/appstore-screenshots.sh` (it picks up `build-appstore/DuoDisplay.xcarchive/Products/Applications/DuoDisplay.app` on its own). The last five show one effect each, half closed, and come from `scripts/appstore-previews.sh` together with the app previews.
+App Store Connect accepts up to ten Mac screenshots at 1280×800, 1440×900, 2560×1600 or 2880×1800 pixels (16:10). Upload one size; the 2880×1800 set in `docs/appstore/screenshots/` is what the store scales for every display. The first five are the settings window, produced by `scripts/appstore-screenshots.sh`; regenerate them from the store build before uploading so every page says Foldbook and the About page carries the review button instead of an update button: `scripts/appstore.sh export` then `scripts/appstore-screenshots.sh` (it picks up `build-appstore/Foldbook.xcarchive/Products/Applications/Foldbook.app` on its own). The last five show one effect each, half closed, and come from `scripts/appstore-previews.sh` together with the app previews.
 
 | Order | File | Shows |
 |---|---|---|
-| 1 | `01-effects.png` | The Effects page in dark appearance: the twelve effects with Duo selected, the Intensity slider, and the live MacBook-shaped preview with its Enable, Test desktop and Replay buttons. Caption: "Twelve effects that follow your lid". |
+| 1 | `01-effects.png` | The Effects page in dark appearance: the twelve effects with Hinge selected, the Intensity slider, and the live MacBook-shaped preview with its Enable, Test desktop and Replay buttons. Caption: "Twelve effects that follow your lid". |
 | 2 | `02-motion.png` | The Motion page in dark appearance: Follow my lid, Preview angle, Clears at, Clear when the lid is still, Clear after, the Curve picker, Response, Clear duration and Reset to defaults. Caption: "Tune how the desktop follows your hand". |
 | 3 | `03-look.png` | The Look page in dark appearance: Perspective, Softness and Shadow sliders, the Light / Dark / System appearance picker, and the Menu bar icon and Open at login switches. Caption: "Perspective, softness, shadow and appearance". |
 | 4 | `04-about.png` | The About page in dark appearance: the app icon, version, credit and the Open source on GitHub button. Caption: "Open source. No accounts, no analytics, no tracking." |

@@ -38,7 +38,7 @@ public enum ReleaseArchitecture: Sendable, Equatable {
         #elseif arch(x86_64)
         .x86_64
         #else
-        #error("DuoDisplay supports only arm64 and x86_64.")
+        #error("Foldbook supports only arm64 and x86_64.")
         #endif
     }
 

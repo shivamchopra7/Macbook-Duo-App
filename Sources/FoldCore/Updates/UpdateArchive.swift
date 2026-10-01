@@ -80,7 +80,7 @@ public enum UpdateArchive {
                   nameLength > 0, cursor+46+nameLength+extraLength+commentLength <= end,
                   let name = String(data:data[(cursor+46)..<(cursor+46+nameLength)],encoding:.utf8),
                   !name.contains("\\"), !name.contains(":"), !name.unicodeScalars.contains(where: { $0.value < 32 }),
-                  name == "INSTALL.txt" || name.hasPrefix("DuoDisplay.app/"),
+                  name == "INSTALL.txt" || name.hasPrefix("Foldbook.app/"),
                   !name.split(separator:"/",omittingEmptySubsequences:false).dropLast(name.hasSuffix("/") ? 1 : 0).contains(where: { $0.isEmpty || $0 == "." || $0 == ".." }),
                   names.insert(name.precomposedStringWithCanonicalMapping.lowercased()).inserted,
                   !name.hasSuffix("/") || (expanded == 0 && compressed == 0) else { throw reject() }
@@ -99,8 +99,8 @@ public enum UpdateArchive {
                                  checksum:UInt32(try u32(cursor+16)),payload:payload..<(payload+compressed)))
             cursor += 46+nameLength+extraLength+commentLength
         }
-        guard cursor == end, names.contains("duodisplay.app/contents/info.plist"),
-              names.contains("duodisplay.app/contents/macos/macbookduo") else { throw reject() }
+        guard cursor == end, names.contains("foldbook.app/contents/info.plist"),
+              names.contains("foldbook.app/contents/macos/macbookduo") else { throw reject() }
         return entries
     }
 }

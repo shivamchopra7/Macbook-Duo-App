@@ -31,7 +31,7 @@ if CommandLine.arguments.contains("--update-fixture-fail"), Bundle.main.bundleId
 if let index = CommandLine.arguments.firstIndex(of:"--update-fixture-ready"), index+1 < CommandLine.arguments.count,
    Bundle.main.bundleIdentifier == "com.shivamchopra.macbookduo.update-fixture" {
     let ready = URL(fileURLWithPath:CommandLine.arguments[index+1])
-    guard ready.lastPathComponent == "ready", ready.deletingLastPathComponent().lastPathComponent.hasPrefix("DuoDisplay-update-fixture-"),
+    guard ready.lastPathComponent == "ready", ready.deletingLastPathComponent().lastPathComponent.hasPrefix("Foldbook-update-fixture-"),
           ready.deletingLastPathComponent().resolvingSymlinksInPath() == Bundle.main.bundleURL.deletingLastPathComponent().resolvingSymlinksInPath() else { exit(1) }
     do { try Data("ready".utf8).write(to:ready,options:.withoutOverwriting) } catch { exit(1) }
     let app = NSApplication.shared;app.setActivationPolicy(.accessory);app.run();exit(0)
@@ -44,7 +44,7 @@ if CommandLine.arguments.contains("--update-check") {
         do {
             if let update = try await AppUpdater.findUpdate() {
                 print("Update available: \(update.tag) — \(update.releasePage.absoluteString)")
-            } else { print("No newer stable DuoDisplay release is available.") }
+            } else { print("No newer stable Foldbook release is available.") }
             exit(0)
         } catch { fputs("Update check failed: \(error.localizedDescription)\n",stderr);exit(1) }
     }

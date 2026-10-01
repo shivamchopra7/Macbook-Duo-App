@@ -19,7 +19,7 @@
 # least 1920 pixels wide:
 #   .build-appstore/debug/MacbookDuo --render-check <dir> --animation \
 #       --animation-size 1920x1248 --no-timing
-# (the store flavour, so the artwork says DuoDisplay). Without an argument the
+# (the store flavour, so the artwork says Foldbook). Without an argument the
 # script looks for validation/render. Requires ffmpeg (brew install ffmpeg).
 set -euo pipefail
 cd "$(dirname "$0")/.."
@@ -239,7 +239,7 @@ main() {
   background "$TMP/bg.png" "$WIDTH" "$HEIGHT"
   background "$TMP/shot-bg.png" "$SHOT_WIDTH" "$SHOT_HEIGHT"
   mkdir -p "$PREVIEW_DIR" "$SHOT_DIR"
-  preview "$PREVIEW_DIR/01-duodisplay.mp4" "DuoDisplay" "Your desktop follows your lid" "${PREVIEW_ONE[@]}"
+  preview "$PREVIEW_DIR/01-duodisplay.mp4" "Foldbook" "Your desktop follows your lid" "${PREVIEW_ONE[@]}"
   preview "$PREVIEW_DIR/02-more-effects.mp4" "Six more ways to close" "Every effect tracks the lid angle in real time" "${PREVIEW_TWO[@]}"
   local shot stem id
   for shot in "${SHOTS[@]}"; do

@@ -9,7 +9,7 @@
 #   scripts/make-scroll-frames.sh [frames-dir] [effect]
 #
 # frames-dir is the render check's output directory; render it with the
-# direct-download flavour so the artwork says DuoDisplay:
+# direct-download flavour so the artwork says Foldbook:
 #   .build/debug/MacbookDuo --render-check <dir> --animation \
 #       --animation-size 1920x1248 --no-timing --effects iris
 # Without arguments the script looks for validation/render and uses iris.

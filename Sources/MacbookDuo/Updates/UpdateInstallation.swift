@@ -16,12 +16,12 @@ enum UpdateInstallation {
         let destination = Bundle.main.bundleURL.standardizedFileURL
         let roots = [URL(fileURLWithPath:"/Applications",isDirectory:true),
                      FileManager.default.homeDirectoryForCurrentUser.appendingPathComponent("Applications",isDirectory:true)]
-        guard roots.contains(destination.deletingLastPathComponent()), destination.lastPathComponent == "DuoDisplay.app",
+        guard roots.contains(destination.deletingLastPathComponent()), destination.lastPathComponent == "Foldbook.app",
               destination.resolvingSymlinksInPath() == destination,
               (try? destination.resourceValues(forKeys:[.volumeIsReadOnlyKey]).volumeIsReadOnly) == false,
               FileManager.default.isWritableFile(atPath:destination.path),
               FileManager.default.isWritableFile(atPath:destination.deletingLastPathComponent().path) else {
-            throw UpdateError.invalid("Move DuoDisplay to Applications and open it there before updating. If Applications needs an administrator password, install the downloaded update with Finder.")
+            throw UpdateError.invalid("Move Foldbook to Applications and open it there before updating. If Applications needs an administrator password, install the downloaded update with Finder.")
         }
         return destination
     }
@@ -35,11 +35,11 @@ enum UpdateInstallation {
         do {
             try files.createDirectory(at:staging,withIntermediateDirectories:false,attributes:[.posixPermissions:0o700])
             try UpdateArchive.extract(archive,into:staging)
-            let candidate = staging.appendingPathComponent("DuoDisplay.app",isDirectory:true)
+            let candidate = staging.appendingPathComponent("Foldbook.app",isDirectory:true)
             try validateBundle(candidate,version:update.version)
             // URLSession is not a browser download and does not add quarantine itself.
             // Preserve macOS's downloaded-app assessment when LaunchServices opens it.
-            let quarantine = "0081;\(String(Int(Date().timeIntervalSince1970),radix:16));DuoDisplay;\(token)"
+            let quarantine = "0081;\(String(Int(Date().timeIntervalSince1970),radix:16));Foldbook;\(token)"
             let marked = quarantine.withCString { value in
                 setxattr(candidate.path,"com.apple.quarantine",value,strlen(value),0,0)
             }
@@ -126,7 +126,7 @@ enum UpdateInstallation {
         let roots = [URL(fileURLWithPath:"/Applications",isDirectory:true),
                      FileManager.default.homeDirectoryForCurrentUser.appendingPathComponent("Applications",isDirectory:true)]
         guard job.token == token, job.parentPID > 1, roots.contains(destination.deletingLastPathComponent()),
-              destination.lastPathComponent == "DuoDisplay.app", destination.resolvingSymlinksInPath() == destination,
+              destination.lastPathComponent == "Foldbook.app", destination.resolvingSymlinksInPath() == destination,
               job.staging == destination.deletingLastPathComponent().appendingPathComponent(".MacbookDuo-update-\(token)",isDirectory:true).path else {
             throw UpdateError.invalid("Invalid update destination.")
         }
@@ -137,7 +137,7 @@ enum UpdateInstallation {
         guard let job = try? readJob(token) else { return 1 }
         let destination = URL(fileURLWithPath:job.destination,isDirectory:true)
         let staging = URL(fileURLWithPath:job.staging,isDirectory:true)
-        let candidate = staging.appendingPathComponent("DuoDisplay.app",isDirectory:true)
+        let candidate = staging.appendingPathComponent("Foldbook.app",isDirectory:true)
         let backup = staging.appendingPathComponent("Previous.app",isDirectory:true)
         let files = FileManager.default
         var installed = false

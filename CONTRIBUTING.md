@@ -1,4 +1,4 @@
-# Contributing to DuoDisplay
+# Contributing to Foldbook
 
 Issues, hardware reports and focused pull requests are welcome.
 

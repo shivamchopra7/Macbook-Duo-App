@@ -1,10 +1,10 @@
 #!/bin/bash
-# Builds the Mac App Store package for DuoDisplay.
+# Builds the Mac App Store package for Foldbook.
 #
 #   scripts/appstore.sh [validate|export|upload]
 #
-#   export    (default) archive the "DuoDisplay" scheme and export a signed
-#             "DuoDisplay.pkg" into build-appstore/export
+#   export    (default) archive the "Foldbook" scheme and export a signed
+#             "Foldbook.pkg" into build-appstore/export
 #   validate  export, then run App Store validation on the package
 #   upload    export, then upload the package to App Store Connect
 #
@@ -22,12 +22,12 @@ set -euo pipefail
 cd "$(dirname "$0")/.."
 
 ACTION="${1:-export}"
-PROJECT="DuoDisplay.xcodeproj"
-SCHEME="DuoDisplay"
+PROJECT="Foldbook.xcodeproj"
+SCHEME="Foldbook"
 BUILD_DIR="build-appstore"
-ARCHIVE="$BUILD_DIR/DuoDisplay.xcarchive"
+ARCHIVE="$BUILD_DIR/Foldbook.xcarchive"
 EXPORT_DIR="$BUILD_DIR/export"
-STORE_NAME="DuoDisplay"
+STORE_NAME="Foldbook"
 PACKAGE="$EXPORT_DIR/$STORE_NAME.pkg"
 EXPORT_OPTIONS="App/ExportOptions.plist"
 ENTITLEMENTS_FILE="App/MacbookDuo.entitlements"
@@ -72,7 +72,7 @@ check_entitlements() {
   echo "==> $label carries: ${REQUIRED_ENTITLEMENTS[*]}"
 }
 
-# The store build must present itself as DuoDisplay: bundle name, display name
+# The store build must present itself as Foldbook: bundle name, display name
 # and the bundle folder itself, while keeping the registered bundle identifier.
 check_store_name() {
   local app="$1" label="$2" plist="$1/Contents/Info.plist" key value

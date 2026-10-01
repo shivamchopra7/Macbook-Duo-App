@@ -1,6 +1,6 @@
-# Developing DuoDisplay
+# Developing Foldbook
 
-This guide covers building, signing, packaging, releasing and verifying DuoDisplay 1.0.1, the source layout, how to add an effect, and localization. For user-facing documentation see the [README](../README.md); for contribution ground rules see [CONTRIBUTING.md](../CONTRIBUTING.md).
+This guide covers building, signing, packaging, releasing and verifying Foldbook 1.0.1, the source layout, how to add an effect, and localization. For user-facing documentation see the [README](../README.md); for contribution ground rules see [CONTRIBUTING.md](../CONTRIBUTING.md).
 
 ## Build
 
@@ -10,10 +10,10 @@ Use **Xcode 16 or newer / Swift 6** on a Mac. The app targets **macOS 13 Ventura
 git clone https://github.com/shivamchopra7/Macbook-Duo-App.git
 cd Macbook-Duo-App
 ./build.sh
-open "build/DuoDisplay.app"
+open "build/Foldbook.app"
 ```
 
-`build.sh` runs `swift build -c release`, strips debug symbols so local build paths do not ship in the executable, copies the localized resource bundle, icon and menu-bar mark into `build/DuoDisplay.app`, writes `Info.plist` (bundle identifier `com.shivamchopra.macbookduo`, version 1.0.1, build 101), signs the bundle and verifies the signature.
+`build.sh` runs `swift build -c release`, strips debug symbols so local build paths do not ship in the executable, copies the localized resource bundle, icon and menu-bar mark into `build/Foldbook.app`, writes `Info.plist` (bundle identifier `com.shivamchopra.macbookduo`, version 1.0.1, build 101), signs the bundle and verifies the signature.
 
 ## Signing
 
@@ -34,7 +34,7 @@ The default output is a native ARM64 app. Build the separately packaged Intel ap
 MACBOOKDUO_ARCH=x86_64 MACBOOKDUO_BUILD_DIR=.build-intel ./build.sh
 ```
 
-The commands write to `build/DuoDisplay.app` and `build-intel/DuoDisplay.app`, so one build cannot overwrite the other. Set `MACBOOKDUO_OUTPUT_DIR` only when you need a different destination. Do not combine the slices for distribution; both are native builds and neither needs Rosetta. The Intel build is a preview: it compiles and packages, but physical Intel verification is still pending.
+The commands write to `build/Foldbook.app` and `build-intel/Foldbook.app`, so one build cannot overwrite the other. Set `MACBOOKDUO_OUTPUT_DIR` only when you need a different destination. Do not combine the slices for distribution; both are native builds and neither needs Rosetta. The Intel build is a preview: it compiles and packages, but physical Intel verification is still pending.
 
 ## Packaging and releases
 
@@ -42,34 +42,34 @@ The commands write to `build/DuoDisplay.app` and `build-intel/DuoDisplay.app`, s
 scripts/package.sh
 ```
 
-`package.sh` packages whatever has been built into `dist/`: `DuoDisplay.dmg` and `DuoDisplay-mac.zip` for Apple silicon, `DuoDisplay-Intel.dmg` and `DuoDisplay-Intel.zip` when the Intel build exists, and `DuoDisplay-SHA256SUMS.txt` covering the ZIPs. The ZIPs contain only `DuoDisplay.app` and `INSTALL.txt`, because the in-app updater rejects any other entry. Set `MACBOOKDUO_DIST_DIR` to package elsewhere.
+`package.sh` packages whatever has been built into `dist/`: `Foldbook.dmg` and `Foldbook-mac.zip` for Apple silicon, `Foldbook-Intel.dmg` and `Foldbook-Intel.zip` when the Intel build exists, and `Foldbook-SHA256SUMS.txt` covering the ZIPs. The ZIPs contain only `Foldbook.app` and `INSTALL.txt`, because the in-app updater rejects any other entry. Set `MACBOOKDUO_DIST_DIR` to package elsewhere.
 
 ```sh
 scripts/release.sh 1.0.1
 ```
 
-`release.sh <version>` builds both architectures, runs `package.sh`, then creates the GitHub release `v<version>` with `gh release create`, attaching the assets under the exact names the updater expects and using `CHANGELOG.md` as the notes. Keep those asset names stable: `AppUpdater` selects `DuoDisplay-mac.zip` on ARM64 and `DuoDisplay-Intel.zip` on x86_64 and validates both against `DuoDisplay-SHA256SUMS.txt`. Bump `CFBundleShortVersionString` and `CFBundleVersion` in `build.sh`, the `version` field in `RenderCheck.swift`, and the changelog before tagging.
+`release.sh <version>` builds both architectures, runs `package.sh`, then creates the GitHub release `v<version>` with `gh release create`, attaching the assets under the exact names the updater expects and using `CHANGELOG.md` as the notes. Keep those asset names stable: `AppUpdater` selects `Foldbook-mac.zip` on ARM64 and `Foldbook-Intel.zip` on x86_64 and validates both against `Foldbook-SHA256SUMS.txt`. Bump `CFBundleShortVersionString` and `CFBundleVersion` in `build.sh`, the `version` field in `RenderCheck.swift`, and the changelog before tagging.
 
 ## Mac App Store
 
-DuoDisplay ships in two builds from the same sources: the Mac App Store build and the direct-download build. `AppBrand.name` provides the app name at compile time, and every user-facing string takes it as a `%@` argument.
+Foldbook ships in two builds from the same sources: the Mac App Store build and the direct-download build. `AppBrand.name` provides the app name at compile time, and every user-facing string takes it as a `%@` argument.
 
 | Flavour | Built by | Updates | Signing and runtime |
 |---|---|---|---|
 | Direct download | `./build.sh` (SwiftPM) | In-app updater against the GitHub release | Ad-hoc or Apple Development, not notarized, no sandbox |
-| Mac App Store | `DuoDisplay.xcodeproj`, scheme `DuoDisplay` | The App Store; the updater is compiled out | Apple Distribution, App Sandbox, Hardened Runtime |
+| Mac App Store | `Foldbook.xcodeproj`, scheme `Foldbook` | The App Store; the updater is compiled out | Apple Distribution, App Sandbox, Hardened Runtime |
 
-The Xcode project is generated from `project.yml` at the repository root with [xcodegen](https://github.com/yonaskolb/XcodeGen) (`xcodegen generate`; version 2.46 is known to work). It defines two targets: the static library `FoldCore` from `Sources/FoldCore` and the app `MacbookDuo`, which produces `DuoDisplay.app` (`PRODUCT_NAME`, also the bundle and display name) with the executable `MacbookDuo` and the module `MacbookDuo`, bundle identifier `com.shivamchopra.macbookduo`, `App/Info.plist`, the entitlements in `App/MacbookDuo.entitlements`, the privacy manifest `App/PrivacyInfo.xcprivacy` and the asset catalog `Resources/Assets.xcassets` with its `AppIcon` set. The store target sets `SWIFT_ACTIVE_COMPILATION_CONDITIONS = APPSTORE`; the SwiftPM build does not define it and keeps the updater.
+The Xcode project is generated from `project.yml` at the repository root with [xcodegen](https://github.com/yonaskolb/XcodeGen) (`xcodegen generate`; version 2.46 is known to work). It defines two targets: the static library `FoldCore` from `Sources/FoldCore` and the app `MacbookDuo`, which produces `Foldbook.app` (`PRODUCT_NAME`, also the bundle and display name) with the executable `MacbookDuo` and the module `MacbookDuo`, bundle identifier `com.shivamchopra.macbookduo`, `App/Info.plist`, the entitlements in `App/MacbookDuo.entitlements`, the privacy manifest `App/PrivacyInfo.xcprivacy` and the asset catalog `Resources/Assets.xcassets` with its `AppIcon` set. The store target sets `SWIFT_ACTIVE_COMPILATION_CONDITIONS = APPSTORE`; the SwiftPM build does not define it and keeps the updater.
 
 **What `APPSTORE` removes.** App Review Guideline 2.4.5 forbids apps that download or install code or replace themselves, so the store build must not contain the self-updater. Under `APPSTORE` the files in `Sources/MacbookDuo/Updates/` (`AppUpdater`, `UpdateDownload`, `UpdateJob` and `UpdateInstallation*`) are compiled out, together with the **Check for Updates…** menu item and `UpdateInstallation.confirmRelaunch()` in `AppDelegate.swift`, the `--update-*` diagnostic flags in `main.swift`, the update button in `SettingsHeader.swift` and the button in `AboutTab.swift`. The pure parsing code in `Sources/FoldCore/Updates` stays, because it has no side effects and its tests still run. Check the SwiftPM build under the same condition with `swift build -Xswiftc -DAPPSTORE --scratch-path .build-appstore` — give it its own scratch path, because sharing `.build` with the plain build leaves both `AppUpdater` variants’ object files behind and the next link fails on duplicate symbols; CI runs that and an unsigned `xcodebuild` of the store scheme on every push.
 
-**Entitlements and why.** `com.apple.security.app-sandbox` is mandatory for the store. `com.apple.security.device.usb` is the one addition: the lid-angle sensor is a built-in IOKit HID device, and `IOHIDManagerOpen` fails under App Sandbox alone but succeeds with this standard entitlement, so no temporary-exception entitlement is needed. Verify on a supported MacBook with `"DuoDisplay.app/Contents/MacOS/MacbookDuo" --sensor-check`, which prints the lid angle or an explicit failure. ScreenCaptureKit, `SMAppService` login items, Carbon hot keys, `IOPSCopyPowerSourcesInfo` and runtime Metal shader compilation all work under App Sandbox and Hardened Runtime without further entitlements. The store build never touches the network, so it has no network entitlement.
+**Entitlements and why.** `com.apple.security.app-sandbox` is mandatory for the store. `com.apple.security.device.usb` is the one addition: the lid-angle sensor is a built-in IOKit HID device, and `IOHIDManagerOpen` fails under App Sandbox alone but succeeds with this standard entitlement, so no temporary-exception entitlement is needed. Verify on a supported MacBook with `"Foldbook.app/Contents/MacOS/MacbookDuo" --sensor-check`, which prints the lid angle or an explicit failure. ScreenCaptureKit, `SMAppService` login items, Carbon hot keys, `IOPSCopyPowerSourcesInfo` and runtime Metal shader compilation all work under App Sandbox and Hardened Runtime without further entitlements. The store build never touches the network, so it has no network entitlement.
 
 **Privacy manifest.** `App/PrivacyInfo.xcprivacy` declares the two required-reason APIs the app uses, `ProcessInfo.systemUptime` (`NSPrivacyAccessedAPICategorySystemBootTime`, reason `35F9.1`) and `UserDefaults` (`NSPrivacyAccessedAPICategoryUserDefaults`, reason `CA92.1`), with `NSPrivacyTracking` false and no collected data types. Add an entry whenever a new required-reason API is introduced; App Store Connect rejects uploads that use one without declaring it.
 
 **Team and signing.** Signing is automatic under the team `ZB6623U832` (ILLUSIONART AI PRIVATE LIMITED), set as `DEVELOPMENT_TEAM` in `project.yml`, which is where to change it for another account before regenerating the project; the same setting is visible under *Signing & Capabilities* in Xcode. An *Apple Distribution* certificate for the team must be in the login keychain for archiving, and the bundle identifier must match the App Store Connect record. Keep the marketing version in the Xcode project in step with `build.sh` and the changelog. The store build number (`CURRENT_PROJECT_VERSION` in `project.yml`) runs ahead of the direct download's: App Store Connect needs a strictly higher build number for every upload, so bump it before each archive.
 
-**Archive and upload.** In Xcode open `DuoDisplay.xcodeproj`, select the `DuoDisplay` scheme with the *My Mac* destination and choose *Product → Archive*. In the Organizer choose *Distribute App → App Store Connect → Upload* (or *Export* to validate first). The same flow is scripted:
+**Archive and upload.** In Xcode open `Foldbook.xcodeproj`, select the `Foldbook` scheme with the *My Mac* destination and choose *Product → Archive*. In the Organizer choose *Distribute App → App Store Connect → Upload* (or *Export* to validate first). The same flow is scripted:
 
 ```sh
 scripts/appstore.sh validate   # archive and validate against App Store Connect
@@ -79,9 +79,9 @@ scripts/appstore.sh upload     # archive and upload the build
 
 **App Store Connect checklist.**
 
-1. Create the app record: platform macOS, name **DuoDisplay**, primary language English, bundle identifier `com.shivamchopra.macbookduo`, any SKU.
+1. Create the app record: platform macOS, name **Foldbook**, primary language English, bundle identifier `com.shivamchopra.macbookduo`, any SKU.
 2. Fill the listing from [docs/appstore/listing.md](appstore/listing.md): subtitle, promotional text, description, keywords, support and marketing URLs, categories (Utilities, Entertainment), copyright and the age-rating answers.
-3. Generate the window screenshots with `scripts/appstore-screenshots.sh` (it needs the packaged app, `ffmpeg` and Screen Recording access for the terminal), then the two app previews and the five effect screenshots with `scripts/appstore-previews.sh` (it needs the render check's animation frames at `--animation-size 1920x1248`, rendered by the store flavour; the usage comment in the script has the exact commands). Upload the ten 2880×1800 PNGs from `docs/appstore/screenshots/` and the two 1920×1080 MP4s from `docs/appstore/previews/`. Regenerate them from the store build (the script finds `DuoDisplay.app` under `build-appstore/` on its own, or set `MACBOOKDUO_APP`) so every page says DuoDisplay and the About page shows no update button.
+3. Generate the window screenshots with `scripts/appstore-screenshots.sh` (it needs the packaged app, `ffmpeg` and Screen Recording access for the terminal), then the two app previews and the five effect screenshots with `scripts/appstore-previews.sh` (it needs the render check's animation frames at `--animation-size 1920x1248`, rendered by the store flavour; the usage comment in the script has the exact commands). Upload the ten 2880×1800 PNGs from `docs/appstore/screenshots/` and the two 1920×1080 MP4s from `docs/appstore/previews/`. Regenerate them from the store build (the script finds `Foldbook.app` under `build-appstore/` on its own, or set `MACBOOKDUO_APP`) so every page says Foldbook and the About page shows no update button.
 4. Answer App Privacy with **Data Not Collected** and enter the privacy policy URL `https://macbookduo.illusionart.ai/privacy.html`.
 5. Select the uploaded build, paste the *Notes for App Review* section from the listing, answer the export-compliance question, and submit for review.
 
@@ -125,19 +125,19 @@ The remaining diagnostics exercise the real app and the updater:
 
 ```sh
 # Full-screen overlay with a synthetic frame on the built-in display; Esc stops it.
-"build/DuoDisplay.app/Contents/MacOS/MacbookDuo" --overlay-check validation-overlay
+"build/Foldbook.app/Contents/MacOS/MacbookDuo" --overlay-check validation-overlay
 
 # Ask GitHub for a newer stable release (network, user-initiated).
 .build/debug/MacbookDuo --update-check
 
 # Checksum, bounded extraction, bundle identity, version, macOS, architecture and signature of a package.
-.build/debug/MacbookDuo --update-package-check dist/DuoDisplay-mac.zip dist/DuoDisplay-SHA256SUMS.txt 1.0.1 validation-update
+.build/debug/MacbookDuo --update-package-check dist/Foldbook-mac.zip dist/Foldbook-SHA256SUMS.txt 1.0.1 validation-update
 
 # LaunchServices, ready handshake, replacement and failed-launch rollback with a local fixture.
 .build/debug/MacbookDuo --update-installer-fixture validation-installer
 
 # The helper handoff for an archive, manifest and version.
-.build/debug/MacbookDuo --update-handoff-check dist/DuoDisplay-mac.zip dist/DuoDisplay-SHA256SUMS.txt 1.0.1
+.build/debug/MacbookDuo --update-handoff-check dist/Foldbook-mac.zip dist/Foldbook-SHA256SUMS.txt 1.0.1
 ```
 
 `--enable` starts following one second after launch, which is handy when scripting a physical lid sweep. Physical lid sweeps, sustained energy use and platform lifecycle transitions still need testing on more hardware.
@@ -146,7 +146,7 @@ The remaining diagnostics exercise the real app and the updater:
 
 ```
 Package.swift             SwiftPM manifest: FoldCore library, MacbookDuo app, two test targets
-build.sh                  Builds, strips, bundles and signs "DuoDisplay.app"
+build.sh                  Builds, strips, bundles and signs "Foldbook.app"
 scripts/                  package.sh (DMG, ZIP, checksums), release.sh (GitHub release), make-icon.swift (brand assets),
                           appstore.sh (validate, export, upload), appstore-screenshots.sh (window screenshots), appstore-previews.sh (app previews, effect screenshots) make-scroll-frames.sh (the website's scroll-to-close Iris frames) and make-window-shots.sh (the README's window images)
 Resources/                App icon (.icns, .png) and the menu-bar template mark
@@ -190,7 +190,7 @@ To add a language, copy the English `Localizable.strings` and `InfoPlist.strings
 Run `swift test` for key coverage and format-placeholder checks, and `./build.sh` for release packaging and signature verification. For a language smoke test, quit the app and launch it with a temporary process-only language override:
 
 ```sh
-open -n "build/DuoDisplay.app" --args -AppleLanguages '("ja")'
+open -n "build/Foldbook.app" --args -AppleLanguages '("ja")'
 ```
 
 Repeat for `en`, `zh-Hans`, and `zh-Hant`; check the settings, effect and appearance menus, tooltips, and status messages. Also test an unsupported language such as `fr` for English fallback. Do not enable desktop capture just to verify translations. Check a copy of the packaged app outside the checkout with the build resource bundle temporarily unavailable to verify that it is self-contained.

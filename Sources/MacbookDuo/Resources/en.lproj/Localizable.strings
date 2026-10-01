@@ -46,7 +46,7 @@
 "System" = "System";
 "Light" = "Light";
 "Dark" = "Dark";
-"Duo" = "Duo";
+"Hinge" = "Hinge";
 "Roll" = "Roll";
 "Shutter" = "Shutter";
 "Flex" = "Flex";
@@ -104,30 +104,30 @@
 "Rate on the App Store" = "Rate on the App Store";
 "Updates come from the App Store" = "Updates come from the App Store";
 "You’re up to date" = "You’re up to date";
-"DuoDisplay %@ is the latest stable release." = "DuoDisplay %@ is the latest stable release.";
-"DuoDisplay %@ is available" = "DuoDisplay %@ is available";
-"Download, verify, and install the update, then reopen DuoDisplay. Your settings will be kept. macOS may ask you to allow the updated app or Screen Recording again." = "Download, verify, and install the update, then reopen DuoDisplay. Your settings will be kept. macOS may ask you to allow the updated app or Screen Recording again.";
+"Foldbook %@ is the latest stable release." = "Foldbook %@ is the latest stable release.";
+"Foldbook %@ is available" = "Foldbook %@ is available";
+"Download, verify, and install the update, then reopen Foldbook. Your settings will be kept. macOS may ask you to allow the updated app or Screen Recording again." = "Download, verify, and install the update, then reopen Foldbook. Your settings will be kept. macOS may ask you to allow the updated app or Screen Recording again.";
 "Install & Relaunch" = "Install & Relaunch";
 "Later" = "Later";
 "View release" = "View release";
 "Updating…" = "Updating…";
-"DuoDisplay could not update" = "DuoDisplay could not update";
+"Foldbook could not update" = "Foldbook could not update";
 "OK" = "OK";
 "Open downloads" = "Open downloads";
 "macOS could not open the update" = "macOS could not open the update";
-"Your previous DuoDisplay is safely backed up. If macOS blocked this downloaded app, go to System Settings → Privacy & Security → Open Anyway, approve DuoDisplay there, then try opening it again. You can restore the previous version at any time.\n\n%@" = "Your previous DuoDisplay is safely backed up. If macOS blocked this downloaded app, go to System Settings → Privacy & Security → Open Anyway, approve DuoDisplay there, then try opening it again. You can restore the previous version at any time.\n\n%@";
+"Your previous Foldbook is safely backed up. If macOS blocked this downloaded app, go to System Settings → Privacy & Security → Open Anyway, approve Foldbook there, then try opening it again. You can restore the previous version at any time.\n\n%@" = "Your previous Foldbook is safely backed up. If macOS blocked this downloaded app, go to System Settings → Privacy & Security → Open Anyway, approve Foldbook there, then try opening it again. You can restore the previous version at any time.\n\n%@";
 "Restore Previous" = "Restore Previous";
 "Open Privacy & Security" = "Open Privacy & Security";
 "Try Opening Again" = "Try Opening Again";
-"The previous DuoDisplay was restored" = "The previous DuoDisplay was restored";
+"The previous Foldbook was restored" = "The previous Foldbook was restored";
 "The update could not finish opening. You can keep using this version or install the latest release from GitHub." = "The update could not finish opening. You can keep using this version or install the latest release from GitHub.";
-"DuoDisplay kept your previous app safe" = "DuoDisplay kept your previous app safe";
+"Foldbook kept your previous app safe" = "Foldbook kept your previous app safe";
 "A file permission or disk error prevented the update from finishing. Your previous app is at:\n%@\nMove it back to Applications with Finder." = "A file permission or disk error prevented the update from finishing. Your previous app is at:\n%@\nMove it back to Applications with Finder.";
 "The installer download was incomplete. Please try again." = "The installer download was incomplete. Please try again.";
 "GitHub redirected the download to an unexpected location." = "GitHub redirected the download to an unexpected location.";
 "GitHub could not provide the update. Check your connection and try again later." = "GitHub could not provide the update. Check your connection and try again later.";
 "The update download exceeded its size limit." = "The update download exceeded its size limit.";
-"Move DuoDisplay to Applications and open it there before updating. If Applications needs an administrator password, install the downloaded update with Finder." = "Move DuoDisplay to Applications and open it there before updating. If Applications needs an administrator password, install the downloaded update with Finder.";
+"Move Foldbook to Applications and open it there before updating. If Applications needs an administrator password, install the downloaded update with Finder." = "Move Foldbook to Applications and open it there before updating. If Applications needs an administrator password, install the downloaded update with Finder.";
 "macOS could not mark the downloaded app for its normal security check. Please install it with Finder." = "macOS could not mark the downloaded app for its normal security check. Please install it with Finder.";
 "The downloaded app failed validation or could not be installed. Nothing was replaced." = "The downloaded app failed validation or could not be installed. Nothing was replaced.";
 "The installer contains no app." = "The installer contains no app.";
@@ -145,10 +145,10 @@
 "The updated app did not finish opening. Your previous version is safely backed up." = "The updated app did not finish opening. Your previous version is safely backed up.";
 "The installed app could not prepare its signed updater bundle." = "The installed app could not prepare its signed updater bundle.";
 "The installed app contains an unsupported helper resource." = "The installed app contains an unsupported helper resource.";
-"The update helper could not start safely. DuoDisplay is still running; please try again or install with Finder." = "The update helper could not start safely. DuoDisplay is still running; please try again or install with Finder.";
+"The update helper could not start safely. Foldbook is still running; please try again or install with Finder." = "The update helper could not start safely. Foldbook is still running; please try again or install with Finder.";
 "This app has an unknown version. Download the latest installer from GitHub." = "This app has an unknown version. Download the latest installer from GitHub.";
-"GitHub did not return a stable DuoDisplay release." = "GitHub did not return a stable DuoDisplay release.";
-"The release is missing a valid DuoDisplay installer or checksum. Open the release on GitHub instead." = "The release is missing a valid DuoDisplay installer or checksum. Open the release on GitHub instead.";
+"GitHub did not return a stable Foldbook release." = "GitHub did not return a stable Foldbook release.";
+"The release is missing a valid Foldbook installer or checksum. Open the release on GitHub instead." = "The release is missing a valid Foldbook installer or checksum. Open the release on GitHub instead.";
 "The release checksum could not be read." = "The release checksum could not be read.";
 "The download failed its SHA-256 integrity check. Nothing was installed." = "The download failed its SHA-256 integrity check. Nothing was installed.";
 "The update staging directory is not empty or is linked elsewhere." = "The update staging directory is not empty or is linked elsewhere.";
@@ -158,7 +158,7 @@
 "The installer archive is unsafe or unsupported. Nothing was installed." = "The installer archive is unsafe or unsupported. Nothing was installed.";
 "The installation location changed. Please download the update manually." = "The installation location changed. Please download the update manually.";
 
-// DuoDisplay 1.0: expansion effects, curves and options.
+// Foldbook 1.0: expansion effects, curves and options.
 "Fold" = "Fold";
 "Accordion" = "Accordion";
 "Louver" = "Louver";

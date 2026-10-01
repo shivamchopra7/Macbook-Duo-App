@@ -20,7 +20,7 @@ if [[ -z "$SIGNING_IDENTITY" ]]; then
   fi
 fi
 mkdir -p "$OUTPUT_DIR"
-APP="$(cd "$OUTPUT_DIR" && pwd)/DuoDisplay.app"
+APP="$(cd "$OUTPUT_DIR" && pwd)/Foldbook.app"
 mkdir -p "$APP/Contents/MacOS" "$APP/Contents/Resources"
 cp "$BIN_DIR/MacbookDuo" "$APP/Contents/MacOS/MacbookDuo"
 # Remove debug symbols containing local build paths before signing the app.
@@ -41,8 +41,8 @@ cat > "$APP/Contents/Info.plist" <<'PLIST'
 <plist version="1.0"><dict>
 <key>CFBundleDevelopmentRegion</key><string>en</string>
 <key>CFBundleLocalizations</key><array><string>en</string><string>zh-Hans</string><string>zh-Hant</string><string>ja</string></array>
-<key>CFBundleName</key><string>DuoDisplay</string>
-<key>CFBundleDisplayName</key><string>DuoDisplay</string>
+<key>CFBundleName</key><string>Foldbook</string>
+<key>CFBundleDisplayName</key><string>Foldbook</string>
 <key>CFBundleIdentifier</key><string>com.shivamchopra.macbookduo</string>
 <key>CFBundleExecutable</key><string>MacbookDuo</string>
 <key>CFBundlePackageType</key><string>APPL</string>

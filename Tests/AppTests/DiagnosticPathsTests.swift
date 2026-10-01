@@ -6,7 +6,7 @@ final class DiagnosticPathsTests: XCTestCase {
     private var scratch: URL!
 
     override func setUpWithError() throws {
-        scratch = FileManager.default.temporaryDirectory.appendingPathComponent("DuoDisplay-paths-\(UUID().uuidString)", isDirectory: true)
+        scratch = FileManager.default.temporaryDirectory.appendingPathComponent("Foldbook-paths-\(UUID().uuidString)", isDirectory: true)
         try FileManager.default.createDirectory(at: scratch, withIntermediateDirectories: true)
     }
 
@@ -16,7 +16,7 @@ final class DiagnosticPathsTests: XCTestCase {
         let fresh = scratch.appendingPathComponent("render").path
         XCTAssertEqual(try DiagnosticPaths.newDirectory(fresh).path, fresh)
         XCTAssertThrowsError(try DiagnosticPaths.newDirectory(scratch.path), "an existing directory is refused")
-        XCTAssertThrowsError(try DiagnosticPaths.newDirectory("/Applications/DuoDisplay.app"))
+        XCTAssertThrowsError(try DiagnosticPaths.newDirectory("/Applications/Foldbook.app"))
         XCTAssertThrowsError(try DiagnosticPaths.newDirectory("/Library/LaunchDaemons/x"))
         let toRoot = String(repeating: "/..", count: scratch.pathComponents.count - 1)
         XCTAssertThrowsError(try DiagnosticPaths.newDirectory(scratch.path + toRoot + "/Applications/x"), "traversal into Applications is refused")

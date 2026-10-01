@@ -1,5 +1,5 @@
 @charset "UTF-8";
-/* DuoDisplay — an Apple-style Liquid Glass treatment. System font, a silver-white
+/* Foldbook — an Apple-style Liquid Glass treatment. System font, a silver-white
    ground that stays light whatever the system appearance, and glass slabs that blur what is behind them, carry a specular edge
    and react to the pointer. Brand blue stays, so the site matches the app.
    No dependencies; transforms and opacity only in motion. */

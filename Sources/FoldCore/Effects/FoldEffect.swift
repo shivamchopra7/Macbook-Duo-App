@@ -43,7 +43,7 @@ public enum FoldEffect: String, CaseIterable, Sendable, Identifiable {
 
     public var title: String {
         switch self {
-        case .duo: return "Duo"
+        case .duo: return "Hinge"
         case .ghost: return "Ghost"
         case .roll: return "Roll"
         case .shutter: return "Shutter"

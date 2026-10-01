@@ -10,9 +10,9 @@
 # Every shot launches the app on one settings page, captures its window with
 # screencapture, quits the app, then composites the capture onto a 2880×1800
 # brand-blue gradient with a one-line caption at the top. The app comes from
-# MACBOOKDUO_APP when that variable is set, otherwise from any "DuoDisplay.app"
+# MACBOOKDUO_APP when that variable is set, otherwise from any "Foldbook.app"
 # (the store build's name) under build-appstore/, and as a last resort from
-# build/DuoDisplay.app. The window is found by the name in the app's
+# build/Foldbook.app. The window is found by the name in the app's
 # Info.plist, so either build works.
 #
 # Requires ffmpeg (brew install ffmpeg) and Screen Recording access for the
@@ -34,7 +34,7 @@ GRADIENT_START=0x2F6BFF    # Brand blue, top left.
 GRADIENT_END=0x0B1020      # Brand navy, bottom right.
 LAUNCH_WAIT="${MACBOOKDUO_SCREENSHOT_WAIT:-5}"
 PROCESS_NAME="MacbookDuo"
-STORE_APP_NAME="DuoDisplay"
+STORE_APP_NAME="Foldbook"
 WINDOW_OWNER_PREFIX=""     # Set from the app's CFBundleDisplayName in main.
 # Per-launch defaults overrides (NSArgumentDomain), so the shots show the default
 # effect and tuning whatever this Mac's saved preferences are. Nothing is written back.
@@ -61,7 +61,7 @@ find_app() {
   if [[ -d build-appstore ]]; then
     candidate="$(find build-appstore -type d -name "$STORE_APP_NAME.app" -print -quit)"
   fi
-  if [[ -z "$candidate" && -d "build/DuoDisplay.app" ]]; then candidate="build/DuoDisplay.app"; fi
+  if [[ -z "$candidate" && -d "build/Foldbook.app" ]]; then candidate="build/Foldbook.app"; fi
   [[ -n "$candidate" ]] || fail "no packaged app found; run scripts/appstore.sh export or ./build.sh first"
   printf '%s\n' "$candidate"
 }
@@ -74,7 +74,7 @@ find_font() {
   printf '\n'
 }
 
-# The bundle of an already running DuoDisplay, so it can be reopened afterwards.
+# The bundle of an already running Foldbook, so it can be reopened afterwards.
 running_bundle() {
   local pid="" exe=""
   pid="$(pgrep -f "$APP_PATTERN" | head -n 1 || true)"
@@ -88,7 +88,7 @@ write_helpers() {
 import CoreGraphics
 import Foundation
 // Prints the number of the first normal-level window whose owner starts with the given prefix.
-let prefix = CommandLine.arguments.dropFirst().first ?? "DuoDisplay"
+let prefix = CommandLine.arguments.dropFirst().first ?? "Foldbook"
 let options: CGWindowListOption = [.optionOnScreenOnly, .excludeDesktopElements]
 let windows = CGWindowListCopyWindowInfo(options, kCGNullWindowID) as? [[String: Any]] ?? []
 for window in windows {
@@ -227,7 +227,7 @@ main() {
   mkdir -p "$OUT_DIR"
   relaunch="$(running_bundle)"
   if [[ -n "$relaunch" ]]; then
-    printf 'Quitting the running DuoDisplay (%s); it is reopened when the shots are done.\n' "$relaunch"
+    printf 'Quitting the running Foldbook (%s); it is reopened when the shots are done.\n' "$relaunch"
   fi
   printf 'App: %s (window owner "%s")\n' "$app" "$WINDOW_OWNER_PREFIX"
   if [[ "$HAS_DRAWTEXT" == yes && -n "$FONT" ]]; then

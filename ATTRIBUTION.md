@@ -2,7 +2,7 @@
 
 Thanks to Sam Henri Gold for publicly documenting and demonstrating the MacBook lid-angle sensor in [LidAngleSensor](https://github.com/samhenrigold/LidAngleSensor), published under Apache License 2.0.
 
-Macbook Duo builds on the MIT-licensed Mac Duo codebase; the license text is in [LICENSE](LICENSE). The lid-angle sensor reader, the effects and the controls were developed in that lineage, and DuoDisplay continues it under the same license with six additional effects, per-effect options and a redesigned settings window.
+Macbook Duo builds on the MIT-licensed Mac Duo codebase; the license text is in [LICENSE](LICENSE). The lid-angle sensor reader, the effects and the controls were developed in that lineage, and Foldbook continues it under the same license with six additional effects, per-effect options and a redesigned settings window.
 
 The sensor reader's device identifiers (Sensor page 0x20, Orientation usage 0x8A), feature-report ID 1, and two-byte little-endian degree value were verified against the LidAngleSensor project and against Apple-silicon MacBook hardware. No audio or other assets from that project are included.
 
@@ -14,13 +14,13 @@ The study notes below are carried over unchanged from that lineage. The version 
 
 The user's supplied Bendy demonstration video was studied alongside [FrostFold](https://github.com/askmaddyy/FrostFold/tree/a9af51a5565b7d75525c7aab84f2add96d0669ae) (MIT) and [iphone-solo](https://github.com/soloiaros/iphone-solo/tree/752764bdf68ca16d55b65c76738c23d4266b1137) (no license file present in the studied tree). They informed the discussion of stationary content, tilted glass, and multiscale defocus. Their source, graphics, and videos are not bundled in the app or the source distribution. The shipped Metal implementation is original, with a bottom-anchored expansion and a binomial blur pyramid, developed after an independent Claude Opus 5 review.
 
-These projects are independent recreations. They do not establish how Apple implemented its animation. DuoDisplay aims for its own responsive visual treatment rather than a claim of pixel-identical reproduction.
+These projects are independent recreations. They do not establish how Apple implemented its animation. Foldbook aims for its own responsive visual treatment rather than a claim of pixel-identical reproduction.
 
 ## Ghost resting-plane study for 0.1.12
 
 Thanks to [Ansh Varshney’s Macbook-duo demonstration](https://github.com/anshvarshney1502/Macbook-duo) and the upstream [Lid Plane by Jhey](https://github.com/jh3y/lid-plane) for clarifying the stationary-viewer projection: a moving panel samples a desktop plane anchored at the last resting angle. Macbook-duo distributes a packaged app; the readable implementation is in its upstream project. No reference binaries, videos or artwork are included.
 
-Ghost applies that geometric approach with DuoDisplay’s existing blur pyramid, separate physical-angle state, gradual onset and shared animated clearing. The upstream MIT notice is retained below for the projection study and adaptation.
+Ghost applies that geometric approach with Foldbook’s existing blur pyramid, separate physical-angle state, gradual onset and shared animated clearing. The upstream MIT notice is retained below for the projection study and adaptation.
 
 > MIT License
 >

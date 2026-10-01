@@ -15,10 +15,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "67EE3F8C13A3DCB26D439CF2"
+               BlueprintIdentifier = "98D8AD8A7E1040209DEB5528"
                BuildableName = "MacbookDuo.app"
                BlueprintName = "MacbookDuo"
-               ReferencedContainer = "container:DuoDisplay.xcodeproj">
+               ReferencedContainer = "container:Foldbook.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -32,10 +32,10 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "67EE3F8C13A3DCB26D439CF2"
+            BlueprintIdentifier = "98D8AD8A7E1040209DEB5528"
             BuildableName = "MacbookDuo.app"
             BlueprintName = "MacbookDuo"
-            ReferencedContainer = "container:DuoDisplay.xcodeproj">
+            ReferencedContainer = "container:Foldbook.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <Testables>
@@ -55,10 +55,10 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "67EE3F8C13A3DCB26D439CF2"
+            BlueprintIdentifier = "98D8AD8A7E1040209DEB5528"
             BuildableName = "MacbookDuo.app"
             BlueprintName = "MacbookDuo"
-            ReferencedContainer = "container:DuoDisplay.xcodeproj">
+            ReferencedContainer = "container:Foldbook.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <CommandLineArguments>
@@ -74,10 +74,10 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "67EE3F8C13A3DCB26D439CF2"
+            BlueprintIdentifier = "98D8AD8A7E1040209DEB5528"
             BuildableName = "MacbookDuo.app"
             BlueprintName = "MacbookDuo"
-            ReferencedContainer = "container:DuoDisplay.xcodeproj">
+            ReferencedContainer = "container:Foldbook.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

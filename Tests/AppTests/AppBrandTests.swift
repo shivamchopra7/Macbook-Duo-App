@@ -2,12 +2,12 @@ import Foundation
 import XCTest
 @testable import MacbookDuo
 
-/// The app presents itself as "DuoDisplay" everywhere the user can read the name.
+/// The app presents itself as "Foldbook" everywhere the user can read the name.
 final class AppBrandTests: XCTestCase {
     @MainActor func testEachDistributionHasAppName() {
-        XCTAssertEqual(AppBrand.storeName, "DuoDisplay")
-        XCTAssertEqual(AppBrand.directDownloadName, "DuoDisplay")
-        XCTAssertEqual(AppBrand.name, "DuoDisplay")
+        XCTAssertEqual(AppBrand.storeName, "Foldbook")
+        XCTAssertEqual(AppBrand.directDownloadName, "Foldbook")
+        XCTAssertEqual(AppBrand.name, "Foldbook")
     }
 
     func testAppNameIsNotEmpty() {

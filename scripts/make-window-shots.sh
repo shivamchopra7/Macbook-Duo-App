@@ -7,12 +7,12 @@
 #
 #   scripts/make-window-shots.sh [app]
 #
-# Defaults to build/DuoDisplay.app (run ./build.sh first). Needs Screen
+# Defaults to build/Foldbook.app (run ./build.sh first). Needs Screen
 # Recording access for the terminal; without it the captures come out blank.
 set -euo pipefail
 cd "$(dirname "$0")/.."
 
-APP="${1:-build/DuoDisplay.app}"
+APP="${1:-build/Foldbook.app}"
 OUT_DIR="docs/assets"
 PROCESS_NAME="MacbookDuo"
 APP_PATTERN="/Contents/MacOS/$PROCESS_NAME\$"
@@ -36,7 +36,7 @@ trap 'stop_app; rm -rf "$TMP"' EXIT
 cat > "$TMP/window-id.swift" <<'SWIFT'
 import CoreGraphics
 import Foundation
-let prefix = CommandLine.arguments.dropFirst().first ?? "DuoDisplay"
+let prefix = CommandLine.arguments.dropFirst().first ?? "Foldbook"
 let windows = CGWindowListCopyWindowInfo([.optionOnScreenOnly, .excludeDesktopElements], kCGNullWindowID) as? [[String: Any]] ?? []
 for window in windows {
     guard let owner = window[kCGWindowOwnerName as String] as? String, owner.hasPrefix(prefix),

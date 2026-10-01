@@ -4,7 +4,7 @@ import CryptoKit
 public struct ReleaseUpdate: Sendable {
     public static let repository = "shivamchopra7/Macbook-Duo-App"
     public static var archiveName: String { archiveName(for:.current) }
-    public static let checksumName = "DuoDisplay-SHA256SUMS.txt"
+    public static let checksumName = "Foldbook-SHA256SUMS.txt"
     public static let maximumArchiveBytes = 100 * 1024 * 1024
     public let tag: String
     public let version: ReleaseVersion
@@ -14,7 +14,7 @@ public struct ReleaseUpdate: Sendable {
     public var releasePage: URL { URL(string:"https://github.com/\(Self.repository)/releases/tag/\(tag)")! }
 
     public static func archiveName(for architecture: ReleaseArchitecture) -> String {
-        architecture == .x86_64 ? "DuoDisplay-Intel.zip" : "DuoDisplay-mac.zip"
+        architecture == .x86_64 ? "Foldbook-Intel.zip" : "Foldbook-mac.zip"
     }
 
     public static func newerRelease(data: Data, installed: String,
@@ -23,7 +23,7 @@ public struct ReleaseUpdate: Sendable {
         let release = try JSONDecoder().decode(GitHubRelease.self,from:data)
         guard !release.draft, !release.prerelease,
               let version = ReleaseVersion(release.tag_name) else {
-            throw UpdateError.invalid("GitHub did not return a stable DuoDisplay release.")
+            throw UpdateError.invalid("GitHub did not return a stable Foldbook release.")
         }
         guard version > current else { return nil }
         func asset(_ name: String, maximum: Int) throws -> GitHubRelease.Asset {
@@ -31,7 +31,7 @@ public struct ReleaseUpdate: Sendable {
             guard matches.count == 1, let value = matches.first, value.size > 0, value.size <= maximum,
                   let url = URL(string:value.browser_download_url),
                   url.absoluteString == "https://github.com/\(repository)/releases/download/\(release.tag_name)/\(name)" else {
-                throw UpdateError.invalid("The release is missing a valid DuoDisplay installer or checksum. Open the release on GitHub instead.")
+                throw UpdateError.invalid("The release is missing a valid Foldbook installer or checksum. Open the release on GitHub instead.")
             }
             return value
         }
