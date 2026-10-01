@@ -23,7 +23,7 @@ import zlib
     try FileManager.default.setAttributes([.posixPermissions:0o755],ofItemAtPath:executable.path)
     try Data("sealed Info.plist fixture".utf8).write(to:source.appendingPathComponent("Contents/Info.plist"))
     try Data("downloaded candidate".utf8).write(to:candidate)
-    let quarantine = "0081;12345678;Macbook Duo;fixture"
+    let quarantine = "0081;12345678;DuoDisplay;fixture"
     for file in [source,executable,candidate] {
         let result = quarantine.withCString { setxattr(file.path,"com.apple.quarantine",$0,strlen($0),0,0) }
         #expect(result == 0)
@@ -77,17 +77,17 @@ private func release(_ tag: String = "v0.1.12", draft: Bool = false, prerelease:
     let latest = try ReleaseUpdate.newerRelease(data:release(),installed:"0.1.11",architecture:.arm64)
     #expect(latest?.tag == "v0.1.12")
     let intel = try ReleaseUpdate.newerRelease(data:release(),installed:"0.1.11",architecture:.x86_64)
-    #expect(intel?.archive.lastPathComponent == "Macbook-Duo-Intel.zip")
-    #expect(latest?.archive.lastPathComponent == "Macbook-Duo-mac.zip")
+    #expect(intel?.archive.lastPathComponent == "DuoDisplay-Intel.zip")
+    #expect(latest?.archive.lastPathComponent == "DuoDisplay-mac.zip")
     #expect(try ReleaseUpdate.newerRelease(data:release(),installed:"0.1.12",architecture:.arm64) == nil)
     #expect(try ReleaseUpdate.newerRelease(data:release(),installed:"0.2.0",architecture:.arm64) == nil)
     #expect(throws: (any Error).self) { try ReleaseUpdate.newerRelease(data:release(draft:true),installed:"0.1.11",architecture:.arm64) }
     #expect(throws: (any Error).self) { try ReleaseUpdate.newerRelease(data:release(prerelease:true),installed:"0.1.11",architecture:.arm64) }
-    for url in ["http://github.com/shivamchopra7/Macbook-Duo-App/releases/download/v0.1.12/Macbook-Duo-mac.zip",
-                "https://github.com.evil.test/shivamchopra7/Macbook-Duo-App/releases/download/v0.1.12/Macbook-Duo-mac.zip",
-                "https://github.com/other/MacbookDuo/releases/download/v0.1.12/Macbook-Duo-mac.zip",
-                "https://github.com/shivamchopra7/Macbook-Duo-App/releases/download/v0.1.11/Macbook-Duo-mac.zip",
-                "https://github.com/shivamchopra7/Macbook-Duo-App/releases/download/v0.1.12/Macbook-Duo-mac.zip?redirect=bad"] {
+    for url in ["http://github.com/shivamchopra7/Macbook-Duo-App/releases/download/v0.1.12/DuoDisplay-mac.zip",
+                "https://github.com.evil.test/shivamchopra7/Macbook-Duo-App/releases/download/v0.1.12/DuoDisplay-mac.zip",
+                "https://github.com/other/MacbookDuo/releases/download/v0.1.12/DuoDisplay-mac.zip",
+                "https://github.com/shivamchopra7/Macbook-Duo-App/releases/download/v0.1.11/DuoDisplay-mac.zip",
+                "https://github.com/shivamchopra7/Macbook-Duo-App/releases/download/v0.1.12/DuoDisplay-mac.zip?redirect=bad"] {
         #expect(throws: (any Error).self) { try ReleaseUpdate.newerRelease(data:release(zipURL:url),installed:"0.1.11",architecture:.arm64) }
     }
     #expect(throws: (any Error).self) { try ReleaseUpdate.newerRelease(data:release(size:ReleaseUpdate.maximumArchiveBytes+1),installed:"0.1.11",architecture:.arm64) }
@@ -98,10 +98,10 @@ private func release(_ tag: String = "v0.1.12", draft: Bool = false, prerelease:
 @Test func checksumRequiresExactlyOneMatchingNamedArchive() throws {
     let data = Data("fixture archive".utf8)
     let hash = SHA256.hash(data:data).map { String(format:"%02x",$0) }.joined()
-    let valid = Data("\(hash)  Macbook-Duo-mac.zip\n".utf8)
+    let valid = Data("\(hash)  DuoDisplay-mac.zip\n".utf8)
     try ReleaseUpdate.verifyChecksum(archive:data,manifest:valid,architecture:.arm64)
-    try ReleaseUpdate.verifyChecksum(archive:data,manifest:Data("\(hash) *Macbook-Duo-mac.zip\n".utf8),architecture:.arm64)
-    let intel = Data("\(hash)  Macbook-Duo-Intel.zip\n".utf8)
+    try ReleaseUpdate.verifyChecksum(archive:data,manifest:Data("\(hash) *DuoDisplay-mac.zip\n".utf8),architecture:.arm64)
+    let intel = Data("\(hash)  DuoDisplay-Intel.zip\n".utf8)
     try ReleaseUpdate.verifyChecksum(archive:data,manifest:intel,architecture:.x86_64)
     let combined = valid+intel
     try ReleaseUpdate.verifyChecksum(archive:data,manifest:combined,architecture:.arm64)
@@ -144,8 +144,8 @@ private func zip(_ entries: [ZipEntry]) -> Data {
     append32(UInt32(central.count),to:&data);append32(directory,to:&data);append16(0,to:&data)
     return data
 }
-private let requiredEntries = [ZipEntry(name:"Macbook Duo.app/Contents/Info.plist"),
-                               ZipEntry(name:"Macbook Duo.app/Contents/MacOS/MacbookDuo",mode:0o100755)]
+private let requiredEntries = [ZipEntry(name:"DuoDisplay.app/Contents/Info.plist"),
+                               ZipEntry(name:"DuoDisplay.app/Contents/MacOS/MacbookDuo",mode:0o100755)]
 private func temporaryFolder() throws -> URL {
     let url = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString,isDirectory:true).resolvingSymlinksInPath()
     try FileManager.default.createDirectory(at:url,withIntermediateDirectories:true,attributes:[.posixPermissions:0o700])
@@ -155,15 +155,15 @@ private func temporaryFolder() throws -> URL {
 @Test func archiveRejectsTraversalSymlinksSpecialFilesAndHeaderMismatch() throws {
     try UpdateArchive.validate(zip(requiredEntries))
     let unsafeEntries = [ZipEntry(name:"../outside"),ZipEntry(name:"/tmp/outside"),
-                         ZipEntry(name:"Macbook Duo.app/../../outside"),ZipEntry(name:"Macbook Duo.app//file"),
-                         ZipEntry(name:"Macbook Duo.app/Contents\\outside"),ZipEntry(name:"Macbook Duo.app/file:stream"),
-                         ZipEntry(name:"Macbook Duo.app/Contents/link",mode:0o120777),
-                         ZipEntry(name:"Macbook Duo.app/Contents/socket",mode:0o140777),
-                         ZipEntry(name:"Macbook Duo.app/Contents/setuid",mode:0o104755),
-                         ZipEntry(name:"Macbook Duo.app/Contents/encrypted",flags:1),
-                         ZipEntry(name:"Macbook Duo.app/Contents/mismatch",localName:"../escape"),
-                         ZipEntry(name:"Macbook Duo.app/Contents/bomb",expanded:200*1024*1024),
-                         ZipEntry(name:"Macbook Duo.app/Contents/Info.plist")]
+                         ZipEntry(name:"DuoDisplay.app/../../outside"),ZipEntry(name:"DuoDisplay.app//file"),
+                         ZipEntry(name:"DuoDisplay.app/Contents\\outside"),ZipEntry(name:"DuoDisplay.app/file:stream"),
+                         ZipEntry(name:"DuoDisplay.app/Contents/link",mode:0o120777),
+                         ZipEntry(name:"DuoDisplay.app/Contents/socket",mode:0o140777),
+                         ZipEntry(name:"DuoDisplay.app/Contents/setuid",mode:0o104755),
+                         ZipEntry(name:"DuoDisplay.app/Contents/encrypted",flags:1),
+                         ZipEntry(name:"DuoDisplay.app/Contents/mismatch",localName:"../escape"),
+                         ZipEntry(name:"DuoDisplay.app/Contents/bomb",expanded:200*1024*1024),
+                         ZipEntry(name:"DuoDisplay.app/Contents/Info.plist")]
     for entry in unsafeEntries {
         #expect(throws: (any Error).self) { try UpdateArchive.validate(zip(requiredEntries+[entry])) }
     }
@@ -174,12 +174,12 @@ private func temporaryFolder() throws -> URL {
 @Test func extractionChecksActualSizeCRCAndRefusesExistingOrLinkedDestination() throws {
     let root = try temporaryFolder();defer { try? FileManager.default.removeItem(at:root) }
     try UpdateArchive.extract(zip(requiredEntries),into:root)
-    #expect(try Data(contentsOf:root.appendingPathComponent("Macbook Duo.app/Contents/Info.plist")) == Data("fixture".utf8))
-    #expect(FileManager.default.isExecutableFile(atPath:root.appendingPathComponent("Macbook Duo.app/Contents/MacOS/MacbookDuo").path))
+    #expect(try Data(contentsOf:root.appendingPathComponent("DuoDisplay.app/Contents/Info.plist")) == Data("fixture".utf8))
+    #expect(FileManager.default.isExecutableFile(atPath:root.appendingPathComponent("DuoDisplay.app/Contents/MacOS/MacbookDuo").path))
     #expect(throws: (any Error).self) { try UpdateArchive.extract(zip(requiredEntries),into:root) }
-    for entry in [ZipEntry(name:"Macbook Duo.app/Contents/oversized",expanded:1),
-                  ZipEntry(name:"Macbook Duo.app/Contents/corrupt",checksum:0),
-                  ZipEntry(name:"Macbook Duo.app/Contents/deflate",method:8)] {
+    for entry in [ZipEntry(name:"DuoDisplay.app/Contents/oversized",expanded:1),
+                  ZipEntry(name:"DuoDisplay.app/Contents/corrupt",checksum:0),
+                  ZipEntry(name:"DuoDisplay.app/Contents/deflate",method:8)] {
         let destination = try temporaryFolder();defer { try? FileManager.default.removeItem(at:destination) }
         #expect(throws: (any Error).self) { try UpdateArchive.extract(zip(requiredEntries+[entry]),into:destination) }
     }
@@ -202,7 +202,7 @@ private func temporaryFolder() throws -> URL {
     } }
     compressed.count = size
     let crc = content.withUnsafeBytes { UInt32(crc32(0,$0.bindMemory(to:Bytef.self).baseAddress,uInt(content.count))) }
-    var entry = ZipEntry(name:"Macbook Duo.app/Contents/compressed",content:compressed,expanded:4000,method:8,checksum:crc)
+    var entry = ZipEntry(name:"DuoDisplay.app/Contents/compressed",content:compressed,expanded:4000,method:8,checksum:crc)
     let root = try temporaryFolder();defer { try? FileManager.default.removeItem(at:root) }
     try UpdateArchive.extract(zip(requiredEntries+[entry]),into:root)
     #expect(try Data(contentsOf:root.appendingPathComponent(entry.name)) == content)
@@ -213,7 +213,7 @@ private func temporaryFolder() throws -> URL {
 
 @Test func failedRelaunchRestoresOriginalAndSuccessfulRelaunchKeepsBackup() throws {
     let root = try temporaryFolder();defer { try? FileManager.default.removeItem(at:root) }
-    let old = root.appendingPathComponent("Macbook Duo.app"), candidate = root.appendingPathComponent("candidate"), backup = root.appendingPathComponent("backup")
+    let old = root.appendingPathComponent("DuoDisplay.app"), candidate = root.appendingPathComponent("candidate"), backup = root.appendingPathComponent("backup")
     try Data("old".utf8).write(to:old);try Data("new".utf8).write(to:candidate)
     #expect(throws: (any Error).self) {
         try UpdateReplacement.install(staged:candidate,destination:old,backup:backup) { throw UpdateError.invalid("Fixture launch failure") }

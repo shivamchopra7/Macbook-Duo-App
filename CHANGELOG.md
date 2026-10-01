@@ -21,9 +21,9 @@
 
 ## 1.0.0 (App Store)
 
-The Mac App Store submission of 1.0.0 is built from the same sources by the Xcode project `Macbook Duo.xcodeproj` (scheme `Macbook Duo`) with the `APPSTORE` compilation condition. It behaves like the direct download except where noted here.
+The Mac App Store submission of 1.0.0 is built from the same sources by the Xcode project `DuoDisplay.xcodeproj` (scheme `DuoDisplay`) with the `APPSTORE` compilation condition. It behaves like the direct download except where noted here.
 
-- **Sold as Macbook Fold.** The store build is named Macbook Fold: the listing, `Macbook Fold.app`, the window title, the menu bar and every string in the app use that name (`AppBrand.name`, chosen at compile time). The bundle identifier `com.shivamchopra.macbookduo`, the source and the direct download keep the Macbook Duo name.
+- **Named DuoDisplay.** The app is named DuoDisplay: the listing, `DuoDisplay.app`, the window title, the menu bar and every string in the app use that name (`AppBrand.name`). The bundle identifier `com.shivamchopra.macbookduo` is preserved to maintain upgrade lineage.
 
 - **Sandboxed build.** App Sandbox and Hardened Runtime, signed with an Apple Distribution certificate. Besides `com.apple.security.app-sandbox`, the only entitlement is `com.apple.security.device.usb`, which the built-in lid-angle sensor needs to stay readable inside the sandbox.
 - **No self-updater.** The in-app updater, its menu items, buttons and `--update-*` diagnostic flags are compiled out; updates arrive through the App Store, as App Review Guideline 2.4.5 requires. The pure release-parsing code in FoldCore is unchanged.

@@ -32,16 +32,14 @@ final class LocalizationTests: XCTestCase {
         }
     }
 
-    /// The store build is named "Macbook Fold" and the direct download "Macbook
-    /// Duo", so text the store build shows must take the name as an argument
-    /// instead of spelling "Macbook Duo" out. Only the self-updater, which is
-    /// compiled out of the store build, may still name Macbook Duo directly.
+    /// Text the build shows takes the name as an argument
+    /// instead of spelling the app name out in shared views.
     func testStoreFacingStringsTakeTheAppNameAsAnArgument() throws {
         let brandedKeys = ["Quit %@", "Pause %@", "Enable %@", "Open %@…", "%@ — your desktop follows your lid",
                            "Preview is ready. Enable %@ to use your desktop.",
                            "%@ needs an active, unmirrored built-in display.",
                            "Cannot safely exclude %@ from capture. Please reopen the app."]
-        let updaterKeys = try strings("en").keys.filter { $0.contains("Macbook Duo") }
+        let updaterKeys = try strings("en").keys.filter { $0.contains("DuoDisplay") }
         for key in updaterKeys {
             XCTAssertTrue(key.contains("update") || key.contains("Update") || key.contains("release") || key.contains("is available") ||
                           key.contains("previous") || key.contains("Applications and open it") || key.contains("kept your"),
@@ -53,7 +51,7 @@ final class LocalizationTests: XCTestCase {
                 XCTAssertTrue(try XCTUnwrap(translated[key], "\(language): \(key)").contains("%@"), "\(language): \(key)")
             }
             let usage = try XCTUnwrap(strings(language,table:"InfoPlist")["NSScreenCaptureUsageDescription"])
-            XCTAssertFalse(usage.contains("Macbook Duo"), "\(language): the permission prompt already shows the app name")
+            XCTAssertFalse(usage.contains("DuoDisplay"), "\(language): the permission prompt already shows the app name")
         }
     }
 

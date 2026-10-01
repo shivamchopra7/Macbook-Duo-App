@@ -1,5 +1,5 @@
 @charset "UTF-8";
-/* Macbook Duo — an Apple-style Liquid Glass treatment. System font, a silver-white
+/* DuoDisplay — an Apple-style Liquid Glass treatment. System font, a silver-white
    ground that stays light whatever the system appearance, and glass slabs that blur what is behind them, carry a specular edge
    and react to the pointer. Brand blue stays, so the site matches the app.
    No dependencies; transforms and opacity only in motion. */
@@ -261,7 +261,7 @@ footer a:hover{color:var(--accent)}
   .vs th,.vs td{border-top:0;padding:0;width:auto}
   .vs tbody th{font-size:15px}
   .vs td::before{display:block;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:9px;letter-spacing:.12em;color:var(--muted);margin-bottom:2px;content:"IPHONE DUO"}
-  .vs td:last-child::before{content:"MACBOOK DUO";color:var(--accent)}
+  .vs td:last-child::before{content:"DUODISPLAY";color:var(--accent)}
   .vs td:last-child{background:none;box-shadow:none;border-radius:0}
   .effect-grid article{padding:22px;border-radius:22px}
   .effect-grid h3{font-size:23px}

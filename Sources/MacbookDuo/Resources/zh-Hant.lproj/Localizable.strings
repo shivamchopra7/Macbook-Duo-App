@@ -104,30 +104,30 @@
 "Rate on the App Store" = "在 App Store 上評分";
 "Updates come from the App Store" = "更新由 App Store 提供";
 "You’re up to date" = "已是最新版本";
-"Macbook Duo %@ is the latest stable release." = "Macbook Duo %@ 是最新穩定版本。";
-"Macbook Duo %@ is available" = "Macbook Duo %@ 已發布";
-"Download, verify, and install the update, then reopen Macbook Duo. Your settings will be kept. macOS may ask you to allow the updated app or Screen Recording again." = "下載、驗證並安裝更新，然後重新開啟 Macbook Duo。您的設定會保留。macOS 可能要求您重新允許更新後的應用程式執行或授予螢幕錄製權限。";
+"DuoDisplay %@ is the latest stable release." = "DuoDisplay %@ 是最新穩定版本。";
+"DuoDisplay %@ is available" = "DuoDisplay %@ 已發布";
+"Download, verify, and install the update, then reopen DuoDisplay. Your settings will be kept. macOS may ask you to allow the updated app or Screen Recording again." = "下載、驗證並安裝更新，然後重新開啟 DuoDisplay。您的設定會保留。macOS 可能要求您重新允許更新後的應用程式執行或授予螢幕錄製權限。";
 "Install & Relaunch" = "安裝並重新開啟";
 "Later" = "稍後";
 "View release" = "查看版本說明";
 "Updating…" = "正在更新…";
-"Macbook Duo could not update" = "Macbook Duo 無法更新";
+"DuoDisplay could not update" = "DuoDisplay 無法更新";
 "OK" = "好";
 "Open downloads" = "開啟下載頁面";
 "macOS could not open the update" = "macOS 無法開啟更新後的應用程式";
-"Your previous Macbook Duo is safely backed up. If macOS blocked this downloaded app, go to System Settings → Privacy & Security → Open Anyway, approve Macbook Duo there, then try opening it again. You can restore the previous version at any time.\n\n%@" = "舊版 Macbook Duo 已安全備份。如果 macOS 阻擋了此下載的應用程式，請前往「系統設定 → 隱私權與安全性 → 強制打開」，允許執行 Macbook Duo 後再嘗試開啟。您隨時可以回復舊版本。\n\n%@";
+"Your previous DuoDisplay is safely backed up. If macOS blocked this downloaded app, go to System Settings → Privacy & Security → Open Anyway, approve DuoDisplay there, then try opening it again. You can restore the previous version at any time.\n\n%@" = "舊版 DuoDisplay 已安全備份。如果 macOS 阻擋了此下載的應用程式，請前往「系統設定 → 隱私權與安全性 → 強制打開」，允許執行 DuoDisplay 後再嘗試開啟。您隨時可以回復舊版本。\n\n%@";
 "Restore Previous" = "回復舊版本";
 "Open Privacy & Security" = "開啟隱私權與安全性";
 "Try Opening Again" = "重試開啟";
-"The previous Macbook Duo was restored" = "已回復舊版 Macbook Duo";
+"The previous DuoDisplay was restored" = "已回復舊版 DuoDisplay";
 "The update could not finish opening. You can keep using this version or install the latest release from GitHub." = "更新後的應用程式未能完成啟動。您可以繼續使用此版本，或從 GitHub 安裝最新版本。";
-"Macbook Duo kept your previous app safe" = "Macbook Duo 已安全保留舊版應用程式";
+"DuoDisplay kept your previous app safe" = "DuoDisplay 已安全保留舊版應用程式";
 "A file permission or disk error prevented the update from finishing. Your previous app is at:\n%@\nMove it back to Applications with Finder." = "檔案權限或磁碟錯誤導致更新未能完成。舊版應用程式位於：\n%@\n請使用 Finder 將其移回「應用程式」。";
 "The installer download was incomplete. Please try again." = "安裝套件下載不完整。請重試。";
 "GitHub redirected the download to an unexpected location." = "GitHub 將下載重新導向至非預期位置。";
 "GitHub could not provide the update. Check your connection and try again later." = "GitHub 無法提供更新。請檢查網路連線並稍後重試。";
 "The update download exceeded its size limit." = "更新下載超出了大小限制。";
-"Move Macbook Duo to Applications and open it there before updating. If Applications needs an administrator password, install the downloaded update with Finder." = "請將 Macbook Duo 移至「應用程式」並從那裡開啟後再更新。如果需要管理者密碼，請透過 Finder 安裝下載的更新。";
+"Move DuoDisplay to Applications and open it there before updating. If Applications needs an administrator password, install the downloaded update with Finder." = "請將 DuoDisplay 移至「應用程式」並從那裡開啟後再更新。如果需要管理者密碼，請透過 Finder 安裝下載的更新。";
 "macOS could not mark the downloaded app for its normal security check. Please install it with Finder." = "macOS 無法為下載的應用程式標記一般安全檢查。請透過 Finder 安裝。";
 "The downloaded app failed validation or could not be installed. Nothing was replaced." = "下載的應用程式未通過驗證或無法安裝。沒有替換任何內容。";
 "The installer contains no app." = "安裝套件中沒有應用程式。";
@@ -145,10 +145,10 @@
 "The updated app did not finish opening. Your previous version is safely backed up." = "更新後的應用程式未能完成啟動。舊版本已安全備份。";
 "The installed app could not prepare its signed updater bundle." = "已安裝的應用程式無法準備已簽署的更新輔助程式套件。";
 "The installed app contains an unsupported helper resource." = "已安裝的應用程式包含不受支援的更新輔助程式資源。";
-"The update helper could not start safely. Macbook Duo is still running; please try again or install with Finder." = "更新輔助程式無法安全啟動。Macbook Duo 仍在執行，請重試或透過 Finder 安裝。";
+"The update helper could not start safely. DuoDisplay is still running; please try again or install with Finder." = "更新輔助程式無法安全啟動。DuoDisplay 仍在執行，請重試或透過 Finder 安裝。";
 "This app has an unknown version. Download the latest installer from GitHub." = "無法識別此應用程式的版本。請從 GitHub 下載最新安裝套件。";
-"GitHub did not return a stable Macbook Duo release." = "GitHub 未傳回 Macbook Duo 的穩定版本。";
-"The release is missing a valid Macbook Duo installer or checksum. Open the release on GitHub instead." = "此版本缺少有效的 Macbook Duo 安裝套件或校驗碼。請在 GitHub 開啟該版本頁面。";
+"GitHub did not return a stable DuoDisplay release." = "GitHub 未傳回 DuoDisplay 的穩定版本。";
+"The release is missing a valid DuoDisplay installer or checksum. Open the release on GitHub instead." = "此版本缺少有效的 DuoDisplay 安裝套件或校驗碼。請在 GitHub 開啟該版本頁面。";
 "The release checksum could not be read." = "無法讀取此版本的校驗碼。";
 "The download failed its SHA-256 integrity check. Nothing was installed." = "下載未通過 SHA-256 完整性檢查。未安裝任何內容。";
 "The update staging directory is not empty or is linked elsewhere." = "更新暫存目錄非空或連結到了其他位置。";
@@ -158,7 +158,7 @@
 "The installer archive is unsafe or unsupported. Nothing was installed." = "安裝封存檔不安全或不受支援。未安裝任何內容。";
 "The installation location changed. Please download the update manually." = "安裝位置已變更。請手動下載更新。";
 
-// Macbook Duo 1.0: expansion effects, curves and options.
+// DuoDisplay 1.0: expansion effects, curves and options.
 "Fold" = "摺疊";
 "Accordion" = "手風琴";
 "Louver" = "百葉";

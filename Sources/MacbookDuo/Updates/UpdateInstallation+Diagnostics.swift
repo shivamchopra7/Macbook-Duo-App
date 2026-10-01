@@ -44,7 +44,7 @@ extension UpdateInstallation {
             throw UpdateError.invalid("Choose a new scratch directory outside Applications for package verification.")
         }
         guard let architecture = ReleaseArchitecture(archiveName:archive.lastPathComponent) else {
-            throw UpdateError.invalid("Use the canonical Macbook-Duo-mac.zip or Macbook-Duo-Intel.zip archive name for package verification.")
+            throw UpdateError.invalid("Use the canonical DuoDisplay-mac.zip or DuoDisplay-Intel.zip archive name for package verification.")
         }
         let archiveSize = try archive.resourceValues(forKeys:[.fileSizeKey]).fileSize ?? 0
         let manifestSize = try manifest.resourceValues(forKeys:[.fileSizeKey]).fileSize ?? 0
@@ -54,7 +54,7 @@ extension UpdateInstallation {
         try FileManager.default.createDirectory(at:folder,withIntermediateDirectories:false,attributes:[.posixPermissions:0o700])
         do {
             try UpdateArchive.extract(data,into:folder)
-            try validateBundle(folder.appendingPathComponent("Macbook Duo.app",isDirectory:true),version:version,
+            try validateBundle(folder.appendingPathComponent("DuoDisplay.app",isDirectory:true),version:version,
                                architecture:architecture)
         } catch { try? FileManager.default.removeItem(at:folder);throw error }
     }
@@ -63,11 +63,11 @@ extension UpdateInstallation {
     /// readiness functions as a real update, including restoration after launch failure.
     static func checkInstallerFixture(output: URL) throws {
         let files = FileManager.default, folder = output.standardizedFileURL
-        guard folder.path == output.path, folder.lastPathComponent.hasPrefix("MacbookDuo-update-fixture-"),
+        guard folder.path == output.path, folder.lastPathComponent.hasPrefix("DuoDisplay-update-fixture-"),
               folder.resolvingSymlinksInPath() == folder,
               !folder.path.hasPrefix("/Applications/"), !folder.path.contains("/Applications/"),
               !files.fileExists(atPath:folder.path), let executable = Bundle.main.executableURL else {
-            throw UpdateError.invalid("Choose a new scratch directory named MacbookDuo-update-fixture-… outside Applications.")
+            throw UpdateError.invalid("Choose a new scratch directory named DuoDisplay-update-fixture-… outside Applications.")
         }
         try files.createDirectory(at:folder,withIntermediateDirectories:false,attributes:[.posixPermissions:0o700])
         func bundle(_ name: String, marker: String) throws -> URL {
@@ -77,14 +77,14 @@ extension UpdateInstallation {
             try files.copyItem(at:executable,to:macOS.appendingPathComponent("MacbookDuo"))
             try files.createDirectory(at:app.appendingPathComponent("Contents/Resources",isDirectory:true),withIntermediateDirectories:true)
             let info: [String:Any] = ["CFBundleIdentifier":"com.shivamchopra.macbookduo.update-fixture", "CFBundleExecutable":"MacbookDuo",
-                                     "CFBundleName":"Macbook Duo Update Fixture", "CFBundlePackageType":"APPL", "LSUIElement":true,
+                                     "CFBundleName":"DuoDisplay Update Fixture", "CFBundlePackageType":"APPL", "LSUIElement":true,
                                      "CFBundleShortVersionString":"0.0.1", "CFBundleVersion":"1", "LSMinimumSystemVersion":"13.0"]
             try PropertyListSerialization.data(fromPropertyList:info,format:.xml,options:0).write(to:app.appendingPathComponent("Contents/Info.plist"))
             try Data(marker.utf8).write(to:app.appendingPathComponent("Contents/Resources/fixture-version"))
             try command("/usr/bin/codesign",["--force","--sign","-",app.path])
             return app
         }
-        let destination = try bundle("Macbook Duo.app",marker:"old")
+        let destination = try bundle("DuoDisplay.app",marker:"old")
         let helper = folder.appendingPathComponent("Installer.app",isDirectory:true)
         try UpdateHandoff.writeHelperBundle(from:destination,to:helper)
         try command("/usr/bin/codesign",["--verify","--deep","--strict",helper.path])

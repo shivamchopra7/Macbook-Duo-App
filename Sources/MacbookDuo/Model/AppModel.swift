@@ -24,7 +24,7 @@ import ServiceManagement
         }
     }
     /// The menu bar icon is optional. Hiding it never changes following or capture;
-    /// reopening Macbook Duo from Applications or Spotlight always restores this window.
+    /// reopening DuoDisplay from Applications or Spotlight always restores this window.
     @Published var showInMenuBar = UserDefaults.standard.object(forKey:"showInMenuBar") as? Bool ?? true {
         didSet {
             guard oldValue != showInMenuBar else { return }
@@ -170,7 +170,7 @@ import ServiceManagement
         refreshLaunchAtLogin()
     }
 
-    /// The user can also remove Macbook Duo in System Settings. Re-read before showing the state.
+    /// The user can also remove DuoDisplay in System Settings. Re-read before showing the state.
     func refreshLaunchAtLogin() {
         let actual = SMAppService.mainApp.status == .enabled
         if launchAtLogin != actual { launchAtLogin = actual }

@@ -18,7 +18,7 @@ extension UpdateInstallation {
             if FileManager.default.fileExists(atPath:ready.path) { return true }
             let alert = NSAlert()
             alert.messageText = L10n.text("macOS could not open the update")
-            alert.informativeText = L10n.format("Your previous Macbook Duo is safely backed up. If macOS blocked this downloaded app, go to System Settings → Privacy & Security → Open Anyway, approve Macbook Duo there, then try opening it again. You can restore the previous version at any time.\n\n%@",L10n.text(error.localizedDescription))
+            alert.informativeText = L10n.format("Your previous DuoDisplay is safely backed up. If macOS blocked this downloaded app, go to System Settings → Privacy & Security → Open Anyway, approve DuoDisplay there, then try opening it again. You can restore the previous version at any time.\n\n%@",L10n.text(error.localizedDescription))
             alert.addButton(withTitle:L10n.text("Restore Previous"))
             alert.addButton(withTitle:L10n.text("Open Privacy & Security"))
             alert.addButton(withTitle:L10n.text("Try Opening Again"))
@@ -97,12 +97,12 @@ extension UpdateInstallation {
                 try? Data("ready".utf8).write(to:job.folder.appendingPathComponent("ready"),options:.atomic)
         }
         if CommandLine.arguments.contains("--update-rolled-back") {
-            let alert = NSAlert();alert.messageText = L10n.text("The previous Macbook Duo was restored")
+            let alert = NSAlert();alert.messageText = L10n.text("The previous DuoDisplay was restored")
             alert.informativeText = L10n.text("The update could not finish opening. You can keep using this version or install the latest release from GitHub.")
             NSApp.activate(ignoringOtherApps:true);alert.runModal()
         }
         if CommandLine.arguments.contains("--update-needs-recovery") {
-            let alert = NSAlert();alert.messageText = L10n.text("Macbook Duo kept your previous app safe")
+            let alert = NSAlert();alert.messageText = L10n.text("DuoDisplay kept your previous app safe")
             alert.informativeText = L10n.format("A file permission or disk error prevented the update from finishing. Your previous app is at:\n%@\nMove it back to Applications with Finder.",Bundle.main.bundleURL.path)
             NSApp.activate(ignoringOtherApps:true);alert.runModal()
         }

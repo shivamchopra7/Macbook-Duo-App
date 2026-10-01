@@ -2,18 +2,18 @@ import Foundation
 import XCTest
 @testable import MacbookDuo
 
-/// The Mac App Store build presents itself as "Macbook Fold" everywhere the
-/// user can read the name, while the direct download keeps "Macbook Duo".
+/// The app presents itself as "DuoDisplay" everywhere the user can read the name.
 final class AppBrandTests: XCTestCase {
-    @MainActor func testEachDistributionHasItsOwnName() {
-        XCTAssertEqual(AppBrand.storeName, "Macbook Fold")
-        XCTAssertEqual(AppBrand.directDownloadName, "Macbook Duo")
-        XCTAssertEqual(AppBrand.name, AppUpdater.isAppStoreBuild ? AppBrand.storeName : AppBrand.directDownloadName)
+    @MainActor func testEachDistributionHasAppName() {
+        XCTAssertEqual(AppBrand.storeName, "DuoDisplay")
+        XCTAssertEqual(AppBrand.directDownloadName, "DuoDisplay")
+        XCTAssertEqual(AppBrand.name, "DuoDisplay")
     }
 
-    func testTheTwoNamesDiffer() {
-        XCTAssertNotEqual(AppBrand.storeName, AppBrand.directDownloadName)
+    func testAppNameIsNotEmpty() {
+        XCTAssertFalse(AppBrand.name.isEmpty)
         XCTAssertFalse(AppBrand.storeName.isEmpty)
+        XCTAssertFalse(AppBrand.directDownloadName.isEmpty)
     }
 
     func testBrandedTextIsBuiltFromTheCurrentName() {

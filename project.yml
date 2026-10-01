@@ -1,13 +1,13 @@
-# xcodegen specification for the Mac App Store build of Macbook Duo.
+# xcodegen specification for the Mac App Store build of DuoDisplay.
 # Regenerate the project with `xcodegen generate` after editing this file.
 # The direct-download build still uses SwiftPM (./build.sh); this project
 # exists for App Store archives, so it defines the APPSTORE compilation
 # condition that strips the self-updater out of the app.
 #
-# On the store the app is called "Macbook Fold": PRODUCT_NAME below sets the
-# bundle name, display name and package name to Macbook Fold while the source,
-# module, bundle identifier and this project keep the Macbook Duo name.
-name: Macbook Duo
+# On the store the app is called "DuoDisplay": PRODUCT_NAME below sets the
+# bundle name, display name and package name to DuoDisplay while the source,
+# module, bundle identifier and this project keep the internal structure.
+name: DuoDisplay
 
 options:
   bundleIdPrefix: com.shivamchopra
@@ -64,7 +64,7 @@ targets:
       base:
         GENERATE_INFOPLIST_FILE: NO
         INFOPLIST_FILE: App/Info.plist
-        PRODUCT_NAME: Macbook Fold
+        PRODUCT_NAME: DuoDisplay
         PRODUCT_MODULE_NAME: MacbookDuo
         EXECUTABLE_NAME: MacbookDuo
         PRODUCT_BUNDLE_IDENTIFIER: com.shivamchopra.macbookduo
@@ -87,7 +87,7 @@ targets:
           SWIFT_OPTIMIZATION_LEVEL: -O
 
 schemes:
-  Macbook Duo:
+  DuoDisplay:
     build:
       targets:
         MacbookDuo: all

@@ -42,12 +42,12 @@ step "Release build and packaging"
 scripts/package.sh
 
 step "Updater package check against dist/"
-"$BIN/MacbookDuo" --update-package-check dist/Macbook-Duo-mac.zip dist/Macbook-Duo-SHA256SUMS.txt \
-  "$(/usr/libexec/PlistBuddy -c 'Print CFBundleShortVersionString' "build/Macbook Duo.app/Contents/Info.plist")" "$OUT/package-check"
+"$BIN/MacbookDuo" --update-package-check dist/DuoDisplay-mac.zip dist/DuoDisplay-SHA256SUMS.txt \
+  "$(/usr/libexec/PlistBuddy -c 'Print CFBundleShortVersionString' "build/DuoDisplay.app/Contents/Info.plist")" "$OUT/package-check"
 
 step "Updater installer fixture (disposable apps, LaunchServices handshake, rollback)"
 # Kept inside the checkout: the fixture compares real paths, and /var/folders is a symlink.
-FIXTURE="$PWD/$OUT/MacbookDuo-update-fixture-$$"
+FIXTURE="$PWD/$OUT/DuoDisplay-update-fixture-$$"
 "$BIN/MacbookDuo" --update-installer-fixture "$FIXTURE"
 cat "$FIXTURE/result.json"; rm -rf "$FIXTURE"
 

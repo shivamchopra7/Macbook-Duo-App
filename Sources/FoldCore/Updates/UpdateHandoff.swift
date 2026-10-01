@@ -52,6 +52,6 @@ public enum UpdateHandoff {
             if hasAcknowledged() { return }
             try await Task.sleep(nanoseconds:100_000_000)
         }
-        throw UpdateError.invalid("The update helper could not start safely. Macbook Duo is still running; please try again or install with Finder.")
+        throw UpdateError.invalid("The update helper could not start safely. DuoDisplay is still running; please try again or install with Finder.")
     }
 }

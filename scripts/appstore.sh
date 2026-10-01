@@ -1,12 +1,10 @@
 #!/bin/bash
-# Builds the Mac App Store package for Macbook Duo, which the store sells as
-# "Macbook Fold". The Xcode project and scheme keep the Macbook Duo name; only
-# the product, its bundle and the package are called Macbook Fold.
+# Builds the Mac App Store package for DuoDisplay.
 #
 #   scripts/appstore.sh [validate|export|upload]
 #
-#   export    (default) archive the "Macbook Duo" scheme and export a signed
-#             "Macbook Fold.pkg" into build-appstore/export
+#   export    (default) archive the "DuoDisplay" scheme and export a signed
+#             "DuoDisplay.pkg" into build-appstore/export
 #   validate  export, then run App Store validation on the package
 #   upload    export, then upload the package to App Store Connect
 #
@@ -24,12 +22,12 @@ set -euo pipefail
 cd "$(dirname "$0")/.."
 
 ACTION="${1:-export}"
-PROJECT="Macbook Duo.xcodeproj"
-SCHEME="Macbook Duo"
+PROJECT="DuoDisplay.xcodeproj"
+SCHEME="DuoDisplay"
 BUILD_DIR="build-appstore"
-ARCHIVE="$BUILD_DIR/MacbookFold.xcarchive"
+ARCHIVE="$BUILD_DIR/DuoDisplay.xcarchive"
 EXPORT_DIR="$BUILD_DIR/export"
-STORE_NAME="Macbook Fold"
+STORE_NAME="DuoDisplay"
 PACKAGE="$EXPORT_DIR/$STORE_NAME.pkg"
 EXPORT_OPTIONS="App/ExportOptions.plist"
 ENTITLEMENTS_FILE="App/MacbookDuo.entitlements"
@@ -74,7 +72,7 @@ check_entitlements() {
   echo "==> $label carries: ${REQUIRED_ENTITLEMENTS[*]}"
 }
 
-# The store build must present itself as Macbook Fold: bundle name, display name
+# The store build must present itself as DuoDisplay: bundle name, display name
 # and the bundle folder itself, while keeping the registered bundle identifier.
 check_store_name() {
   local app="$1" label="$2" plist="$1/Contents/Info.plist" key value

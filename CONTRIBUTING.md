@@ -1,4 +1,4 @@
-# Contributing to Macbook Duo
+# Contributing to DuoDisplay
 
 Issues, hardware reports and focused pull requests are welcome.
 
