@@ -5,6 +5,7 @@ import hashlib
 import json
 from pathlib import Path
 import plistlib
+import platform
 import re
 import os
 import subprocess
@@ -133,7 +134,8 @@ def main():
     require(re.fullmatch(r"\d+\.\d+\.\d+", args.version), "Use a semantic version such as 1.0.2")
     root = Path(__file__).resolve().parent.parent
     verify_local(root, args.dist.resolve(), args.version)
-    executable = root / "build/Foldbook.app/Contents/MacOS/MacbookDuo"
+    native_build = "build-intel" if platform.machine() == "x86_64" else "build"
+    executable = root / native_build / "Foldbook.app/Contents/MacOS/MacbookDuo"
     require(executable.is_file(), "Build the native app first for package verification")
     with tempfile.TemporaryDirectory(prefix="foldbook-release-") as scratch:
         for name, architecture in ARCHIVES.items():
