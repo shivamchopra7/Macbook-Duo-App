@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.0.2 · 9 November 2026
+
+- **Working Foldbook downloads.** New Apple-silicon and Intel builds use the `Foldbook.dmg`, `Foldbook-mac.zip`, `Foldbook-Intel.dmg`, `Foldbook-Intel.zip` and `Foldbook-SHA256SUMS.txt` names linked by the website, README and current updater. Fixes #2 once this release is published.
+- **Release checks.** Packaging checks the download links, both architectures, app versions, signatures and SHA-256 checksums before publication. An Intel build failure now stops the release instead of silently publishing an incomplete set of downloads.
+- **One manual upgrade from Macbook Duo.** Quit Macbook Duo 1.0.0/1.0.1 and install Foldbook from its DMG. The previous updater requires the old app and ZIP names and cannot perform this rename. The bundle identifier stays the same to preserve preferences.
+- Public builds remain ad-hoc signed and not notarized. The Intel build remains a preview pending physical Intel verification.
+
 ## 1.0.1 · 14 September 2026
 
 - **Unsupported MacBooks are named.** Sensor discovery now retries a few times after launch or wake instead of giving up on the first empty result, then reports unsupported hardware. On a MacBook without a lid-angle sensor (M1 MacBook Air, 13-inch M1/M2 MacBook Pro) the lid pill reads "MacBook unsupported", the status line explains that Replay and Preview angle still show every effect, and Enable and Test desktop disable themselves instead of waiting on "Looking for sensor" forever. Localized in all four languages.

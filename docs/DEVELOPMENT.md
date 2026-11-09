@@ -1,6 +1,6 @@
 # Developing Foldbook
 
-This guide covers building, signing, packaging, releasing and verifying Foldbook 1.0.1, the source layout, how to add an effect, and localization. For user-facing documentation see the [README](../README.md); for contribution ground rules see [CONTRIBUTING.md](../CONTRIBUTING.md).
+This guide covers building, signing, packaging, releasing and verifying Foldbook 1.0.2, the source layout, how to add an effect, and localization. For user-facing documentation see the [README](../README.md); for contribution ground rules see [CONTRIBUTING.md](../CONTRIBUTING.md).
 
 ## Build
 
@@ -13,7 +13,7 @@ cd Macbook-Duo-App
 open "build/Foldbook.app"
 ```
 
-`build.sh` runs `swift build -c release`, strips debug symbols so local build paths do not ship in the executable, copies the localized resource bundle, icon and menu-bar mark into `build/Foldbook.app`, writes `Info.plist` (bundle identifier `com.shivamchopra.macbookduo`, version 1.0.1, build 101), signs the bundle and verifies the signature.
+`build.sh` runs `swift build -c release`, strips debug symbols so local build paths do not ship in the executable, copies the localized resource bundle, icon and menu-bar mark into `build/Foldbook.app`, writes `Info.plist` (bundle identifier `com.shivamchopra.macbookduo`, version 1.0.2, build 105), signs the bundle and verifies the signature.
 
 ## Signing
 
@@ -42,13 +42,28 @@ The commands write to `build/Foldbook.app` and `build-intel/Foldbook.app`, so on
 scripts/package.sh
 ```
 
-`package.sh` packages whatever has been built into `dist/`: `Foldbook.dmg` and `Foldbook-mac.zip` for Apple silicon, `Foldbook-Intel.dmg` and `Foldbook-Intel.zip` when the Intel build exists, and `Foldbook-SHA256SUMS.txt` covering the ZIPs. The ZIPs contain only `Foldbook.app` and `INSTALL.txt`, because the in-app updater rejects any other entry. Set `MACBOOKDUO_DIST_DIR` to package elsewhere.
+`package.sh` packages whatever has been built into `dist/`: `Foldbook.dmg` and `Foldbook-mac.zip` for Apple silicon, `Foldbook-Intel.dmg` and `Foldbook-Intel.zip` when the Intel build exists, and `Foldbook-SHA256SUMS.txt` covering both DMGs and ZIPs. The ZIPs contain only `Foldbook.app` and `INSTALL.txt`, because the in-app updater rejects any other entry. Set `MACBOOKDUO_DIST_DIR` to package elsewhere.
 
 ```sh
-scripts/release.sh 1.0.1
+scripts/release.sh 1.0.2
 ```
 
-`release.sh <version>` builds both architectures, runs `package.sh`, then creates the GitHub release `v<version>` with `gh release create`, attaching the assets under the exact names the updater expects and using `CHANGELOG.md` as the notes. Keep those asset names stable: `AppUpdater` selects `Foldbook-mac.zip` on ARM64 and `Foldbook-Intel.zip` on x86_64 and validates both against `Foldbook-SHA256SUMS.txt`. Bump `CFBundleShortVersionString` and `CFBundleVersion` in `build.sh`, the `version` field in `RenderCheck.swift`, and the changelog before tagging.
+Commit and push the exact release source to `main` first. `release.sh <version>` requires a clean checkout at that remote commit, tests and builds both architectures (an Intel failure stops the release), then runs `package.sh` and `verify-release.py`. The verifier checks that README/site download filenames exist, checksums match, both apps carry the release version, the updater accepts both signed architecture-specific ZIPs, and both disk images are valid. The script uploads all assets to a draft and downloads them again to check their exact bytes before publishing it as latest. It then verifies GitHub metadata and downloads every live URL again to compare against the verified local files. Only this version's changelog entry is used for release notes. Keep those asset names stable: `AppUpdater` selects `Foldbook-mac.zip` on ARM64 and `Foldbook-Intel.zip` on x86_64 and validates both against `Foldbook-SHA256SUMS.txt`. Bump `CFBundleShortVersionString` and `CFBundleVersion` in `build.sh`, the `version` field in `RenderCheck.swift`, and the changelog before tagging.
+
+Run the release regression checks without network access or building:
+
+```sh
+python3 scripts/test-release.py
+```
+
+Validate existing local artifacts, or additionally verify the latest published release:
+
+```sh
+python3 scripts/verify-release.py 1.0.2
+python3 scripts/verify-release.py 1.0.2 --published
+```
+
+A release rename also affects existing updaters: Macbook Duo 1.0.0/1.0.1 require the old archive and app names, so users must install Foldbook 1.0.2 manually once. Do not rename historical release assets or promise an automatic migration.
 
 ## Mac App Store
 
@@ -131,13 +146,13 @@ The remaining diagnostics exercise the real app and the updater:
 .build/debug/MacbookDuo --update-check
 
 # Checksum, bounded extraction, bundle identity, version, macOS, architecture and signature of a package.
-.build/debug/MacbookDuo --update-package-check dist/Foldbook-mac.zip dist/Foldbook-SHA256SUMS.txt 1.0.1 validation-update
+.build/debug/MacbookDuo --update-package-check dist/Foldbook-mac.zip dist/Foldbook-SHA256SUMS.txt 1.0.2 validation-update
 
 # LaunchServices, ready handshake, replacement and failed-launch rollback with a local fixture.
 .build/debug/MacbookDuo --update-installer-fixture validation-installer
 
 # The helper handoff for an archive, manifest and version.
-.build/debug/MacbookDuo --update-handoff-check dist/Foldbook-mac.zip dist/Foldbook-SHA256SUMS.txt 1.0.1
+.build/debug/MacbookDuo --update-handoff-check dist/Foldbook-mac.zip dist/Foldbook-SHA256SUMS.txt 1.0.2
 ```
 
 `--enable` starts following one second after launch, which is handy when scripting a physical lid sweep. Physical lid sweeps, sustained energy use and platform lifecycle transitions still need testing on more hardware.

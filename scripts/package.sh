@@ -7,6 +7,7 @@ set -euo pipefail
 cd "$(dirname "$0")/.."
 DIST="${MACBOOKDUO_DIST_DIR:-dist}"
 mkdir -p "$DIST"
+DIST="$(cd "$DIST" && pwd)"
 rm -f "$DIST"/Foldbook*.dmg "$DIST"/Foldbook*.zip "$DIST"/Foldbook-SHA256SUMS.txt
 
 package() {
@@ -20,7 +21,7 @@ package() {
   ditto "$app" "$stage/Foldbook.app"
   printf 'Drag "Foldbook.app" into Applications, then open it from there.\nFirst launch: System Settings → Privacy & Security → Open Anyway.\n' > "$stage/INSTALL.txt"
   # The updater validates archive entries: only INSTALL.txt and Foldbook.app/... are accepted.
-  (cd "$stage" && zip -q -r -X "$OLDPWD/$DIST/Foldbook${zip_suffix}.zip" "Foldbook.app" INSTALL.txt)
+  (cd "$stage" && zip -q -r -X "$DIST/Foldbook${zip_suffix}.zip" "Foldbook.app" INSTALL.txt)
   local dmg_root; dmg_root="$(mktemp -d)"
   ditto "$app" "$dmg_root/Foldbook.app"
   ln -s /Applications "$dmg_root/Applications"
@@ -31,4 +32,4 @@ package() {
 
 package build ""
 package build-intel "-Intel"
-(cd "$DIST" && shasum -a 256 Foldbook*.zip > Foldbook-SHA256SUMS.txt && cat Foldbook-SHA256SUMS.txt)
+(cd "$DIST" && shasum -a 256 Foldbook*.dmg Foldbook*.zip > Foldbook-SHA256SUMS.txt && cat Foldbook-SHA256SUMS.txt)

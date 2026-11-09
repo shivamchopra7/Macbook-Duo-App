@@ -20,7 +20,7 @@ Works on MacBook. Only MacBook. (See [Compatibility](#compatibility) before you 
 
 **Mac App Store:** the same app is coming to the Mac App Store as **Foldbook**, a sandboxed build with no in-app updater; until it is live, use the direct download above.
 
-Version 1.0.0 · [Website](https://macbookduo.illusionart.ai/) · [Changelog](CHANGELOG.md) · [Build from source](#build-from-source) · [Report an issue](https://github.com/shivamchopra7/Macbook-Duo-App/issues)
+Version 1.0.2 · [Website](https://macbookduo.illusionart.ai/) · [Changelog](CHANGELOG.md) · [Build from source](#build-from-source) · [Report an issue](https://github.com/shivamchopra7/Macbook-Duo-App/issues)
 
 <p align="center"><img src="docs/assets/window-effects.png" alt="The Foldbook settings window on the Effects section, with the live MacBook-shaped preview on the left and the twelve effects on the right" width="800"></p>
 
@@ -123,6 +123,8 @@ Every control lives in the settings window. **Reset to defaults** restores the o
 For manual control, turn off **Follow my lid** and drag **Preview angle**. Keep **Clear when the lid is still** on for everyday use at any angle. Prefer a ZIP? Unzip it, move **Foldbook.app** into Applications and follow steps 2–5.
 
 ## Updating
+
+If you still have **Macbook Duo 1.0.0 or 1.0.1**, quit it and install **Foldbook 1.0.2** from the DMG above. The older updater expects the previous app and archive names, so this rename needs one manual update. Your preferences are preserved by the unchanged bundle identifier.
 
 This applies to the direct download. The Mac App Store build updates through the App Store and contains no in-app updater.
 
