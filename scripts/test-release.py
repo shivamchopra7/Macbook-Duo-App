@@ -46,7 +46,7 @@ class ReleaseTests(unittest.TestCase):
         (self.dist / release.CHECKSUMS).write_text("\n".join(lines) + "\n")
 
     def metadata(self):
-        return {"tag_name": "v1.0.2", "draft": False, "prerelease": False, "assets": [
+        return {"tag_name": "v1.0.2", "html_url": f"https://github.com/{release.REPOSITORY}/releases/tag/v1.0.2", "draft": False, "prerelease": False, "assets": [
             {"name": n, "size": 123, "state": "uploaded", "browser_download_url": f"https://github.com/{release.REPOSITORY}/releases/download/v1.0.2/{n}"}
             for n in sorted(release.ASSETS)]}
 
@@ -94,6 +94,26 @@ class ReleaseTests(unittest.TestCase):
         release.verify_published(self.root, metadata, "1.0.2", draft=True)
         with self.assertRaisesRegex(ValueError, "wrong publication state"):
             release.verify_published(self.root, metadata, "1.0.2")
+
+    def test_temporary_draft_urls_are_valid_only_before_publication(self):
+        metadata = self.metadata()
+        metadata["draft"] = True
+        metadata["html_url"] = metadata["html_url"].replace("v1.0.2", "untagged-2bb77fa61652b886e3de")
+        for asset in metadata["assets"]:
+            asset["browser_download_url"] = asset["browser_download_url"].replace("v1.0.2", "untagged-2bb77fa61652b886e3de")
+        release.verify_published(self.root, metadata, "1.0.2", draft=True)
+        metadata["draft"] = False
+        with self.assertRaisesRegex(ValueError, "Unexpected asset URL"):
+            release.verify_published(self.root, metadata, "1.0.2")
+
+    def test_draft_lookup_does_not_require_a_published_tag(self):
+        metadata = self.metadata()
+        metadata["draft"] = True
+        self.assertIs(release.find_draft([self.metadata(), metadata], "1.0.2"), metadata)
+        with self.assertRaisesRegex(ValueError, "exactly one"):
+            release.find_draft([self.metadata()], "1.0.2")
+        with self.assertRaisesRegex(ValueError, "exactly one"):
+            release.find_draft([metadata, metadata], "1.0.2")
 
     def test_published_legacy_names_fail(self):
         metadata = self.metadata()

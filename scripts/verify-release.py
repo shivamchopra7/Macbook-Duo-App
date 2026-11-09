@@ -74,6 +74,13 @@ def verify_published(root, metadata, version, draft=False):
     tag = f"v{version}"
     require(metadata.get("tag_name") == tag, f"Expected release {tag}")
     require(metadata.get("draft") == draft and not metadata.get("prerelease"), "Release has the wrong publication state")
+    download_tag = tag
+    if draft:
+        prefix = f"https://github.com/{REPOSITORY}/releases/tag/"
+        page = metadata.get("html_url", "")
+        require(page.startswith(prefix), "Unexpected draft release page")
+        download_tag = page[len(prefix):]
+        require(download_tag == tag or re.fullmatch(r"untagged-[0-9a-f]+", download_tag), "Unexpected draft download tag")
     assets = metadata.get("assets", [])
     names = [a["name"] for a in assets]
     require(len(names) == len(set(names)), "Duplicate published assets")
@@ -81,9 +88,15 @@ def verify_published(root, metadata, version, draft=False):
     for asset in assets:
         if asset["name"] in ASSETS:
             require(asset.get("size", 0) > 0 and asset.get("state") == "uploaded", f"Incomplete asset: {asset['name']}")
-            expected = f"https://github.com/{REPOSITORY}/releases/download/{tag}/{asset['name']}"
+            expected = f"https://github.com/{REPOSITORY}/releases/download/{download_tag}/{asset['name']}"
             require(asset.get("browser_download_url") == expected, f"Unexpected asset URL: {asset['name']}")
     verify_links(root, set(names))
+
+
+def find_draft(releases, version):
+    matches = [item for item in releases if item.get("tag_name") == f"v{version}" and item.get("draft")]
+    require(len(matches) == 1, f"Expected exactly one uploaded draft for v{version}")
+    return matches[0]
 
 
 def verify_disk_image(path, archive_path):
@@ -131,8 +144,15 @@ def main():
         archive = "Foldbook-Intel.zip" if name == "Foldbook-Intel.dmg" else "Foldbook-mac.zip"
         verify_disk_image(args.dist.resolve() / name, args.dist.resolve() / archive)
     if args.published or args.draft:
-        endpoint = "latest" if args.published else f"tags/v{args.version}"
-        metadata = json.loads(subprocess.check_output(["gh", "api", f"repos/{REPOSITORY}/releases/{endpoint}"]))
+        if args.draft:
+            # GitHub does not resolve the tag endpoint for a draft whose tag
+            # will be created on publication. List authenticated releases instead.
+            pages = json.loads(subprocess.check_output(["gh", "api", "--paginate", "--slurp", f"repos/{REPOSITORY}/releases?per_page=100"]))
+            metadata = find_draft([item for page in pages for item in page], args.version)
+        else:
+            metadata = json.loads(subprocess.check_output(["gh", "api", f"repos/{REPOSITORY}/releases/latest"]))
+        commit = subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=root, text=True).strip()
+        require(metadata.get("target_commitish") == commit, "Release does not target this exact source commit")
         verify_published(root, metadata, args.version, draft=args.draft)
         with tempfile.TemporaryDirectory(prefix="foldbook-downloads-") as scratch:
             downloaded = Path(scratch)
