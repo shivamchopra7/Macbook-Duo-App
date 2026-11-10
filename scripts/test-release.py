@@ -134,6 +134,12 @@ class ReleaseTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "Incomplete asset"):
             release.verify_published(self.root, metadata, "1.0.2")
 
+    def test_public_docs_have_no_stale_duodisplay_branding(self):
+        repo_root = Path(__file__).resolve().parent.parent
+        for relative in ("docs/index.html", "docs/privacy.html", "docs/style.css"):
+            content = (repo_root / relative).read_text()
+            self.assertNotIn("duodisplay", content.lower(), f"Stale DuoDisplay branding in {relative}")
+
 
 if __name__ == "__main__":
     unittest.main()

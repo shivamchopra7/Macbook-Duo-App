@@ -261,7 +261,7 @@ footer a:hover{color:var(--accent)}
   .vs th,.vs td{border-top:0;padding:0;width:auto}
   .vs tbody th{font-size:15px}
   .vs td::before{display:block;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:9px;letter-spacing:.12em;color:var(--muted);margin-bottom:2px;content:"IPHONE DUO"}
-  .vs td:last-child::before{content:"DUODISPLAY";color:var(--accent)}
+  .vs td:last-child::before{content:"FOLDBOOK";color:var(--accent)}
   .vs td:last-child{background:none;box-shadow:none;border-radius:0}
   .effect-grid article{padding:22px;border-radius:22px}
   .effect-grid h3{font-size:23px}
